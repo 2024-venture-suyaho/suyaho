@@ -37,7 +37,9 @@ intellij, timeleaf,
 ![Discord](https://img.shields.io/badge/discord-9999FF?style=for-the-badge&logo=discord&logoColor=black)
 ![GitHub](https://img.shields.io/badge/GitHub-FECC00?style=for-the-badge&logo=GitHub&logoColor=white)
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+타임리프
+스프링
+
 
 ## 📌 브랜치 활용
 
