@@ -1,2 +1,4 @@
-package com.venture.suyaho.controller;public class HomeController {
+package com.venture.suyaho.controller;
+
+public class HomeController {
 }
