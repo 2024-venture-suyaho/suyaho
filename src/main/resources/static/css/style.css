@@ -17,7 +17,7 @@ header nav {
 }
 
 .nav-item {
-    flex: 1; /* 각 항목을 동일한 너비로 설정 */
+    flex: 1; 
     text-align: center; /* 가운데 정렬 */
 }
 
@@ -34,8 +34,9 @@ header nav {
 }
 
 .nav-links {
+    font-weight: bold;
     display: flex;
-    justify-content: space-around; /* 링크 항목을 균등하게 배치 */
+    justify-content: space-around; 
     flex: 3;
 }
 
@@ -46,8 +47,12 @@ header nav {
 
 .nav-links li a {
     text-decoration: none;
-    color: black;;
+    color: black;
 }
+.nav-links li a:hover{
+    color: gray !important;
+}
+
 
 .login-container {
     display: flex;
@@ -64,12 +69,12 @@ header nav {
 }
 
 .login-button:hover, .logout-button:hover {
-    background-color: #155B34;
+    background-color: #3b4e3f;
 }
 
 footer {
     background-color: #E8EDDE;
-    padding: 10px 20px 40px 20px;
+    padding: 10px 20px 40px 0px;
     text-align: left;
     position: fixed;
     width: 100%;
