@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img th:src="@{/img/logo.png}" alt="Logo">
+            </div>
+            <div class="nav-item">
+                <ul class="nav-links">
+                    <li><a href="#" style="color: black;">분실물</a></li>
+                    <li><a href="#" style="color: black;">거래</a></li>
+                    <li><a href="#" style="color: black;">마이페이지</a></li>
+                </ul>
+            </div>
+            <div class="nav-item">
+                <a th:if="${session.user == null}" href="#" class="login-button">로그인</a>
+                <a th:if="${session.user != null}" href="#" class="logout-button">로그아웃</a>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+</html>
