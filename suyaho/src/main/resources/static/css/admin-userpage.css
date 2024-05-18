@@ -1,16 +1,4 @@
-body {
-    margin: 0;
-    padding: 0 50px;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    background: #faf8ea;
 
-}
-
-header, footer {
-    margin: 0;
-    padding: 0;
-}
 
 h1{
     font-weight: bold;
