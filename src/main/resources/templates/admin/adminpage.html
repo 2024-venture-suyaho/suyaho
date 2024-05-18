@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdminPage</title>
+  <link rel="stylesheet" th:href="@{/css/adminpage.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script type="text/javascript" th:src="@{/js/adminpage.js}"></script>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="nav-container">
+      <div class="logo"><a href="#">
+        <img th:src="@{/img/logo.png}" alt="Logo">
+      </a>
+      </div>
+      <div class="nav-item">
+        <ul class="nav-links">
+          <li><a href="#" style="color: black;">분실물</a></li>
+          <li><a href="#" style="color: black;">거래</a></li>
+          <li><a href="#" style="color: black;">마이페이지</a></li>
+        </ul>
+      </div>
+      <div class="nav-item">
+        <a th:if="${session.user == null}" href="#" class="login-button">로그인</a>
+        <a th:if="${session.user != null}" href="#" class="logout-button">로그아웃</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="back">
+  <button>뒤로가기</button>
+</div>
+<h1>사용자 관리 페이지</h1>
+<div class="menu-box">
+  <div class="menu-container">
+    <div class="menu-item">게시글 보기</div>
+    <div class="menu-item">유저 보기</div>
+  </div>
+</div>
+
+<div class="search-container">
+  <div class="search-combined">
+    <select class="search-category">
+      <option value="name">이름</option>
+      <option value="department">학과</option>
+      <option value="studentID">학번</option>
+    </select>
+    <input type="text" placeholder="검색어를 입력하세요" class="search-input">
+    <button class="search-button">검색</button>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="user-container">
+    <h3>유저 목록</h3>
+    <div class="user-info">
+      <span data-label="번호">번호</span>
+      <span data-label="이름">이름</span>
+      <span data-label="학과">학과</span>
+      <span data-label="학번">학번</span>
+    </div>
+    <hr>
+    <div id="users"></div>
+  </div>
+
+  <div class="pagination">
+    <button class="prev" id="prev">&#10094;</button>
+    <button class="next" id="next">&#10095;</button>
+  </div>
+</div>
+
+<aside class="user-details-container">
+  <div class="user-details-info">
+    <div class="profile-container">
+      <div class="profile-image" id="profileImageContainer">
+        <img id="profilePic" th:src="@{/img/asf.png}" alt="Profile Picture">
+      </div>
+      <div class="user-details">
+        <span id="user-no"></span><br>
+        <span id="user-name"></span><br>
+        <span id="user-department"></span><br>
+        <span id="user-id"></span><br>
+        <span id="user-email"></span>
+      </div>
+    </div>
+    <button class="delete-user-button">삭제</button>
+  </div>
+</aside>
+<footer>
+  <div class="footer-container">
+    <span>수야호</span>
+    <hr>
+  </div>
+</footer>
+</body>
+</html>

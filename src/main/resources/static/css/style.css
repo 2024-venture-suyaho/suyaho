@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F0F4EF;
+    margin: 0;
+    padding: 0;
+}
+
+header nav {
+    background-color: #E8EDDE;
+    padding: 10px 20px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* 부모 컨테이너는 전체를 5등분으로 나눔 */
+    align-items: center;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center; /* 가운데 정렬 */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    flex: 3;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    list-style-type: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+}
+.nav-links li a:hover{
+    color: rgb(128, 128, 128) !important;
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.login-button, .logout-button {
+    background-color: #155B34;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.login-button:hover, .logout-button:hover {
+    background-color: #3b4e3f;
+}
+
+footer {
+    background-color: #E8EDDE;
+    padding: 10px 20px 40px 0px;
+    text-align: left;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-container {
+    text-align: left;
+    padding-left:50px;
+}
+
+.footer-container hr {
+    margin-top: 10px;
+    border: none;
+    border-top: 1px solid black;
+}
