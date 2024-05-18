@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/adminpost.css}">
+</head>
+<body>
+<script type="text/javascript" th:src="@{/js/adminpost.js}"></script>
+
+<header>
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><a href="#">
+                <img th:src="@{/img/logo.png}" alt="Logo">
+            </a>
+            </div>
+            <div class="nav-item">
+                <ul class="nav-links">
+                    <li><a href="#" style="color: black;">분실물</a></li>
+                    <li><a href="#" style="color: black;">거래</a></li>
+                    <li><a href="#" style="color: black;">마이페이지</a></li>
+                </ul>
+            </div>
+            <div class="nav-item">
+                <a th:if="${session.user == null}" href="#" class="login-button">로그인</a>
+                <a th:if="${session.user != null}" href="#" class="logout-button">로그아웃</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="back">
+    <button>뒤로가기</button>
+</div>
+<h1>사용자 관리 페이지</h1>
+<div class="menu-box">
+    <div class="menu-container">
+        <div class="menu-item">게시글 보기</div>
+        <div class="menu-item">유저 보기</div>
+    </div>
+</div>
+
+<div class="search-container">
+    <div class="search-combined">
+        <select class="search-category">
+            <option value="userid">아이디</option>
+            <option value="nickname">닉넴</option>
+            <option value="title">제목</option>
+        </select>
+        <input type="text" placeholder="검색어를 입력하세요" class="search-input">
+        <button class="search-button">검색</button>
+    </div>
+</div>
+
+<!-- User Table -->
+<div class="users-wrapper">
+    <div class="users-container">
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>카테고리</th>
+                <th>등록일시</th>
+                <th>아이디</th>
+                <th>거래여부</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody id="users">
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button class="prev" id="prev">&#10094;</button>
+            <button class="next" id="next">&#10095;</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <span>수야호</span>
+        <hr>
+    </div>
+</footer>
+</body>
+</html>
