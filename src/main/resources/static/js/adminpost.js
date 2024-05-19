@@ -98,11 +98,23 @@ document.addEventListener('DOMContentLoaded', function() {
         deleteButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const tradeNum = this.getAttribute('data-tradeNum');
-                filteredTrades = filteredTrades.filter(trade => trade.tradeNum != tradeNum);
-                displayPaginatedTrades(currentPage, filteredTrades);
+                fetch(`/api/trades/${tradeNum}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Remove the trade from the filteredTrades array
+                        filteredTrades = filteredTrades.filter(trade => trade.tradeNum != tradeNum);
+                        // Update the display
+                        displayPaginatedTrades(currentPage, filteredTrades);
+                    })
+                    .catch(error => console.error('Error deleting trade:', error));
             });
         });
     }
+
 
     function nextPage() {
         if (currentPage * tradesPerPage < filteredTrades.length) {

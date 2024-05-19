@@ -6,12 +6,11 @@ import com.venture.suyaho.admin.User;
 import com.venture.suyaho.admin.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -68,6 +67,13 @@ public class HomeController {
         });
         model.addAttribute("trade_board", boardList); // 모델에 tradeList를 추가합니다.
         return "admin/adminpost";
+    }
+
+    @DeleteMapping("/api/trades/{tradeNum}")
+    @ResponseBody
+    public ResponseEntity<String> deleteTrade(@PathVariable Long tradeNum) {
+        adminBoardRepository.deleteById(tradeNum);
+        return ResponseEntity.ok("Trade deleted");
     }
 
     @Service
