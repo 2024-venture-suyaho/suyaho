@@ -1,50 +1,31 @@
 package com.venture.suyaho.controller;
 
-import com.venture.suyaho.dtopackage.ChatMessage;
-import com.venture.suyaho.repository.Repository;
+import com.venture.suyaho.dto.ChatMessageDTO;
+import com.venture.suyaho.service.ChatService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.HtmlUtils;
-
-import java.time.LocalDateTime;
-
-//@Controller
-//@RequestMapping("sample")
-//public class ChatController {
-//
-//    //랜덤 아이디 부여 (나중에 ID 속성 부여하는곳)
-//    @GetMapping("chatroom")
-//    public ModelAndView chatGet(ModelAndView mv){
-//        mv.addObject("name", UUID.randomUUID().toString());
-//        mv.setViewName("/sample/chatroom");
-//        return mv;
-//    }
-//}
 
 @Controller
-@RequestMapping("sample")
 public class ChatController {
+    @Autowired
+    private ChatService chatService;
 
-    private final Repository.ChatMessageRepository chatMessageRepository;
-    private final Repository.ChatRoomRepository chatRoomRepository;
-    private final Repository.UserRepository userRepository;
-
-    public ChatController(Repository.ChatMessageRepository chatMessageRepository,
-                          Repository.ChatRoomRepository chatRoomRepository,
-                          Repository.UserRepository userRepository) {
-        this.chatMessageRepository = chatMessageRepository;
-        this.chatRoomRepository = chatRoomRepository;
-        this.userRepository = userRepository;
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessageDTO sendMessage(@Payload ChatMessageDTO chatMessage){
+        return chatMessage;
     }
 
-    @MessageMapping("/chat")
-    @SendTo("/topic/messages")
-    public ChatMessage sendMessage(ChatMessage message) {
-        message.setTimestamp(LocalDateTime.now());
-        chatMessageRepository.save(message);
-        return new ChatMessage(HtmlUtils.htmlEscape(message.getContent()),
-                message.getTimestamp());
+    @MessageMapping("/chat.addUser")
+    @SendTo("/topic/public")
+    public ChatMessageDTO addUser(@Payload ChatMessageDTO chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        // 웹소켓 세션에 유저 이름 저장
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
     }
 }

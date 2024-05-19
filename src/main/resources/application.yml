@@ -1,6 +1,15 @@
-spring.datasource.url=jdbc:mysql://localhost:3306/suyaho
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:mysql://localhost:3306/suyaho
+    username: sahmyook
+    password: sahmyook
+    driver-class-name: com.mysql.cj.jdbc.Driver
+jpa:
+  hibernate:
+    ddl-auto: update
+    dialect: org.hibernate.dialect.MySQL5Dialect
+  show-sql: true
