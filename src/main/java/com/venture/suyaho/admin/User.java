@@ -1,18 +1,17 @@
 package com.venture.suyaho.admin;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
-    private Long userNo;
+    private Integer userNo;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -27,7 +26,7 @@ public class User {
     private String userMajor;
 
     @Column(name = "user_school_num", nullable = false)
-    private int userSchoolNum;
+    private Integer userSchoolNum;
 
     @Column(name = "user_pwd", nullable = false)
     private String userPwd;
@@ -36,7 +35,7 @@ public class User {
     private char userRights;
 
     @Column(name = "user_point", nullable = false)
-    private int userPoint;
+    private Integer userPoint;
 
     @Column(name = "user_made_time", nullable = false)
     private LocalDateTime userMadeTime;
@@ -45,16 +44,13 @@ public class User {
     @Column(name = "user_img")
     private byte[] userImg;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore // 직렬화 시 무시
-    private List<AdminBoard> adminBoards;
+    // Getters and Setters
 
-    // Getters and setters
-    public Long getUserNo() {
+    public Integer getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(Long userNo) {
+    public void setUserNo(Integer userNo) {
         this.userNo = userNo;
     }
 
@@ -90,11 +86,11 @@ public class User {
         this.userMajor = userMajor;
     }
 
-    public int getUserSchoolNum() {
+    public Integer getUserSchoolNum() {
         return userSchoolNum;
     }
 
-    public void setUserSchoolNum(int userSchoolNum) {
+    public void setUserSchoolNum(Integer userSchoolNum) {
         this.userSchoolNum = userSchoolNum;
     }
 
@@ -114,11 +110,11 @@ public class User {
         this.userRights = userRights;
     }
 
-    public int getUserPoint() {
+    public Integer getUserPoint() {
         return userPoint;
     }
 
-    public void setUserPoint(int userPoint) {
+    public void setUserPoint(Integer userPoint) {
         this.userPoint = userPoint;
     }
 
@@ -136,13 +132,5 @@ public class User {
 
     public void setUserImg(byte[] userImg) {
         this.userImg = userImg;
-    }
-
-    public List<AdminBoard> getAdminBoards() {
-        return adminBoards;
-    }
-
-    public void setAdminBoards(List<AdminBoard> adminBoards) {
-        this.adminBoards = adminBoards;
     }
 }

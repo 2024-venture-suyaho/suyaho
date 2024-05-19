@@ -114,8 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-
     function nextPage() {
         if (currentPage * tradesPerPage < filteredTrades.length) {
             currentPage++;

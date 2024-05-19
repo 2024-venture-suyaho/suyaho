@@ -1,5 +1,5 @@
-
 document.addEventListener('DOMContentLoaded', function() {
+    let filteredUsers = [];
     const usersPerPage = 7;
     let currentPage = 1;
     const userList = document.getElementById('users');
@@ -8,9 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
     const searchCategory = document.querySelector('.search-category');
-    let filteredUsers = userData;
 
-    // 유저 목록 클릭 시 해당 유저의 정보 표시
+    function getUsersFromApi() {
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(data => {
+                filteredUsers = data;
+                displayPaginatedUsers(currentPage, filteredUsers);
+            })
+            .catch(error => console.error('Error fetching users:', error));
+    }
+
     function displayUsers(users) {
         userList.innerHTML = '';
         users.forEach(user => {
@@ -19,25 +27,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const numberSpan = document.createElement('span');
             numberSpan.classList.add('user-info');
-            numberSpan.textContent = user.userno;
+            numberSpan.textContent = user.userNo;
             userDiv.appendChild(numberSpan);
 
             const nameSpan = document.createElement('span');
             nameSpan.classList.add('user-info');
-            nameSpan.textContent = user.name;
+            nameSpan.textContent = user.userName;
             userDiv.appendChild(nameSpan);
 
             const departmentSpan = document.createElement('span');
             departmentSpan.classList.add('user-info');
-            departmentSpan.textContent = user.department;
+            departmentSpan.textContent = user.userMajor;
             userDiv.appendChild(departmentSpan);
 
             const studentIDSpan = document.createElement('span');
             studentIDSpan.classList.add('user-info');
-            studentIDSpan.textContent = user.studentID;
+            studentIDSpan.textContent = user.userSchoolNum;
             userDiv.appendChild(studentIDSpan);
 
-            userDiv.dataset.userno = user.userno;  // userno를 데이터 속성으로 추가
+            userDiv.dataset.userno = user.userNo;
             userList.appendChild(userDiv);
         });
     }
@@ -72,30 +80,36 @@ document.addEventListener('DOMContentLoaded', function() {
     searchButton.addEventListener('click', function() {
         const searchTerm = searchInput.value.toLowerCase();
         const category = searchCategory.value;
-        filteredUsers = userData.filter(user =>
-            user[category].toLowerCase().includes(searchTerm)
-        );
-        currentPage = 1;
-        displayPaginatedUsers(currentPage, filteredUsers);
+        fetch(`/api/search?category=${category}&keyword=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                filteredUsers = data;
+                currentPage = 1;
+                displayPaginatedUsers(currentPage, filteredUsers);
+            })
+            .catch(error => console.error('Error searching users:', error));
     });
 
-    // 유저 상세 정보 표시
     function displayUserDetails(userno) {
-        const user = filteredUsers.find(u => u.userno === userno);
+        const user = filteredUsers.find(u => u.userNo === userno);
         const userNo = document.getElementById('user-no');
         const userName = document.getElementById('user-name');
         const userDepartment = document.getElementById('user-department');
         const userId = document.getElementById('user-id');
         const userEmail = document.getElementById('user-email');
 
-        userNo.textContent = user.userno;
-        userName.textContent = user.name;
-        userDepartment.textContent = user.department;
-        userId.textContent = user.studentID;
-        userEmail.textContent = user.email;
+        userNo.textContent = user.userNo;
+        userName.textContent = user.userName;
+        userDepartment.textContent = user.userMajor;
+        userId.textContent = user.userSchoolNum;
+        userEmail.textContent = user.userEmail;
+
+        const deleteButton = document.querySelector('.delete-user-button');
+        deleteButton.addEventListener('click', () => {
+            deleteUser(userno);
+        });
     }
 
-    // 각 유저 목록 클릭 이벤트
     function addClickEventToUserItems() {
         const userItems = document.querySelectorAll('.user-item');
         userItems.forEach(item => {
@@ -106,22 +120,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 유저 삭제 버튼
-    function addDeleteEventToUserButton() {
-        const deleteUserButton = document.querySelector('.delete-user-button');
-        deleteUserButton.addEventListener('click', function() {
-            const userNo = parseInt(document.getElementById('user-no').textContent);
-            filteredUsers = filteredUsers.filter(user => user.userno !== userNo);
-            displayPaginatedUsers(currentPage, filteredUsers);
-        });
+    function deleteUser(userno) {
+        fetch(`/api/users/${userno}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.ok) {
+                    getUsersFromApi();
+                } else {
+                    console.error('Failed to delete user');
+                }
+            })
+            .catch(error => console.error('Error deleting user:', error));
     }
 
     function init() {
-        displayPaginatedUsers(currentPage, filteredUsers);
-        addClickEventToUserItems();
-        addDeleteEventToUserButton();
+        getUsersFromApi();
     }
 
     init();
 });
-

@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     // 사용자 이름으로 사용자 찾기
-    List<User> findByUserName(String userName);
+    List<User> findByUserNameContainingIgnoreCase(String userName);
 
     // 사용자 이메일로 사용자 찾기
     User findByUserEmail(String userEmail);
@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUserPhone(String userPhone);
 
     // 학과로 사용자 검색
-    List<User> findByUserMajor(String userMajor);
+    List<User> findByUserMajorContainingIgnoreCase(String userMajor);
 
     // 학번으로 사용자 검색
     User findByUserSchoolNum(Integer userSchoolNum);
