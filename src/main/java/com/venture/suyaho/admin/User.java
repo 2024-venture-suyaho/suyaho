@@ -1,8 +1,6 @@
 package com.venture.suyaho.admin;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -45,7 +43,6 @@ public class User {
     private byte[] userImg;
 
     // Getters and Setters
-
     public Integer getUserNo() {
         return userNo;
     }

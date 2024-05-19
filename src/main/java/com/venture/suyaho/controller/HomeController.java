@@ -62,10 +62,6 @@ public class HomeController {
     public String adminPost(Model model) {
         // trade_board 테이블에서 데이터를 가져옵니다.
         List<AdminBoard> boardList = adminBoardRepository.findAll();
-        // 각 AdminBoard 객체에 schoolNum을 설정합니다.
-        boardList.forEach(board -> {
-            board.setSchoolNum(board.getUser().getUserSchoolNum());
-        });
         model.addAttribute("trade_board", boardList); // 모델에 tradeList를 추가합니다.
         return "admin/adminpost";
     }
@@ -121,6 +117,7 @@ public class HomeController {
             }
             return users;
         }
+
         @DeleteMapping("/users/{id}")
         public void deleteUser(@PathVariable Long id) {
             // id에 해당하는 사용자를 삭제합니다.
@@ -138,5 +135,4 @@ public class HomeController {
             return userRepository.findAll();
         }
     }
-
 }

@@ -47,9 +47,6 @@ public class AdminBoard {
     @JoinColumn(name = "user_no", nullable = false)
     private User user;
 
-    @Transient
-    private int schoolNum;
-
     // Getters and setters
     public User getUser() {
         return user;
@@ -61,10 +58,6 @@ public class AdminBoard {
 
     public int getSchoolNum() {
         return user != null ? user.getUserSchoolNum() : 0;
-    }
-
-    public void setSchoolNum(int schoolNum) {
-        this.schoolNum = schoolNum;
     }
 
     public Long getTradeNum() {
