@@ -19,6 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // 학과로 사용자 검색
     List<User> findByUserMajorContainingIgnoreCase(String userMajor);
 
-    // 학번으로 사용자 검색
     User findByUserSchoolNum(Integer userSchoolNum);
+
 }

@@ -97,6 +97,34 @@ public class HomeController {
             return userRepository.findAll();
         }
 
+        @GetMapping("/adminpost/search")
+        public List<AdminBoard> searchAdminPosts(@RequestParam(required = false) String category, @RequestParam(required = false) String keyword) {
+            if (category == null || keyword == null || keyword.isBlank()) {
+                return adminBoardRepository.findAll(); // 검색어가 없으면 모든 게시물 반환
+            } else {
+                // 카테고리에 따라 검색 실행
+                switch (category) {
+                    case "schoolNum":
+                        try {
+                            int schoolNum = Integer.parseInt(keyword);
+                            // 학번을 기준으로 게시글을 검색하여 반환
+                            return adminBoardRepository.findByUser_UserSchoolNum(schoolNum);
+                        } catch (NumberFormatException e) {
+                            return new ArrayList<>(); // 학번이 숫자가 아닌 경우 빈 리스트 반환
+                        }
+                    case "title":
+                        // 게시글 제목을 기준으로 검색하여 반환
+                        return adminBoardRepository.findByTradeTitleContainingIgnoreCase(keyword);
+                    default:
+                        return new ArrayList<>(); // 기본값은 빈 리스트
+                }
+            }
+        }
+
+
+
+
+
         @GetMapping("/search") // 사용자 검색을 처리하는 API 엔드포인트
         public List<User> searchUsers(@RequestParam(required = false) String category, @RequestParam(required = false) String keyword) {
             if (category == null || keyword == null || keyword.isBlank()) {

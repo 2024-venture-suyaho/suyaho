@@ -79,8 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
     searchButton.addEventListener('click', function() {
         const searchTerm = searchInput.value.toLowerCase();
         const category = searchCategory.value;
-        fetch(`/api/trades/search?category=${category}&searchTerm=${searchTerm}`)
-            .then(response => response.json())
+        fetch(`/api/adminpost/search?category=${category}&keyword=${searchTerm}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (Array.isArray(data)) {
                     filteredTrades = data;
@@ -92,6 +97,10 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error fetching trades:', error));
     });
+
+
+
+
 
     function addDeleteEventToTradeButtons() {
         const deleteButtons = document.querySelectorAll('.delete-button');
