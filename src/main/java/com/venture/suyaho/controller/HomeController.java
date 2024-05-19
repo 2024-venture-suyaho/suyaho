@@ -1,9 +1,9 @@
 package com.venture.suyaho.controller;
 
-import com.venture.suyaho.user.AdminBoard;
-import com.venture.suyaho.user.AdminBoardRepository;
-import com.venture.suyaho.user.User;
-import com.venture.suyaho.user.UserRepository;
+import com.venture.suyaho.admin.AdminBoard;
+import com.venture.suyaho.admin.AdminBoardRepository;
+import com.venture.suyaho.admin.User;
+import com.venture.suyaho.admin.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,6 +62,10 @@ public class HomeController {
     public String adminPost(Model model) {
         // trade_board 테이블에서 데이터를 가져옵니다.
         List<AdminBoard> boardList = adminBoardRepository.findAll();
+        // 각 AdminBoard 객체에 schoolNum을 설정합니다.
+        boardList.forEach(board -> {
+            board.setSchoolNum(board.getUser().getUserSchoolNum());
+        });
         model.addAttribute("trade_board", boardList); // 모델에 tradeList를 추가합니다.
         return "admin/adminpost";
     }
