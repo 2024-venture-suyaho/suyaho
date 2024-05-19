@@ -7,6 +7,7 @@ import com.venture.suyaho.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,16 +65,29 @@ public class HomeController {
         model.addAttribute("trade_board", boardList); // 모델에 tradeList를 추가합니다.
         return "admin/adminpost";
     }
-}
-@RestController
-@RequestMapping("/api")
-class ApiController {
 
-    @Autowired
-    private AdminBoardRepository adminBoardRepository;
+    @Service
+    public class UserService {
 
-    @GetMapping("/trades")
-    public List<AdminBoard> getTrades() {
-        return adminBoardRepository.findAll();
+        @Autowired
+        private UserRepository userRepository;
+
+        public List<User> getAllUsers() {
+            return userRepository.findAll();
+        }
     }
+
+    @RestController
+    @RequestMapping("/api")
+    class ApiController {
+
+        @Autowired
+        private AdminBoardRepository adminBoardRepository;
+
+        @GetMapping("/trades")
+        public List<AdminBoard> getTrades() {
+            return adminBoardRepository.findAll();
+        }
+    }
+
 }

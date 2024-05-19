@@ -1,16 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    const userData = [
-        { userno: 1, name: '홍길동', department: '컴퓨터공학', studentID: '20210001', email: 'hong@gmail.com' },
-        { userno: 2, name: '김철수', department: '전자공학', studentID: '20210002', email: 'kim@gmail.com' },
-        { userno: 3, name: '이영희', department: '경영학', studentID: '20210003', email: 'lee@gmail.com' },
-        { userno: 4, name: '홍길동', department: '컴퓨터공학', studentID: '20210001', email: 'hong@gmail.com' },
-        { userno: 5, name: '김철수', department: '전자공학', studentID: '20210002', email: 'kim@gmail.com' },
-        { userno: 6, name: '박영희', department: '경영학', studentID: '20210003', email: 'lee@gmail.com' },
-        { userno: 7, name: '최영희', department: '경영학', studentID: '20210003', email: 'lee@gmail.com' },
-        { userno: 8, name: '남영희', department: '경영asdfasdfasdfad학', studentID: '20210003', email: 'lee@gmail.com' }
-    ];
-
     const usersPerPage = 7;
     let currentPage = 1;
     const userList = document.getElementById('users');

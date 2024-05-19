@@ -63,7 +63,14 @@
       <span data-label="학번">학번</span>
     </div>
     <hr>
-    <div id="users"></div>
+    <div id="users">
+      <div th:each="user : ${users}" class="user-item">
+        <span class="user-info" th:text="${user.userNo}"></span>
+        <span class="user-info" th:text="${user.userName}"></span>
+        <span class="user-info" th:text="${user.userMajor}"></span>
+        <span class="user-info" th:text="${user.userSchoolNum}"></span>
+      </div>
+    </div>
   </div>
 
   <div class="pagination">
