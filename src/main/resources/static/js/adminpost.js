@@ -1,104 +1,100 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const userData = [
-        { postno: 1, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중' },
-        { postno: 2, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 3, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 4, title: '똥d', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 5, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 6, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 7, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 8, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 9, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 10, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 11, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  },
-        { postno: 12, title: '똥', category: '응가', posttime: '2024.00.00 15:10', userid: 'ddong', postStatus: '거래중'  }
-    ];
 
-    const usersPerPage = 9;
+    const tradesPerPage = 9;
     let currentPage = 1;
-    const userList = document.getElementById('users');
+    let filteredTrades = [];
+
+    const tradeList = document.getElementById('trades');
     const prevButton = document.getElementById('prev');
     const nextButton = document.getElementById('next');
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
     const searchCategory = document.querySelector('.search-category');
-    let filteredUsers = userData;
 
-    function updatePagination(users) {
+    function updatePagination(trades) {
         prevButton.disabled = currentPage === 1;
-        nextButton.disabled = currentPage * usersPerPage >= users.length;
+        nextButton.disabled = currentPage * tradesPerPage >= trades.length;
     }
 
-    function displayUsers(users) {
+    function displayTrades(trades) {
         const tbody = document.querySelector('.users-table tbody');
         tbody.innerHTML = '';
-        users.forEach(user => {
+        trades.forEach(trade => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${user.postno}</td>
-                <td>${user.title}</td>
-                <td>${user.category}</td>
-                <td>${user.posttime}</td>
-                <td>${user.userid}</td>
-                <td>${user.postStatus}</td>
-                <td><button class="delete-button" data-postno="${user.postno}">삭제</button></td>
-            `;
+            <td>${trade.trade_num}</td>
+            <td>${trade.trade_title}</td>
+            <td>${trade.trade_category}</td>
+            <td>${trade.trade_time}</td>
+            <td>${trade.user_no}</td>
+            <td>${trade.trade_complete}</td>
+            <td><button class="delete-button" data-tradeNum="${trade.trade_num}">삭제</button></td>
+        `;
             tbody.appendChild(tr);
         });
     }
 
-    function displayPaginatedUsers(page, users) {
-        const start = (page - 1) * usersPerPage;
-        const end = start + usersPerPage;
-        displayUsers(users.slice(start, end));
-        updatePagination(users);
-        addDeleteEventToUserButtons();
+    function displayPaginatedTrades(page, trades) {
+        const start = (page - 1) * tradesPerPage;
+        const end = start + tradesPerPage;
+        displayTrades(trades.slice(start, end));
+        updatePagination(trades);
+        addDeleteEventToTradeButtons();
     }
 
     prevButton.addEventListener('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            displayPaginatedUsers(currentPage, filteredUsers);
+            displayPaginatedTrades(currentPage, filteredTrades);
         }
     });
 
     nextButton.addEventListener('click', function() {
-        if (currentPage * usersPerPage < filteredUsers.length) {
+        if (currentPage * tradesPerPage < filteredTrades.length) {
             currentPage++;
-            displayPaginatedUsers(currentPage, filteredUsers);
+            displayPaginatedTrades(currentPage, filteredTrades);
         }
     });
 
     searchButton.addEventListener('click', function() {
         const searchTerm = searchInput.value.toLowerCase();
         const category = searchCategory.value;
-        filteredUsers = userData.filter(user =>
-            user[category].toLowerCase().includes(searchTerm)
-        );
-        currentPage = 1;
-        displayPaginatedUsers(currentPage, filteredUsers);
+        fetch(`/api/trades?category=${category}&searchTerm=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                filteredTrades = data;
+                currentPage = 1;
+                displayPaginatedTrades(currentPage, filteredTrades);
+            })
+            .catch(error => console.error('Error fetching trades:', error));
     });
 
-    function addDeleteEventToUserButtons() {
+    function addDeleteEventToTradeButtons() {
         const deleteButtons = document.querySelectorAll('.delete-button');
         deleteButtons.forEach(button => {
             button.addEventListener('click', function() {
-                const postno = this.getAttribute('data-postno');
-                filteredUsers = filteredUsers.filter(user => user.postno != postno);
-                displayPaginatedUsers(currentPage, filteredUsers);
+                const tradeNum = this.getAttribute('data-tradeNum');
+                filteredTrades = filteredTrades.filter(trade => trade.tradeNum != tradeNum);
+                displayPaginatedTrades(currentPage, filteredTrades);
             });
         });
     }
 
     function nextPage() {
-        if (currentPage * usersPerPage < filteredUsers.length) {
+        if (currentPage * tradesPerPage < filteredTrades.length) {
             currentPage++;
-            displayPaginatedUsers(currentPage, filteredUsers);
+            displayPaginatedTrades(currentPage, filteredTrades);
         }
     }
 
     function init() {
-        displayPaginatedUsers(currentPage, filteredUsers);
+        fetch('/api/trades')
+            .then(response => response.json())
+            .then(data => {
+                filteredTrades = data;
+                displayPaginatedTrades(currentPage, filteredTrades);
+            })
+            .catch(error => console.error('Error fetching trades:', error));
     }
 
     init();

@@ -1,5 +1,7 @@
 package com.venture.suyaho.controller;
 
+import com.venture.suyaho.user.AdminBoard;
+import com.venture.suyaho.user.AdminBoardRepository;
 import com.venture.suyaho.user.User;
 import com.venture.suyaho.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +16,8 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AdminBoardRepository adminBoardRepository;
 
 
     @GetMapping("/")
@@ -40,5 +44,19 @@ public class HomeController {
             model.addAttribute("user", user); // 사용자 정보를 모델에 추가
         }
         return "mypage/admin-userpage";
+    }
+    @GetMapping("/admin")
+    public String adminPage(Model model) {
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users); // 사용자 목록을 모델에 추가합니다.
+        return "admin/adminpage"; // 관리자 페이지를 위한 HTML 템플릿의 이름을 반환합니다.
+    }
+    
+    @GetMapping("/adminpost")
+    public String adminPost(Model model) {
+        // trade_board 테이블에서 데이터를 가져옵니다.
+        List<AdminBoard> boardList = adminBoardRepository.findAll();
+        model.addAttribute("trades", boardList); // 모델에 tradeList를 추가합니다.
+        return "admin/adminpost";
     }
 }

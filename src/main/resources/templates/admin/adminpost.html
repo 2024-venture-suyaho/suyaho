@@ -73,7 +73,19 @@
             </tr>
             </thead>
             <tbody id="users">
+            <!-- 여기에 사용자 정보가 동적으로 추가될 거에요. -->
+            <!-- 타임리프 반복문 사용 -->
+            <tr th:each="trade : ${trade_boards}">
+                <td th:text="${trade.trade_num}"></td>
+                <td th:text="${trade.trade_title}"></td>
+                <td th:text="${trade.trade_category}"></td>
+                <td th:text="${trade.trade_time}"></td>
+                <td th:text="${trade.user_no}"></td>
+                <td th:text="${trade.trade_complete}"></td>
+                <td><button class="delete-button" th:attr="data-tradeNum=${trade.trade_num}">삭제</button></td>
+            </tr>
             </tbody>
+
         </table>
         <div class="pagination">
             <button class="prev" id="prev">&#10094;</button>
