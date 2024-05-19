@@ -47,6 +47,9 @@ public class AdminBoard {
     @JoinColumn(name = "user_no", nullable = false)
     private User user;
 
+    @Transient
+    private int schoolNum;
+
     // Getters and setters
     public User getUser() {
         return user;
