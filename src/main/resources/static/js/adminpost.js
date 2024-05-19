@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <td>${trade.tradeTitle}</td>
             <td>${trade.tradeCategory}</td>
             <td>${trade.tradeTime}</td>
-            <td>${trade.userNo}</td>
+            <td>${trade.schoolNum}</td>
             <td>${trade.tradeComplete}</td>
             <td><button class="delete-button" data-tradeNum="${trade.tradeNum}">삭제</button></td>
         `;
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     searchButton.addEventListener('click', function() {
         const searchTerm = searchInput.value.toLowerCase();
         const category = searchCategory.value;
-        fetch(`/api/trades?category=${category}&searchTerm=${searchTerm}`)
+        fetch(`/api/trades/search?category=${category}&searchTerm=${searchTerm}`)
             .then(response => response.json())
             .then(data => {
                 if (Array.isArray(data)) {

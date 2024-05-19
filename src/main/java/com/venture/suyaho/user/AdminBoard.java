@@ -43,8 +43,30 @@ public class AdminBoard {
     @Column(name = "trade_complete", nullable = false)
     private char tradeComplete;
 
-    @Column(name = "user_no", nullable = false)
-    private Long userNo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no", nullable = false)
+    private User user;
+
+
+    @Transient
+    private int schoolNum;
+
+    // Getters and setters
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getSchoolNum() {
+        return user != null ? user.getUserSchoolNum() : 0;
+    }
+
+    public void setSchoolNum(int schoolNum) {
+        this.schoolNum = schoolNum;
+    }
 
     public Long getTradeNum() {
         return tradeNum;
@@ -133,15 +155,4 @@ public class AdminBoard {
     public void setTradeComplete(char tradeComplete) {
         this.tradeComplete = tradeComplete;
     }
-
-    public Long getUserNo() {
-        return userNo;
-    }
-
-    public void setUserNo(Long userNo) {
-        this.userNo = userNo;
-    }
-
-
-
 }

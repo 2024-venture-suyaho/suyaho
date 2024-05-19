@@ -67,24 +67,24 @@
                 <th>제목</th>
                 <th>카테고리</th>
                 <th>등록일시</th>
-                <th>아이디</th>
+                <th>학번</th>
                 <th>거래여부</th>
                 <th>삭제</th>
             </tr>
             </thead>
             <tbody id="users">
-            <!-- 여기에 사용자 정보가 동적으로 추가될 거에요. -->
             <!-- 타임리프 반복문 사용 -->
             <tr th:each="trade : ${trade_boards}">
-                <td th:text="${trade.trade_num}"></td>
-                <td th:text="${trade.trade_title}"></td>
-                <td th:text="${trade.trade_category}"></td>
-                <td th:text="${trade.trade_time}"></td>
-                <td th:text="${trade.user_no}"></td>
-                <td th:text="${trade.trade_complete}"></td>
-                <td><button class="delete-button" th:attr="data-tradeNum=${trade.trade_num}">삭제</button></td>
+                <td th:text="${trade.tradeNum}"></td>
+                <td th:text="${trade.tradeTitle}"></td>
+                <td th:text="${trade.tradeCategory}"></td>
+                <td th:text="${trade.tradeTime}"></td>
+                <td th:text="${trade.schoolNum}"></td>
+                <td th:text="${trade.tradeComplete}"></td>
+                <td><button class="delete-button" th:attr="data-tradeNum=${trade.tradeNum}">삭제</button></td>
             </tr>
             </tbody>
+
 
         </table>
         <div class="pagination">
