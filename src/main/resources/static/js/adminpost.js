@@ -22,13 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
         trades.forEach(trade => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-            <td>${trade.trade_num}</td>
-            <td>${trade.trade_title}</td>
-            <td>${trade.trade_category}</td>
-            <td>${trade.trade_time}</td>
-            <td>${trade.user_no}</td>
-            <td>${trade.trade_complete}</td>
-            <td><button class="delete-button" data-tradeNum="${trade.trade_num}">삭제</button></td>
+            <td>${trade.tradeNum}</td>
+            <td>${trade.tradeTitle}</td>
+            <td>${trade.tradeCategory}</td>
+            <td>${trade.tradeTime}</td>
+            <td>${trade.userNo}</td>
+            <td>${trade.tradeComplete}</td>
+            <td><button class="delete-button" data-tradeNum="${trade.tradeNum}">삭제</button></td>
         `;
             tbody.appendChild(tr);
         });
@@ -37,10 +37,30 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayPaginatedTrades(page, trades) {
         const start = (page - 1) * tradesPerPage;
         const end = start + tradesPerPage;
-        displayTrades(trades.slice(start, end));
-        updatePagination(trades);
-        addDeleteEventToTradeButtons();
+        if (Array.isArray(trades)) {
+            displayTrades(trades.slice(start, end));
+            updatePagination(trades);
+            addDeleteEventToTradeButtons();
+        } else {
+            console.error('Trades data is not an array:', trades);
+        }
     }
+    fetch('/api/trades')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (Array.isArray(data)) {
+                filteredTrades = data;
+                displayPaginatedTrades(currentPage, filteredTrades);
+            } else {
+                console.error('Expected array but got:', data);
+            }
+        })
+        .catch(error => console.error('Error fetching trades:', error));
 
     prevButton.addEventListener('click', function() {
         if (currentPage > 1) {
@@ -62,9 +82,13 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/api/trades?category=${category}&searchTerm=${searchTerm}`)
             .then(response => response.json())
             .then(data => {
-                filteredTrades = data;
-                currentPage = 1;
-                displayPaginatedTrades(currentPage, filteredTrades);
+                if (Array.isArray(data)) {
+                    filteredTrades = data;
+                    currentPage = 1;
+                    displayPaginatedTrades(currentPage, filteredTrades);
+                } else {
+                    console.error('Expected array but got:', data);
+                }
             })
             .catch(error => console.error('Error fetching trades:', error));
     });
@@ -91,8 +115,12 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('/api/trades')
             .then(response => response.json())
             .then(data => {
-                filteredTrades = data;
-                displayPaginatedTrades(currentPage, filteredTrades);
+                if (Array.isArray(data)) {
+                    filteredTrades = data;
+                    displayPaginatedTrades(currentPage, filteredTrades);
+                } else {
+                    console.error('Expected array but got:', data);
+                }
             })
             .catch(error => console.error('Error fetching trades:', error));
     }

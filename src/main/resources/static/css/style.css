@@ -2,7 +2,15 @@ body {
     font-family: Arial, sans-serif;
     background-color: #F0F4EF;
     margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 header nav {
@@ -12,13 +20,13 @@ header nav {
 
 .nav-container {
     display: flex;
-    justify-content: space-between; /* 부모 컨테이너는 전체를 5등분으로 나눔 */
+    justify-content: space-between;
     align-items: center;
 }
 
 .nav-item {
     flex: 1;
-    text-align: center; /* 가운데 정렬 */
+    text-align: center;
 }
 
 .logo {
@@ -49,10 +57,10 @@ header nav {
     text-decoration: none;
     color: black;
 }
-.nav-links li a:hover{
+
+.nav-links li a:hover {
     color: rgb(128, 128, 128) !important;
 }
-
 
 .login-container {
     display: flex;
@@ -72,18 +80,21 @@ header nav {
     background-color: #3b4e3f;
 }
 
+main.content {
+    flex: 1;
+    padding: 20px; /* 페이지 내용을 보기 좋게 하기 위해 추가한 패딩 */
+}
+
 footer {
     background-color: #E8EDDE;
-    padding: 10px 20px 40px 0px;
+    padding: 10px 20px 40px 50px;
     text-align: left;
-    position: relative;
     width: 100%;
-    bottom: 0;
+    margin-top: auto; /* 푸터를 컨텐츠 끝에 붙이는 역할 */
 }
 
 .footer-container {
     text-align: left;
-    padding-left:50px;
 }
 
 .footer-container hr {

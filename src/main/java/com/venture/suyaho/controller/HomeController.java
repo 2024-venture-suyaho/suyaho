@@ -9,16 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Controller
 public class HomeController {
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private AdminBoardRepository adminBoardRepository;
-
 
     @GetMapping("/")
     public String home(Model model) {
@@ -36,6 +39,7 @@ public class HomeController {
         session.invalidate();
         return "redirect:/";
     }
+
     @GetMapping("/mypage")
     public String mypage(Model model) {
         List<User> users = userRepository.findAll();
@@ -45,18 +49,31 @@ public class HomeController {
         }
         return "mypage/admin-userpage";
     }
+
     @GetMapping("/admin")
     public String adminPage(Model model) {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users); // 사용자 목록을 모델에 추가합니다.
         return "admin/adminpage"; // 관리자 페이지를 위한 HTML 템플릿의 이름을 반환합니다.
     }
-    
+
     @GetMapping("/adminpost")
     public String adminPost(Model model) {
         // trade_board 테이블에서 데이터를 가져옵니다.
         List<AdminBoard> boardList = adminBoardRepository.findAll();
-        model.addAttribute("trades", boardList); // 모델에 tradeList를 추가합니다.
+        model.addAttribute("trade_board", boardList); // 모델에 tradeList를 추가합니다.
         return "admin/adminpost";
+    }
+}
+@RestController
+@RequestMapping("/api")
+class ApiController {
+
+    @Autowired
+    private AdminBoardRepository adminBoardRepository;
+
+    @GetMapping("/trades")
+    public List<AdminBoard> getTrades() {
+        return adminBoardRepository.findAll();
     }
 }

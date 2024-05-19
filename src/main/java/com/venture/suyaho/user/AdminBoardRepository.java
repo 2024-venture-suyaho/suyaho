@@ -7,7 +7,5 @@ import java.util.List;
 
 @Repository
 public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
-    // 글 제목으로 찾기
     List<AdminBoard> findByTradeTitle(String tradeTitle);
-
 }

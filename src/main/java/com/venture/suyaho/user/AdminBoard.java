@@ -46,5 +46,102 @@ public class AdminBoard {
     @Column(name = "user_no", nullable = false)
     private Long userNo;
 
-    // Getters and setters
+    public Long getTradeNum() {
+        return tradeNum;
+    }
+
+    public void setTradeNum(Long tradeNum) {
+        this.tradeNum = tradeNum;
+    }
+
+    public String getTradeCategory() {
+        return tradeCategory;
+    }
+
+    public void setTradeCategory(String tradeCategory) {
+        this.tradeCategory = tradeCategory;
+    }
+
+    public String getTradeTitle() {
+        return tradeTitle;
+    }
+
+    public void setTradeTitle(String tradeTitle) {
+        this.tradeTitle = tradeTitle;
+    }
+
+    public String getTradeProduct() {
+        return tradeProduct;
+    }
+
+    public void setTradeProduct(String tradeProduct) {
+        this.tradeProduct = tradeProduct;
+    }
+
+    public int getTradeQuantity() {
+        return tradeQuantity;
+    }
+
+    public void setTradeQuantity(int tradeQuantity) {
+        this.tradeQuantity = tradeQuantity;
+    }
+
+    public int getTradePrice() {
+        return tradePrice;
+    }
+
+    public void setTradePrice(int tradePrice) {
+        this.tradePrice = tradePrice;
+    }
+
+    public String getTradeText() {
+        return tradeText;
+    }
+
+    public void setTradeText(String tradeText) {
+        this.tradeText = tradeText;
+    }
+
+    public String getTradeCondition() {
+        return tradeCondition;
+    }
+
+    public void setTradeCondition(String tradeCondition) {
+        this.tradeCondition = tradeCondition;
+    }
+
+    public byte[] getTradePhoto() {
+        return tradePhoto;
+    }
+
+    public void setTradePhoto(byte[] tradePhoto) {
+        this.tradePhoto = tradePhoto;
+    }
+
+    public LocalDateTime getTradeTime() {
+        return tradeTime;
+    }
+
+    public void setTradeTime(LocalDateTime tradeTime) {
+        this.tradeTime = tradeTime;
+    }
+
+    public char getTradeComplete() {
+        return tradeComplete;
+    }
+
+    public void setTradeComplete(char tradeComplete) {
+        this.tradeComplete = tradeComplete;
+    }
+
+    public Long getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(Long userNo) {
+        this.userNo = userNo;
+    }
+
+
+
 }
