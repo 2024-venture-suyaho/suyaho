@@ -30,8 +30,8 @@ public class UserRepositoryTest {
 
         // Then
         assertNotNull(optionalUser);
-        assertTrue(optionalUser.isPresent()); // Optional 객체가 비어 있는지 확인
-        User user = optionalUser.get(); // Optional 객체 언랩핑
+        assertTrue(optionalUser.isPresent());
+        User user = optionalUser.get();
         assertNotNull(user);
     }
 }

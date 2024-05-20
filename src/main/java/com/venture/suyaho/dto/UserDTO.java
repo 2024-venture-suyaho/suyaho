@@ -1,22 +1,38 @@
 package com.venture.suyaho.dto;
 
 public class UserDTO {
-    private String userEmail;
-    private String userPwd;
+    private String email;
+    private String password;
 
-    public String getUserEmail() {
-        return userEmail;
+    public UserDTO() {
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public UserDTO(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
