@@ -31,21 +31,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const newPassword = document.getElementById('newPassword').value; // 새로운 비밀번호 입력 값 가져옴
         const confirmPassword = document.getElementById('confirmPassword').value; // 비밀번호 확인 입력란 값 가져옴
 
-        // 현재 비밀번호가 올바른지 확인 (서버에서 가져온 데이터와 비교)
-        if (currentPassword !== serverUserData.password) {
-            alert('현재 비밀번호가 올바르지 않습니다.');
-            return;
-        }
-
-        // 새로운 비밀번호와 비밀번호 확인이 일치하는지 확인
         if (newPassword !== confirmPassword) {
             alert('새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            window.location.href = '/mypage';
             return;
         }
 
-        // 새로운 비밀번호 업데이트 (서버에 업데이트 요청을 보내야 함)
-        updatePassword(newPassword);
+        // 비밀번호 변경 요청 보내기
+        fetch(`/api/users/changePassword`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userNo: userNo,
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('비밀번호가 성공적으로 변경되었습니다.');
+                    window.location.href = '/';
+                } else {
+                    response.json().then(data => alert(data.message));
+                    alert('비밀번호가 일치하지않습니다.')
+                }
+            })
+            .catch(error => console.error('Error changing password:', error));
     });
+
+    addDeleteEventToTradeButtons();
 
     // 함수 호출 추가
     addDeleteEventToTradeButtons();
