@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
     function addDeleteEventToTradeButtons() {
         const deleteButtons = document.querySelectorAll('.delete-button');
         deleteButtons.forEach(button => {

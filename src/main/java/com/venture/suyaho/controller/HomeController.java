@@ -45,7 +45,7 @@ public class HomeController {
     public String mypage(Model model) {
         List<User> users = userRepository.findAll();
         if (!users.isEmpty()) {
-            User user = users.get(1); // 첫 번째 사용자 정보를 가져옵니다.
+            User user = users.get(2); // 첫 번째 사용자 정보를 가져옵니다.
             model.addAttribute("user", user); // 사용자 정보를 모델에 추가
         }
         return "mypage/admin-userpage";
@@ -100,11 +100,15 @@ public class HomeController {
             } else {
                 // 카테고리에 따라 검색 실행
                 switch (category) {
-                    case "schoolNum":
+                    case "schoolnum":
                         try {
-                            int schoolNum = Integer.parseInt(keyword);
-                            // 학번을 기준으로 게시글을 검색하여 반환
-                            return adminBoardRepository.findByUser_UserSchoolNum(schoolNum);
+                            Integer userSchoolNum = Integer.parseInt(keyword);
+                            User user = userRepository.findByUserSchoolNum(userSchoolNum);
+                            if (user != null) {
+                                return adminBoardRepository.findByUser_UserNo(user.getUserNo());
+                            } else {
+                                return new ArrayList<>();
+                            }
                         } catch (NumberFormatException e) {
                             return new ArrayList<>(); // 학번이 숫자가 아닌 경우 빈 리스트 반환
                         }
