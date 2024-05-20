@@ -31,4 +31,9 @@ public class LoginController {
         session.invalidate();
         return "redirect:/";
     }
+
+    @GetMapping("/adminlogin")
+    public String adminLoginForm() {
+        return "adminlogin";
+    }
 }
