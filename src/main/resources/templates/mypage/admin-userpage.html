@@ -36,6 +36,7 @@
     <button>뒤로가기</button>
 </div>
 <h1 style="text-align: center;">마이페이지</h1>
+<input type="hidden" id="userNo" th:value="${user.userNo}" />
 <div class="profile-container">
     <div class="profile-image" id="profileImageContainer">
         <img id="profilePic" th:src="@{/img/asf.png}" alt="Profile Picture">
@@ -127,7 +128,8 @@
             <td th:text="${trade.tradeTime}"></td>
             <td th:text="${trade.schoolNum}"></td>
             <td th:text="${trade.tradeComplete}"></td>
-            <td><button class="delete-button" th:attr="data-tradeNum=${trade.tradeNum}">삭제</button></td>
+            <td><button class="delete-button" th:attr="data-tradenum=${trade.tradeNum}">삭제</button></td>
+
             <td><button>수정</button></td>
         </tr>
         </tbody>

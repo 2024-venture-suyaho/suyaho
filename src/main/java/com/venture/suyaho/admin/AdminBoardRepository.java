@@ -20,4 +20,5 @@ public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
     @Query("SELECT ab FROM AdminBoard ab JOIN FETCH ab.user WHERE ab.user.userNo IN :userListNum")
     List<AdminBoard> findByUser_UserNoIn(@Param("userListNum") List<Integer> userListNum);
 
+
 }

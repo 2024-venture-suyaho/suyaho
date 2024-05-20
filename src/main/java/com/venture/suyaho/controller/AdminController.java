@@ -26,6 +26,10 @@ public class AdminController {
     public List<AdminBoard> getTrades() {
         return adminBoardRepository.findAll();
     }
+    @GetMapping("/trades/user/{userNo}")
+    public List<AdminBoard> getTradesByUserNo(@PathVariable Integer userNo) {
+        return adminBoardRepository.findByUser_UserNo(userNo);
+    }
 
     @GetMapping("/users")
     public List<User> getUsers() {
@@ -78,6 +82,8 @@ public class AdminController {
         }
         return users;
     }
+
+
 
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
