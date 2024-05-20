@@ -87,6 +87,10 @@ public class AdminController {
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
     }
+    @GetMapping("/userposts/{userNo}")
+    public List<AdminBoard> getUserPosts(@PathVariable Integer userNo) {
+        return adminBoardRepository.findByUser_UserNo(userNo);
+    }
 
 
     @Service
