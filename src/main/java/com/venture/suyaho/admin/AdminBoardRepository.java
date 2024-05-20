@@ -12,6 +12,7 @@ import java.util.List;
 public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
     // 제목으로 게시글 검색
     List<AdminBoard> findByTradeTitleContainingIgnoreCase(String keyword);
+
     // 사용자 학번으로 게시글 검색
     List<AdminBoard> findByUser_UserSchoolNum(Integer userSchoolNum);
 
@@ -20,3 +21,4 @@ public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
 
     // 사용자 관련 메서드 추가
     List<AdminBoard> findByUser(User user);
+}
