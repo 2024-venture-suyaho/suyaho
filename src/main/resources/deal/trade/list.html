@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>중고거래 목록</title>
+    <link rel="stylesheet" href="../../static/css/trade.css">
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/}">
+        <img src="../../static/images/수야.jpg" alt="Homepage Image" height="150px" width="100%">
+    </a>
+    <h1>중고거래 목록</h1>
+    <div class="category-buttons">
+        <a th:href="@{/trade/category/ALL}" class="category-btn active">전체</a>
+        <a th:href="@{/trade/category/BOOK}" class="category-btn">도서</a>
+        <a th:href="@{/trade/category/DONATION}" class="category-btn">기부</a>
+        <a th:href="@{/trade/category/ETC}" class="category-btn">기타</a>
+    </div>
+    <div class="search-form">
+        <div class="search-input-container">
+            <input type="text" id="search-input" placeholder="검색어를 입력하세요">
+            <select id="search-option">
+                <option value="userId">아이디</option>
+                <option value="studentId">학번</option>
+                <option value="nickname">닉네임</option>
+            </select>
+        </div>
+        <button id="search-btn">검색</button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>카테고리</th>
+            <th>등록일시</th>
+            <th>아이디</th>
+            <th>거래여부</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trade, status : ${tradeList}">
+            <td th:text="${status.count}"></td>
+            <td th:text="${trade.title}"></td>
+            <td th:text="${trade.category}"></td>
+            <td th:text="${#temporals.format(trade.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${trade.userId}"></td>
+            <td th:text="${trade.tradeStatus ? '거래완료' : '거래중'}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="../trade/write.html" class="write-btn">게시글 작성</a>
+</div>
+<script src="../../static/trade.js"></script>
+</body>
+</html>

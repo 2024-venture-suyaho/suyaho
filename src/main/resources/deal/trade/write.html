@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="static/css/trade.css">
+</head>
+<body>
+<div class="container">
+    <h1>게시글 작성</h1>
+    <form th:action="@{/trade/write}" method="post" th:object="${trade}">
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" id="title" th:field="*{trade.title}" required>
+        </div>
+        <div class="form-group">
+            <label for="category">카테고리</label>
+            <select id="category" th:field="*{trade.category}" required>
+                <option value="">선택하세요</option>
+                <option th:each="category : ${T(com.venture.suyaho.deal.entity.Category).values()}"
+                        th:value="${category}" th:text="${category}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tradeStatus">거래여부</label>
+            <select id="tradeStatus" th:field="*{trade.tradeStatus}" required>
+                <option value="true">거래완료</option>
+                <option value="false">거래중</option>
+            </select>
+        </div>
+        <button type="submit" class="submit-btn">등록</button>
+    </form>
+</div>
+</body>
+</html>
