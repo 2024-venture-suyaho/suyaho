@@ -1,37 +1,60 @@
-var stompClient = null;
+const stompClient = new StompJs.Client({
+    brokerURL: 'ws://localhost:8080/gs-guide-websocket'
+});
+
+stompClient.onConnect = (frame) => {
+    setConnected(true);
+    console.log('Connected: ' + frame);
+    stompClient.subscribe('/topic/greetings', (greeting) => {
+        showGreeting(JSON.parse(greeting.body).content);
+    });
+};
+
+stompClient.onWebSocketError = (error) => {
+    console.error('Error with websocket', error);
+};
+
+stompClient.onStompError = (frame) => {
+    console.error('Broker reported error: ' + frame.headers['message']);
+    console.error('Additional details: ' + frame.body);
+};
+
+function setConnected(connected) {
+    $("#connect").prop("disabled", connected);
+    $("#disconnect").prop("disabled", !connected);
+    if (connected) {
+        $("#conversation").show();
+    }
+    else {
+        $("#conversation").hide();
+    }
+    $("#greetings").html("");
+}
 
 function connect() {
-    var socket = new SockJS('/ws');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/public', function (chatMessage) {
-            showMessage(JSON.parse(chatMessage.body));
-        });
+    stompClient.activate();
+}
+
+function disconnect() {
+    stompClient.deactivate();
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+function sendName() {
+    stompClient.publish({
+        destination: "/app/hello",
+        body: JSON.stringify({'name': $("#name").val()})
     });
 }
 
-function sendMessage() {
-    var messageInput = document.getElementById('message-input');
-    var messageContent = messageInput.value.trim();
-    if(messageContent) {
-        var chatMessage = {
-            sender: 'user',  // 유저 정보를 동적으로 설정
-            content: messageContent,
-            type: 'CHAT'
-        };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
-    }
+function showGreeting(message) {
+    $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
-function showMessage(message) {
-    var messages = document.getElementById('messages');
-    var messageElement = document.createElement('div');
-    messageElement.appendChild(document.createTextNode(message.content));
-    messages.appendChild(messageElement);
-}
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    connect();
+$(function () {
+    $("form").on('submit', (e) => e.preventDefault());
+    $( "#connect" ).click(() => connect());
+    $( "#disconnect" ).click(() => disconnect());
+    $( "#send" ).click(() => sendName());
 });

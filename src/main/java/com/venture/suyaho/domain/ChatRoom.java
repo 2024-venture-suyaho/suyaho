@@ -11,6 +11,23 @@ public class ChatRoom {
     private long chatNum;
 
 
-    @Column(name="user_no")
-    private long userNo;
+    @ManyToOne
+    @JoinColumn(name="user_no", nullable=false)
+    private User user;
+
+    public long getChatNum() {
+        return chatNum;
+    }
+
+    public void setChatNum(long chatNum) {
+        this.chatNum = chatNum;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

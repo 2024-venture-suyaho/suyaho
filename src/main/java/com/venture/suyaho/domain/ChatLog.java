@@ -13,7 +13,6 @@ public class ChatLog {
     @Column(name = "mes_text", length = 255)
     private String mesText;
 
-
     @Column(name = "mes_time")
     private LocalDateTime mesTime;
 
