@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nextButton.disabled = currentPage * tradesPerPage >= trades.length;
     }
 
+    // 게시글 출력
     function displayTrades(trades) {
         const tbody = document.querySelector('.users-table tbody');
         tbody.innerHTML = '';
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 카테고리 검색
     searchButton.addEventListener('click', function() {
         const searchTerm = searchInput.value.toLowerCase();
         const category = searchCategory.value;
@@ -98,9 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching trades:', error));
     });
 
-
-
-
+// 게시글 삭제
     function addDeleteEventToTradeButtons() {
         const deleteButtons = document.querySelectorAll('.delete-button');
         deleteButtons.forEach(button => {
@@ -128,6 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
             displayPaginatedTrades(currentPage, filteredTrades);
         }
     }
+    // 유저보기로 넘어가는거
+    document.getElementById('post-view').addEventListener('click', function() {
+        window.location.href = '/adminpost';
+    });
+    document.getElementById('user-view').addEventListener('click', function() {
+        window.location.href = '/admin';
+    });
 
     function init() {
         fetch('/api/trades')

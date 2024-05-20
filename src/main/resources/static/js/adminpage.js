@@ -134,6 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error deleting user:', error));
     }
 
+    document.getElementById('post-view').addEventListener('click', function() {
+        window.location.href = '/adminpost';
+    });
+    document.getElementById('user-view').addEventListener('click', function() {
+        window.location.href = '/admin';
+    });
     function init() {
         getUsersFromApi();
     }

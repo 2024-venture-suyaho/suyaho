@@ -25,5 +25,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // 학번의 일부를 포함하는 사용자 검색
     @Query("SELECT u FROM User u WHERE str(u.userSchoolNum) LIKE %:userSchoolNum%")
     List<User> findByUserSchoolNumContaining(@Param("userSchoolNum") String userSchoolNum);
-
 }

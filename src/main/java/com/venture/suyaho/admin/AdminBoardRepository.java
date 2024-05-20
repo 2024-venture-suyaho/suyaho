@@ -14,8 +14,9 @@ public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
     List<AdminBoard> findByTradeTitleContainingIgnoreCase(String keyword);
 
 
-    // 사용자 관련 메서드 추가
-    @Query("SELECT ab FROM AdminBoard ab WHERE ab.user.userNo IN :userNos")
-    List<AdminBoard> findByUser_UserNoIn(@Param("userNos") List<Integer> userNos);
+    // 사용자 번호 리스트로 게시글 검색
+    @Query("SELECT ab FROM AdminBoard ab JOIN FETCH ab.user WHERE ab.user.userNo IN :userListNum")
+    List<AdminBoard> findByUser_UserNoIn(@Param("userListNum") List<Integer> userListNum);
 
+    List<AdminBoard> findByUser(User user);
 }

@@ -41,8 +41,8 @@ public class AdminController {
                 case "schoolnum":
                     List<User> users = userRepository.findByUserSchoolNumContaining(keyword);
                     if (!users.isEmpty()) {
-                        List<Integer> userNos = users.stream().map(User::getUserNo).collect(Collectors.toList());
-                        return adminBoardRepository.findByUser_UserNoIn(userNos);
+                        List<Integer> userListNum = users.stream().map(User::getUserNo).collect(Collectors.toList());
+                        return adminBoardRepository.findByUser_UserNoIn(userListNum);
                     } else {
                         return new ArrayList<>();
                     }
