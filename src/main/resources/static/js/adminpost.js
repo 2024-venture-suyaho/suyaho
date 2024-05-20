@@ -128,13 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             displayPaginatedTrades(currentPage, filteredTrades);
         }
     }
-    // 유저보기로 넘어가는거
-    document.getElementById('post-view').addEventListener('click', function() {
-        window.location.href = '/adminpost';
-    });
-    document.getElementById('user-view').addEventListener('click', function() {
-        window.location.href = '/admin';
-    });
+
 
     function init() {
         fetch('/api/trades')
