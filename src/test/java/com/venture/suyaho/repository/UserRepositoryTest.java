@@ -22,11 +22,11 @@ public class UserRepositoryTest {
     public void testFindByUserEmailAndUserPwd() {
         // Given
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserEmail("les1234@syuin.ac.kr");
-        userDTO.setUserPwd("8888");
+        userDTO.setEmail("les1234@syuin.ac.kr");
+        userDTO.setPassword("8888");
 
         // When
-        Optional<User> optionalUser = userRepository.findByUserEmailAndUserPwd(userDTO.getUserEmail(), userDTO.getUserPwd());
+        Optional<User> optionalUser = userRepository.findByUserEmailAndUserPwd(userDTO.getEmail(), userDTO.getPassword());
 
         // Then
         assertNotNull(optionalUser);
