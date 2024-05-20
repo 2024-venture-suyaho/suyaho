@@ -32,8 +32,8 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @GetMapping("/adminlogin")
+    @GetMapping("/admin-login")
     public String adminLoginForm() {
-        return "adminlogin";
+        return "admin-login";
     }
 }
