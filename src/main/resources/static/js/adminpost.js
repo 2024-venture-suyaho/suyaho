@@ -4,22 +4,47 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     let filteredTrades = [];
 
-    const tradeList = document.getElementById('trades');
+    const tradeList = document.getElementById('users'); // Corrected ID selection
     const prevButton = document.getElementById('prev');
     const nextButton = document.getElementById('next');
+    const paginationContainer = document.querySelector('.pagination'); // 변경: 페이지네이션 컨테이너를 선택할 때 다른 클래스나 ID를 사용
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
     const searchCategory = document.querySelector('.search-category');
 
     function updatePagination(trades) {
-        prevButton.disabled = currentPage === 1;
-        nextButton.disabled = currentPage * tradesPerPage >= trades.length;
+        const totalPages = Math.ceil(trades.length / tradesPerPage);
+        paginationContainer.innerHTML = '';
+
+        if (totalPages > 1) {
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+
+            paginationContainer.appendChild(prevButton);
+            const maxButtons = 5;
+            const startPage = Math.floor((currentPage - 1) / maxButtons) * maxButtons + 1;
+            const endPage = Math.min(startPage + maxButtons - 1, totalPages);
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.classList.add('page-button');
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    displayPaginatedTrades(currentPage, filteredTrades);
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+
+            paginationContainer.appendChild(nextButton);
+        }
     }
 
-    // 게시글 출력
     function displayTrades(trades) {
-        const tbody = document.querySelector('.users-table tbody');
-        tbody.innerHTML = '';
+        tradeList.innerHTML = ''; // Updated to use tradeList
         trades.forEach(trade => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -31,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <td>${trade.tradeComplete}</td>
             <td><button class="delete-button" data-tradeNum="${trade.tradeNum}">삭제</button></td>
         `;
-            tbody.appendChild(tr);
+            tradeList.appendChild(tr); // Updated to use tradeList
         });
     }
 
@@ -46,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Trades data is not an array:', trades);
         }
     }
+
     fetch('/api/trades')
         .then(response => {
             if (!response.ok) {
@@ -63,17 +89,26 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error fetching trades:', error));
 
+
+    function displayPaginatedUsers(page, users) {
+        const start = (page - 1) * usersPerPage;
+        const end = start + usersPerPage;
+        displayUsers(users.slice(start, end));
+        updatePagination(users);
+        addClickEventToUserItems();
+    }
     prevButton.addEventListener('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            displayPaginatedTrades(currentPage, filteredTrades);
+            displayPaginatedUsers(currentPage, filteredUsers);
         }
     });
 
     nextButton.addEventListener('click', function() {
-        if (currentPage * tradesPerPage < filteredTrades.length) {
+        const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+        if (currentPage < totalPages) {
             currentPage++;
-            displayPaginatedTrades(currentPage, filteredTrades);
+            displayPaginatedUsers(currentPage, filteredUsers);
         }
     });
 
@@ -113,9 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-                        // Remove the trade from the filteredTrades array
                         filteredTrades = filteredTrades.filter(trade => trade.tradeNum != tradeNum);
-                        // Update the display
                         displayPaginatedTrades(currentPage, filteredTrades);
                     })
                     .catch(error => console.error('Error deleting trade:', error));
@@ -146,9 +179,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     init();
 
-    window.addEventListener('scroll', function() {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            nextPage();
-        }
-    });
+
 });

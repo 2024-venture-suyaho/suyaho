@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userList = document.getElementById('users');
     const prevButton = document.getElementById('prev');
     const nextButton = document.getElementById('next');
+    const paginationContainer = document.querySelector('.pagination');
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
     const searchCategory = document.querySelector('.search-category');
@@ -51,8 +52,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updatePagination(users) {
-        prevButton.disabled = currentPage === 1;
-        nextButton.disabled = currentPage * usersPerPage >= users.length;
+        const totalPages = Math.ceil(users.length / usersPerPage);
+        paginationContainer.innerHTML = '';
+
+        if (totalPages > 1) {
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+
+            paginationContainer.appendChild(prevButton);
+            const maxButtons = 5;
+            const startPage = Math.floor((currentPage - 1) / maxButtons) * maxButtons + 1;
+            const endPage = Math.min(startPage + maxButtons - 1, totalPages);
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.classList.add('page-button');
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    displayPaginatedUsers(currentPage, filteredUsers);
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+
+            paginationContainer.appendChild(nextButton);
+        }
     }
 
     function displayPaginatedUsers(page, users) {
@@ -71,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     nextButton.addEventListener('click', function() {
-        if (currentPage * usersPerPage < filteredUsers.length) {
+        const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+        if (currentPage < totalPages) {
             currentPage++;
             displayPaginatedUsers(currentPage, filteredUsers);
         }
@@ -133,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error deleting user:', error));
     }
-
 
     function init() {
         getUsersFromApi();

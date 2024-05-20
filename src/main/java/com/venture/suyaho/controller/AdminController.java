@@ -83,8 +83,6 @@ public class AdminController {
         return users;
     }
 
-
-
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
