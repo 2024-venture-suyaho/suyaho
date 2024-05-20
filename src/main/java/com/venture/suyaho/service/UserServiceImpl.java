@@ -1,9 +1,12 @@
 package com.venture.suyaho.service;
 
+import com.venture.suyaho.dto.UserDTO;
 import com.venture.suyaho.model.User;
 import com.venture.suyaho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -16,7 +19,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User login(String user_email, String user_pwd) {
-        return userRepository.findByUserEmail(user_email);
+    public User login(UserDTO userDTO) {
+        Optional<User> userOptional = userRepository.findByUserEmailAndUserPwd(userDTO.getUserEmail(), userDTO.getUserPwd());
+        return userOptional.orElse(null);
     }
+
 }

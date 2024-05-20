@@ -1,7 +1,9 @@
 package com.venture.suyaho.controller;
 
+import com.venture.suyaho.dto.UserDTO;
 import com.venture.suyaho.model.User;
 import com.venture.suyaho.repository.UserRepository;
+import com.venture.suyaho.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/login")
@@ -27,22 +29,17 @@ public class LoginController {
 
     /* ㅎㅏ... 구현 */
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
-        // DB에서 조회
-        User user = userRepository.findByUserEmail(email);
+    public String login(UserDTO userDTO, HttpSession session, Model model) {
+        User user = userService.login(userDTO);
 
-        // 없으면
-        if (user == null || !user.getUserPwd().equals(password)) {
+        if (user == null) {
             model.addAttribute("loginError", true);
             return "login";
         }
 
-        // 성공 -> 세션에 저장
         session.setAttribute("user", user);
         return "redirect:/";
     }
-
-
 
 
     @GetMapping("/logout")
