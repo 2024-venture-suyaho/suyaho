@@ -22,7 +22,7 @@
                 <ul class="nav-links">
                     <li><a href="#" style="color: black;">분실물</a></li>
                     <li><a href="#" style="color: black;">거래</a></li>
-                    <li><a href="#" style="color: black;" th:href="@{/mypage}">마이페이지</a></li>
+                    <li><a href="#" style="color: black;">마이페이지</a></li>
                 </ul>
             </div>
             <div class="nav-item">
@@ -48,7 +48,7 @@
         <div>
             <div id="userName" th:text="${user.userName}"></div>
             <p style="font-weight: bold;">Email</p>
-            <div id="userEmail" th:text="${user.userEmail}"></div>
+            <div id="userEmail" th:text="${user.userEmail}"></div> <!-- userEmail 추가 -->
 
             <p style="font-weight: bold;">전화번호</p>
             <div id="userPhone" th:text="${user.userPhone}"></div> <!-- userPhone 추가 -->
@@ -101,37 +101,6 @@
             <button id="changePasswordBtn">비밀번호 변경</button> <!-- 변경 버튼 추가 -->
         </div>
     </div>
-</div>
-<br><br>
-<!-- 게시글 리스트 테이블 -->
-<div class="users-container">
-    <table class="users-table">
-        <thead>
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>카테고리</th>
-            <th>등록일시</th>
-            <th>학교번호</th>
-            <th>거래여부</th>
-            <th>삭제</th>
-            <th>수정</th>
-        </tr>
-        </thead>
-        <tbody id="users">
-        <!-- 타임리프 반복문 사용 -->
-        <tr th:each="trade : ${userPosts}">
-            <td th:text="${trade.tradeNum}"></td>
-            <td th:text="${trade.tradeTitle}"></td>
-            <td th:text="${trade.tradeCategory}"></td>
-            <td th:text="${trade.tradeTime}"></td>
-            <td th:text="${trade.schoolNum}"></td>
-            <td th:text="${trade.tradeComplete}"></td>
-            <td><button class="delete-button" th:attr="data-tradeNum=${trade.tradeNum}">삭제</button></td>
-            <td><button>수정</button></td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 <footer>
     <div class="footer-container">

@@ -27,15 +27,17 @@ h1 {
 }
 
 .menu-box {
-    width: 500px;
+    width: 400px;
     margin-left: auto;
     margin-right: 100px;
     background-color: #F0F4EF;
     border: 1px solid rgb(202, 202, 202);
-    padding: 10px;
+    padding-top: 10px;
     display: flex;
     justify-content: center;
-    margin-top: -50px;
+    margin-bottom: 50px;
+    margin-top: -100px;
+    padding-bottom: 10px;
     align-items: center;
 }
 
@@ -68,7 +70,6 @@ h1 {
 
 .search-combined {
     display: flex;
-    align-items: left;
     border: none;
     border-radius: 15px;
     overflow: hidden;
@@ -173,28 +174,32 @@ h1 {
     background-color: #ff1a1a;
 }
 
-/* Pagination */
+
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 60px; /* 푸터와 겹치지 않도록 하단 여백 추가 */
 }
 
 .pagination button {
-    background-color: #6A7773;
-    color: white;
+    background-color: #ffffff;
+    color: #000000;
     border: none;
     padding: 5px 10px;
-    cursor: pointer;
-    margin: 0 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .pagination button:disabled {
-    background-color: #ccc;
+    background-color: #ffffff;
     cursor: not-allowed;
 }
 
 .pagination button:hover:not(:disabled) {
-    background-color: #3b4e3f;
+    background-color: #cbcbcb;
 }
