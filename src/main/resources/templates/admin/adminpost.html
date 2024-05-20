@@ -12,27 +12,7 @@
 <body>
 <script type="text/javascript" th:src="@{/js/adminpost.js}"></script>
 
-<header>
-    <nav>
-        <div class="nav-container">
-            <div class="logo"><a href="#">
-                <img th:src="@{/img/logo.png}" alt="Logo">
-            </a>
-            </div>
-            <div class="nav-item">
-                <ul class="nav-links">
-                    <li><a href="#" style="color: black;">분실물</a></li>
-                    <li><a href="#" style="color: black;">거래</a></li>
-                    <li><a href="#" style="color: black;">마이페이지</a></li>
-                </ul>
-            </div>
-            <div class="nav-item">
-                <a th:if="${session.user == null}" href="#" class="login-button">로그인</a>
-                <a th:if="${session.user != null}" href="#" class="logout-button">로그아웃</a>
-            </div>
-        </div>
-    </nav>
-</header>
+<div th:replace="fragments/header :: header"></div>
 
 <div class="back">
     <button>뒤로가기</button>
@@ -96,11 +76,6 @@
     <button class="next" id="next">&#10095;</button>
 </div>
 
-<footer>
-    <div class="footer-container">
-        <span>수야호</span>
-        <hr>
-    </div>
-</footer>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

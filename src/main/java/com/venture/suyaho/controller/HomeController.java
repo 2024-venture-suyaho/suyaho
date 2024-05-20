@@ -1,20 +1,17 @@
 package com.venture.suyaho.controller;
 
 import com.venture.suyaho.admin.AdminBoard;
-import com.venture.suyaho.admin.AdminBoardRepository;
-import com.venture.suyaho.admin.User;
-import com.venture.suyaho.admin.UserRepository;
+import com.venture.suyaho.model.User;
+import com.venture.suyaho.repository.AdminBoardRepository;
+import com.venture.suyaho.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -26,31 +23,38 @@ public class HomeController {
     private AdminBoardRepository adminBoardRepository;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(HttpSession session, Model model) {
+
+        if(session.getAttribute("user") != null) {
+            model.addAttribute("user", session.getAttribute("user"));
+        }
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login(HttpSession session) {
-        session.setAttribute("user", "exampleUser");
-        return "redirect:/";
-    }
+//    @GetMapping("/login")
+//    public String login(HttpSession session) {
+//        session.setAttribute("user", "exampleUser");
+//        return "/";
+//    }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
+//    @GetMapping("/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();
+//        return "redirect:/";
+//    }
 
     @GetMapping("/mypage")
-    public String mypage(Model model) {
-        List<User> users = userRepository.findAll();
-        if (!users.isEmpty()) {
-            User user = users.get(2); // 첫 번째 사용자 정보를 가져옵니다.
-            model.addAttribute("user", user); // 사용자 정보를 모델에 추가
+    public String mypage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+        } else {
+            // 사용자 정보가 세션에 없는 경우, 로그인 페이지로 리다이렉트
+            return "redirect:/login";
         }
         return "mypage/admin-userpage";
     }
+
 
     @GetMapping("/admin")
     public String adminPage(Model model) {

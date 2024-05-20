@@ -6,21 +6,18 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- Header Fragment Inclusion -->
 <div th:replace="fragments/header :: header"></div>
 
 <div style="margin: 20px;">
     <h1>Welcome to Venture Suyaho</h1>
-    <p>This is the home page.</p>
-    <div th:if="${session.user != null}">
-        <p>Welcome, <span th:text="${session.user}">User</span>!</p>
+    <div th:if="${user != null}">
+        <p>Welcome, <span th:text="${user}">User</span>!</p>
     </div>
-    <div th:if="${session.user == null}">
+    <div th:if="${user == null}">
         <p>Please log in to access more features.</p>
     </div>
 </div>
 
-<!-- Footer Fragment Inclusion -->
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

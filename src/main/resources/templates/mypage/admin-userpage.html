@@ -4,34 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdminPage</title>
+    <title>MyPage</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/admin-userpage.css}">
     <script type="text/javascript" th:src="@{/js/admin-userpage.js}"></script>
 </head>
 <body>
-<header>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <a href="#">
-                    <img th:src="@{/img/logo.png}" alt="Logo">
-                </a>
-            </div>
-            <div class="nav-item">
-                <ul class="nav-links">
-                    <li><a href="#" style="color: black;">분실물</a></li>
-                    <li><a href="#" style="color: black;">거래</a></li>
-                    <li><a href="#" style="color: black;" th:href="@{/mypage}">마이페이지</a></li>
-                </ul>
-            </div>
-            <div class="nav-item">
-                <a th:if="${session.user == null}" href="#" class="login-button">로그인</a>
-                <a th:if="${session.user != null}" href="#" class="logout-button">로그아웃</a>
-            </div>
-        </div>
-    </nav>
-</header>
+
+<div th:replace="fragments/header :: header"></div>
 <div class="back">
     <button>뒤로가기</button>
 </div>
@@ -134,11 +114,6 @@
         </tbody>
     </table>
 </div>
-<footer>
-    <div class="footer-container">
-        <span>수야호</span>
-        <hr>
-    </div>
-</footer>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

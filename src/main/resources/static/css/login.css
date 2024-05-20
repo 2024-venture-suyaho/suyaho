@@ -1,0 +1,71 @@
+/* 로그인 페이지 스타일 */
+
+.body {
+    background-color: white;
+}
+
+.login-form h2 {
+    margin-top:40px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 48px;
+    width: 300px;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    background-color: #FFFFFF;
+}
+
+
+.login-form {
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #155B34;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #3b4e3f;
+}
+
+.login-container hr {
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid #E6E6E6;
+}
+
+.login-container a {
+    color: #E6E6E6;
+    text-decoration: none;
+}

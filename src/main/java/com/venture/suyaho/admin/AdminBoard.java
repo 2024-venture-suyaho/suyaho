@@ -1,5 +1,6 @@
 package com.venture.suyaho.admin;
 
+import com.venture.suyaho.model.User;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
