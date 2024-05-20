@@ -1,3 +1,4 @@
+/* 헤더입니당 */
 body {
     font-family: Arial, sans-serif;
     background-color: #F0F4EF;
@@ -82,16 +83,17 @@ header nav {
 
 main.content {
     flex: 1;
-    padding: 20px; /* 페이지 내용을 보기 좋게 하기 위해 추가한 패딩 */
+    padding: 20px;
 }
 
+
+/* 여기서부터 푸터 */
 footer {
     background-color: #E8EDDE;
     padding: 10px 20px 40px 50px;
     text-align: left;
     width: 100%;
-    position: relative;
-    margin-top: auto; /* 푸터를 컨텐츠 끝에 붙이는 역할 */
+    margin-top: auto;
 }
 
 .footer-container {
