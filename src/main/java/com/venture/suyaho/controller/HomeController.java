@@ -48,6 +48,9 @@ public class HomeController {
         if (!users.isEmpty()) {
             User user = users.get(2); // 첫 번째 사용자 정보를 가져옵니다.
             model.addAttribute("user", user); // 사용자 정보를 모델에 추가
+
+            List<AdminBoard> userPosts = adminBoardRepository.findByUser_UserNo(user.getUserNo());
+            model.addAttribute("userPosts", userPosts); // 사용자 게시글을 모델에 추가
         }
         return "mypage/admin-userpage";
     }
