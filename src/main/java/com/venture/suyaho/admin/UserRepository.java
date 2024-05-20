@@ -1,6 +1,8 @@
 package com.venture.suyaho.admin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,5 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUserMajorContainingIgnoreCase(String userMajor);
 
     User findByUserSchoolNum(Integer userSchoolNum);
+    // 학번의 일부를 포함하는 사용자 검색
+    @Query("SELECT u FROM User u WHERE str(u.userSchoolNum) LIKE %:userSchoolNum%")
+    List<User> findByUserSchoolNumContaining(@Param("userSchoolNum") String userSchoolNum);
 
 }

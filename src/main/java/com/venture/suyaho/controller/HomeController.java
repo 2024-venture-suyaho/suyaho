@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -101,16 +102,12 @@ public class HomeController {
                 // 카테고리에 따라 검색 실행
                 switch (category) {
                     case "schoolnum":
-                        try {
-                            Integer userSchoolNum = Integer.parseInt(keyword);
-                            User user = userRepository.findByUserSchoolNum(userSchoolNum);
-                            if (user != null) {
-                                return adminBoardRepository.findByUser_UserNo(user.getUserNo());
-                            } else {
-                                return new ArrayList<>();
-                            }
-                        } catch (NumberFormatException e) {
-                            return new ArrayList<>(); // 학번이 숫자가 아닌 경우 빈 리스트 반환
+                        List<User> users = userRepository.findByUserSchoolNumContaining(keyword);
+                        if (!users.isEmpty()) {
+                            List<Integer> userNos = users.stream().map(User::getUserNo).collect(Collectors.toList());
+                            return adminBoardRepository.findByUser_UserNoIn(userNos);
+                        } else {
+                            return new ArrayList<>();
                         }
                     case "title":
                         // 게시글 제목을 기준으로 검색하여 반환

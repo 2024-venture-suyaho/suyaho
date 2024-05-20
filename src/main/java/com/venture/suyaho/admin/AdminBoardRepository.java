@@ -20,5 +20,8 @@ public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
     List<AdminBoard> findByUser_UserNo(Integer userNo);
 
     // 사용자 관련 메서드 추가
+    @Query("SELECT ab FROM AdminBoard ab WHERE ab.user.userNo IN :userNos")
+    List<AdminBoard> findByUser_UserNoIn(@Param("userNos") List<Integer> userNos);
+
     List<AdminBoard> findByUser(User user);
 }
