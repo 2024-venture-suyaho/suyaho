@@ -8,31 +8,31 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
     private Trade trade;
 
     @Column(name = "book_writing")
-    private boolean writing;
+    private char writing;
 
     @Column(name = "book_cover")
-    private String cover;
+    private char cover;
 
     @Column(name = "book_discoloration")
-    private boolean discoloration;
+    private char discoloration;
 
     @Column(name = "book_damage")
-    private boolean damage;
+    private char damage;
 
     @Column(name = "book_company")
     private String company;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,35 +44,35 @@ public class Book {
         this.trade = trade;
     }
 
-    public boolean isWriting() {
+    public char getWriting() {
         return writing;
     }
 
-    public void setWriting(boolean writing) {
+    public void setWriting(char writing) {
         this.writing = writing;
     }
 
-    public String getCover() {
+    public char getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(char cover) {
         this.cover = cover;
     }
 
-    public boolean isDiscoloration() {
+    public char getDiscoloration() {
         return discoloration;
     }
 
-    public void setDiscoloration(boolean discoloration) {
+    public void setDiscoloration(char discoloration) {
         this.discoloration = discoloration;
     }
 
-    public boolean isDamage() {
+    public char getDamage() {
         return damage;
     }
 
-    public void setDamage(boolean damage) {
+    public void setDamage(char damage) {
         this.damage = damage;
     }
 

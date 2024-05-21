@@ -22,5 +22,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                     @Param("bookCover") Character bookCover,
                     @Param("bookDiscoloration") Character bookDiscoloration,
                     @Param("bookDamage") Character bookDamage,
-                    @Param("bookCompany") Var bookCompany);
+                    @Param("bookCompany") String bookCompany);
 }

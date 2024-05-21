@@ -3,7 +3,7 @@ package com.venture.suyaho.deal.controller;
 import com.venture.suyaho.deal.dto.TradeRequest;
 import com.venture.suyaho.deal.dto.TradeResponse;
 import com.venture.suyaho.deal.entity.Trade;
-import com.venture.suyaho.deal.service.BookService;
+import com.venture.suyaho.deal.service.BookService; // BookService 추가
 import com.venture.suyaho.deal.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +20,12 @@ import java.util.List;
 public class TradeController {
 
     private final TradeService tradeService;
+    private final BookService bookService; // BookService 추가
 
-    public TradeController(TradeService tradeService) {
+    @Autowired
+    public TradeController(TradeService tradeService, BookService bookService) {
         this.tradeService = tradeService;
+        this.bookService = bookService; // BookService 주입
     }
 
     @GetMapping("/category/{categoryName}")
@@ -37,19 +40,28 @@ public class TradeController {
         model.addAttribute("tradeRequest", new TradeRequest());
         return "trade/write";
     }
-    @Autowired
 
     @PostMapping("/write")
     public String writeTrade(@ModelAttribute TradeRequest tradeRequest) {
         // 거래 번호 생성
         int tradeNum = tradeService.generateTradeNum();
 
+        // Trade 객체 생성 및 설정
+        Trade trade = new Trade(); // 수정: Trade 객체 생성
+        trade.setTitle(tradeRequest.getTitle());
+        trade.setProduct(tradeRequest.getProductName());
+        trade.setQuantity(tradeRequest.getQuantity());
+        trade.setPrice(tradeRequest.getPrice());
+        trade.setDetail(tradeRequest.getDescription());
+        trade.setTradeComplete(false);
+
         // 이미지 파일 처리
         MultipartFile imageFile = tradeRequest.getImage();
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 byte[] imageBytes = imageFile.getBytes();
-                Trade.setImage(imageBytes);
+                trade.setImageFile(imageFile); // MultipartFile 객체 설정 (수정)
+                trade.setImageData(imageBytes); // 이미지 데이터 설정 (수정)
             } catch (IOException e) {
                 // 이미지 처리 중 오류 발생 시 예외 처리
                 throw new RuntimeException("Failed to process image", e);
@@ -57,22 +69,22 @@ public class TradeController {
         }
 
         // Trade 정보 저장
-        Trade trade = tradeService.saveTrade(tradeRequest, tradeNum);
+        tradeService.saveTrade(trade); // 수정: Trade 객체를 저장
 
         // 카테고리가 도서일 경우에만 Book 정보 저장
         if (tradeRequest.getCategoryId() == 1) {
-            BookService.saveBook(tradeNum, tradeRequest.getUserNo(),
-                    tradeRequest.getB(),
+            bookService.saveBook(tradeNum, tradeRequest.getUserNo(),
+                    tradeRequest.getBookWriting(),
                     tradeRequest.getBookCover(),
                     tradeRequest.getBookDiscoloration(),
-                    tradeRequest.get(),
-                    tradeRequest.getPublisher());
+                    tradeRequest.getBookDamage(),
+                    tradeRequest.getPublisher()); // 수정: bookService를 통해 Book 저장
         }
 
         return "redirect:/trade/list";
     }
 
-    @GetMapping("/trade/list")
+    @GetMapping("/list")
     public String tradeList(Model model) {
         List<Trade> tradeList = tradeService.getTradeList();
         model.addAttribute("tradeList", tradeList);

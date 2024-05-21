@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @Repository
@@ -17,15 +18,17 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
     @Query(value = "INSERT INTO trade (title, book_writing, book_cover, book_discoloration, book_damage, author, publisher, product_name, quantity, price, description, category_id, trade_image) " +
             "VALUES (:title, :bookWriting, :bookCover, :bookDiscoloration, :bookDamage, :author, :publisher, :productName, :quantity, :price, :description, :categoryId, :image)", nativeQuery = true)
     void saveTradeWithQuery(@Param("title") String title,
-                            @Param("bookWriting") boolean bookWriting,
-                            @Param("bookCover") String bookCover,
-                            @Param("bookDiscoloration") boolean bookDiscoloration,
-                            @Param("bookDamage") boolean bookDamage,
+                            @Param("bookWriting") Character bookWriting,
+                            @Param("bookCover") Character bookCover,
+                            @Param("bookDiscoloration") Character bookDiscoloration,
+                            @Param("bookDamage") Character bookDamage,
                             @Param("publisher") String publisher,
                             @Param("productName") String productName,
                             @Param("quantity") int quantity,
                             @Param("price") double price,
                             @Param("description") String description,
                             @Param("categoryId") Long categoryId,
-                            @Param("image") byte[] image);
+                            @Param("image") MultipartFile image,
+                            @Param("imageData") byte[] imageData);
+
 }

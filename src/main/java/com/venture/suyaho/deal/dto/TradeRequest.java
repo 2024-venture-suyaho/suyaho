@@ -7,73 +7,20 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class TradeRequest {
     private String title;
-    private boolean bookWriting;
-    private String bookCover;
-    private boolean bookDiscoloration;
-    private boolean bookDamage;
+    private Character bookWriting;
+    private Character bookCover;
+    private Character bookDiscoloration;
+    private Character bookDamage;
     private String productName;
     private int quantity;
     private double price;
     private String description;
     private Long categoryId;
     private MultipartFile image;
-    private Var publisher;
+    private String publisher;
     private int userNo; // 추가
-    private boolean tradeComplete;
+    private String tradeComplete;
     private String tradeTime;
-
-    public String getBookCover() {
-        return bookCover;
-    }
-
-    public void setBookCover(String bookCover) {
-        this.bookCover = bookCover;
-    }
-
-    public int getUserNo() {
-        return userNo;
-    }
-
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
-    }
-
-
-
-    public boolean isTradeComplete() {
-        return tradeComplete;
-    }
-
-    public void setTradeComplete(boolean tradeComplete) {
-        this.tradeComplete = tradeComplete;
-    }
-
-    public String getTradeTime() {
-        return tradeTime;
-    }
-
-    public void setTradeTime(String tradeTime) {
-        this.tradeTime = tradeTime;
-    }
-
-    public MultipartFile  getImage() {
-        return image;
-    }
-
-
-
-
-    public void setImage(MultipartFile image) {
-        this.image = image;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getTitle() {
         return title;
@@ -83,39 +30,36 @@ public class TradeRequest {
         this.title = title;
     }
 
-    public boolean isBookWriting() {
+    public Character getBookWriting() {
         return bookWriting;
     }
 
-    public void setBookWriting(boolean bookWriting) {
+    public void setBookWriting(Character bookWriting) {
         this.bookWriting = bookWriting;
     }
 
+    public Character getBookCover() {
+        return bookCover;
+    }
 
-    public boolean isBookDiscoloration() {
+    public void setBookCover(Character bookCover) {
+        this.bookCover = bookCover;
+    }
+
+    public Character getBookDiscoloration() {
         return bookDiscoloration;
     }
 
-    public void setBookDiscoloration(boolean bookDiscoloration) {
+    public void setBookDiscoloration(Character bookDiscoloration) {
         this.bookDiscoloration = bookDiscoloration;
     }
 
-    public boolean isBookDamage() {
+    public Character getBookDamage() {
         return bookDamage;
     }
 
-    public void setBookDamage(boolean bookDamage) {
+    public void setBookDamage(Character bookDamage) {
         this.bookDamage = bookDamage;
-    }
-
-
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Var publisher) {
-        this.publisher = publisher;
     }
 
     public String getProductName() {
@@ -150,4 +94,51 @@ public class TradeRequest {
         this.description = description;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
+    }
+
+    public String getTradeComplete() {
+        return tradeComplete;
+    }
+
+    public void setTradeComplete(String tradeComplete) {
+        this.tradeComplete = tradeComplete;
+    }
+
+    public String getTradeTime() {
+        return tradeTime;
+    }
+
+    public void setTradeTime(String tradeTime) {
+        this.tradeTime = tradeTime;
+    }
 }

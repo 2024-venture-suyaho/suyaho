@@ -119,6 +119,7 @@ public class Trade {
         return tradeComplete;
     }
 
+
     public void setTradeComplete(boolean tradeComplete) {
         this.tradeComplete = tradeComplete;
     }
@@ -149,17 +150,26 @@ public class Trade {
 
     @Lob
     @Column(name = "trade_image")
-    private MultipartFile image;
+    private MultipartFile imageFile; // MultipartFile 객체 필드
+    private byte[] imageData; // 이미지 데이터 필드
 
     // Getters and Setters
-
-    public MultipartFile getImage() {
-        return image;
+    public MultipartFile getImageFile() {
+        return imageFile;
     }
 
-    public void setImage(MultipartFile image) {
-        this.image = image;
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
     }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
 
 
 }
