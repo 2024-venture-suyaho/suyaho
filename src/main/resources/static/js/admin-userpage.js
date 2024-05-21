@@ -29,10 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.imageUrl) {
-                        document.getElementById('profilePic').src = data.imageUrl;
-                        // 이미지 URL 변경 후 새로고침
-                        location.reload();
+                    if (data.imageUrl) {// 캐시 무효화를 위해 쿼리 문자열 추가
+                        // 이미지 URL 변경 후 새로고침 없이 바로 반영
+                        document.getElementById('profilePic').src = data.imageUrl + '?timestamp=' + new Date().getTime();
+                        //document.getElementById('profilePic').src = data.imageUrl;
+
 
                     } else {
                         alert('프로필 사진 업로드에 실패했습니다.');
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     alert('전화번호가 성공적으로 변경되었습니다.');
                     document.getElementById('userPhone').innerText = newPhoneNumber; // UI 업데이트
+                    location.reload();
                 } else {
                     response.json().then(data => alert(data.message));
                 }
@@ -108,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     alert('학과가 성공적으로 변경되었습니다.');
                     document.getElementById('userMajor').innerText = newMajor; // UI 업데이트
+                    location.reload();
                 } else if (response.status === 400) {
                     response.json().then(data => {
                         if (data.message === 'Current password is incorrect') {
