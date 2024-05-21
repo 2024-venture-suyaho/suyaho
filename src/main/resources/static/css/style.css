@@ -98,11 +98,11 @@ body {
 .index-header {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 400px;
 }
 
 .index-header h2 {
-    margin-top: 100px;
+    margin-top: 200px;
     text-align: right;
     margin-right: calc(20%);
 }
@@ -117,8 +117,10 @@ body {
 }
 
 .main-content {
-    margin-top: 100px;
     position: relative;
+    margin-top: 90px;
+    height: 400px;
+
 }
 
 .main-content h3 {
