@@ -3,13 +3,21 @@ package com.venture.suyaho.dto;
 public class UserDTO {
     private String email;
     private String password;
+    private String name;
+    private String phone;
+    private String major;
+    private Integer studentId;
 
     public UserDTO() {
     }
 
-    public UserDTO(String email, String password) {
+    public UserDTO(String email, String password, String name, String phone, String major, Integer studentId) {
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.major = major;
+        this.studentId = studentId;
     }
 
     public String getEmail() {
@@ -28,11 +36,47 @@ public class UserDTO {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", major='" + major + '\'' +
+                ", studentId=" + studentId +
                 '}';
     }
 }
