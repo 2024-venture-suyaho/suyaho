@@ -8,26 +8,26 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<div class="header">
-    <h1>삼육대학교 자원순환 프로젝트</h1>
-    <img src="path/to/your/image1.jpg" alt="이미지">
+<div class="section index-header">
+    <h2>삼육대학교 자원순환 프로젝트</h2>
+    <img th:src="@{/img/main1.png}" alt="Main1">
 </div>
 
-<div class="content">
-    <div>
-        <h2>환경을 생각한다면</h2>
-        <p>아껴쓰고</p>
-        <p>나눠쓰고</p>
-        <p>바꿔쓰고</p>
-        <p>다시쓰자</p>
-    </div>
-    <div>
-        <p>삼육대학교 학생들은 n건의 중고거래를 통해 환경을 지켰어요!</p>
-        <img src="path/to/your/image2.jpg" alt="이미지">
-    </div>
+<div class="section main-content">
+    <h3>환경을 생각한다면</h3>
+    <p>아껴쓰고</p>
+    <p>나눠쓰고</p>
+    <p>바꿔쓰고</p>
+    <p>다시쓰자</p>
+    <img th:src="@{/img/main2.png}" alt="Main2">
 </div>
 
-<div class="footer">
+<div class="section additional-content">
+    <p>삼육대학교 학생들은 n건의 중고거래를 통해 환경을 지켰어요!</p>
+    <img src="path/to/your/image2.jpg" alt="이미지">
+</div>
+
+<div class="section index-footer">
     <h2>쓰레기통 위치</h2>
     <img class="map" src="path/to/your/map.jpg" alt="지도 api">
 </div>

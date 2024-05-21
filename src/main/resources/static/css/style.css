@@ -90,30 +90,74 @@ main.content {
 /* 여기서부터 메인 */
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.header, .content, .footer {
-    text-align: center;
-    margin: 20px;
-}
-
-.header img, .footer img {
-    width: 50px;
-    height: auto;
-}
-
-.map {
+.index-header {
+    position: relative;
     width: 100%;
-    height: 500px;
+    height: auto;
+    text-align: center;
 }
 
-.content {
-    margin: 40px 0;
+.index-header h2 {
+    margin-top: 50px;
 }
 
-.content div {
-    margin: 20px 0;
+.index-header img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: -1;
 }
+
+.main-content {
+    position: relative;
+}
+
+.main-content h3, p {
+    text-align: center;
+}
+
+.main-content img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+
+.additional-content {
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.additional-content p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.additional-content p {
+    font-size: 1.2em;
+}
+
+.additional-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
 
 
 /* 여기서부터 푸터 */
