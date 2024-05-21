@@ -121,7 +121,12 @@ body {
     position: relative;
 }
 
-.main-content h3, p {
+.main-content h3 {
+    text-align: center;
+}
+
+.main-content p {
+    margin-top: 120px;
     text-align: center;
 }
 
@@ -135,29 +140,12 @@ body {
 }
 
 .additional-content {
-    margin: 20px;
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .additional-content p {
-    margin: 10px 0;
-    color: #333;
-}
-
-.additional-content p {
-    font-size: 1.2em;
-}
-
-.additional-content img {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 10px 0;
-    border-radius: 8px;
+    margin-top: 170px;
+    color: #0C2DA0;
 }
 
 
