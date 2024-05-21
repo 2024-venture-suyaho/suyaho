@@ -5,15 +5,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 특정 사용자 번호를 사용하여 테이블 데이터를 가져옴
     fetchTradesByUserNo(userNo);
 
-    // 프로필 사진 변경 버튼 클릭 이벤트
+    // 프로필 사진 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
     document.getElementById('changePicBtn').addEventListener('click', function() {
-        document.getElementById('fileInput').click(); // 파일 선택창
+        // 파일 입력 요소를 클릭하여 파일 선택 창을 엽니다.
+        document.getElementById('fileInput').click();
     });
 
-    // 파일 입력 변경
-    document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+    // 파일 입력 요소에 change 이벤트 리스너를 추가합니다.
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        // 선택된 파일을 가져옵니다.
+        const file = event.target.files[0];
+        if (file) {
+            // 파일 크기 검증 (2MB 이하로 제한)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('파일 크기가 너무 큽니다. 최대 크기는 2MB입니다.');
+                return;
+            }
 
-    // 전화번호 변경 버튼에 클릭 이벤트
+            // FormData 객체를 생성하고 파일과 사용자 번호를 추가합니다.
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('userNo', userNo);
+
+            // 서버로 파일 업로드 요청을 보냅니다.
+            fetch('/api/users/uploadProfileImage', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 업로드가 성공하면 프로필 사진을 업데이트합니다.
+                    if (data.imageUrl) {
+                        document.getElementById('profilePic').src = data.imageUrl;
+                    } else {
+                        // 업로드가 실패하면 오류 메시지를 표시합니다.
+                        alert('프로필 사진 업로드에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error uploading profile picture:', error));
+        }
+    });
+
+    // 전화번호 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
     document.getElementById('changePhoneBtn').addEventListener('click', function() {
         const currentPassword = document.getElementById('currentPassword').value; // 현재 비밀번호 입력 값
         const newPhoneNumber = document.getElementById('phoneInput').value; // 입력칸에 입력된 전화번호 가져오기
@@ -22,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('현재 비밀번호를 입력해주세요.');
             return;
         }
+
         // 전화번호 형식 검증 (010-@@@@-@@@@)
         const phonePattern = /^010-\d{4}-\d{4}$/;
         if (!phonePattern.test(newPhoneNumber)) {
@@ -44,14 +78,15 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     alert('전화번호가 성공적으로 변경되었습니다.');
-                    window.location.href = '/mypage';
+                    document.getElementById('userPhone').innerText = newPhoneNumber; // UI 업데이트
                 } else {
                     response.json().then(data => alert(data.message));
                 }
             })
             .catch(error => console.error('Error changing phone number:', error));
     });
-    // 학과 변경 버튼에 클릭 이벤트
+
+    // 학과 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
     document.getElementById('changeMajorBtn').addEventListener('click', function() {
         const currentPassword = document.getElementById('currentPassword').value; // 현재 비밀번호 입력 값
         const newMajor = document.getElementById('majorDropdown').value; // 선택된 학과명 가져오기
@@ -92,18 +127,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error changing major:', error));
     });
 
-    // 비밀번호 변경 버튼에 클릭 이벤트
+    // 비밀번호 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
     document.getElementById('changePasswordBtn').addEventListener('click', function() {
         const currentPassword = document.getElementById('currentPassword').value; // 현재 비밀번호
         const newPassword = document.getElementById('newPassword').value; // 새로운 비밀번호 입력 값 가져옴
         const confirmPassword = document.getElementById('confirmPassword').value; // 비밀번호 확인 입력란 값 가져옴
+
         if (!newPassword) {
             alert('변경할 비밀번호를 입력해주세요.');
             return;
         }
         if (newPassword !== confirmPassword) {
             alert('새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-            window.location.href = '/mypage';
             return;
         }
 
@@ -125,12 +160,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = '/';
                 } else {
                     response.json().then(data => alert(data.message));
-                    alert('비밀번호가 일치하지않습니다.')
                 }
             })
             .catch(error => console.error('Error changing password:', error));
     });
 
+    // 게시글 삭제 버튼에 이벤트 리스너 추가
     addDeleteEventToTradeButtons();
 });
 
@@ -178,35 +213,10 @@ function addDeleteEventToTradeButtons() {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    // Remove the trade from the table
+                    // 테이블에서 해당 게시글을 제거합니다.
                     this.parentElement.parentElement.remove();
                 })
                 .catch(error => console.error('Error deleting trade:', error));
         });
     });
-}
-
-// 학과 업데이트 함수
-function updateMajor(newMajor) {
-    document.getElementById('userMajor').innerText = newMajor;
-    // 서버에 업데이트 요청을 보내야 함
-}
-
-// 파일이 선택됐을 때 처리하는 함수
-function handleFileSelect(event) {
-    const selectedFile = event.target.files[0]; // 선택된 파일 가져오기
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-        const profileImage = document.getElementById('profilePic');
-        profileImage.src = event.target.result; // 선택 사진을 프로필 이미지로 설정
-    };
-
-    reader.readAsDataURL(selectedFile);
-}
-
-// 전화번호 업데이트 함수
-function updatePhoneNumber(newPhoneNumber) {
-    document.getElementById('userPhone').innerText = newPhoneNumber;
-    // 서버에 업데이트 요청을 보내야 함
 }

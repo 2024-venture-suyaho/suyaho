@@ -1,18 +1,22 @@
-  spring:
-    thymeleaf:
-      cache: false
-      prefix: classpath:/templates/
-      suffix: .html
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
 
-    datasource:
-      url: jdbc:mysql://localhost:3306/suyaho
-      username: sahmyook
-      password: sahmyook
-      driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:mysql://localhost:3306/suyaho
+    username: sahmyook
+    password: sahmyook
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-    jpa:
-      hibernate:
-        ddl-auto: update
-        dialect: org.hibernate.dialect.MySQLDialect
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
 
-      show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB

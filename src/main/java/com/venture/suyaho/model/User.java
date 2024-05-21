@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
-    private Integer userNo;
+    private Long userNo;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -43,11 +43,11 @@ public class User {
     private byte[] userImg;
 
     // Getters and Setters
-    public Integer getUserNo() {
+    public Long getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(Integer userNo) {
+    public void setUserNo(Long userNo) {
         this.userNo = userNo;
     }
 
