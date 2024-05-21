@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -14,13 +14,13 @@ public class User {
 
     // 사용자 정보 필드 추가
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Trade> tradeList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Book> bookList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Other> othersList;
 
     public Long getId() {
@@ -28,6 +28,8 @@ public class User {
     }
     @Column(name = "username")
     private String username;
+    @OneToMany(mappedBy = "users")
+    private List<Book> books;
 
     public String getUsername() {
         return username;

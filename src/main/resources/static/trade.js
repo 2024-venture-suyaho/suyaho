@@ -1,6 +1,36 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const categorySelect = document.getElementById('category');
+
+        categorySelect.addEventListener('change', function() {
+            const selectedCategoryId = this.value;
+
+            if (selectedCategoryId) {
+                // 선택한 카테고리에 해당하는 거래 목록 가져오기
+                fetch(`/trade/category/${selectedCategoryId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 거래 목록 업데이트
+                        updateTradeList(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                // 전체 거래 목록 가져오기
+                fetch('/trade/list')
+                    .then(response => response.json())
+                    .then(data => {
+                        // 거래 목록 업데이트
+                        updateTradeList(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
     const searchBtn = document.getElementById('search-btn');
     searchBtn.addEventListener('click', function () {
         const keyword = document.getElementById('search-input').value;
@@ -22,50 +52,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function searchTrades(keyword, option) {
-
-        fetch(`/trade/search?keyword=${keyword}&option=${option}`)
-            .then(response => response.json())
-            .then(data => {
-                // 검색 결과를 받아서 거래 목록 업데이트
-                updateTradeList(data);
+        axios.get(`/trade/search?keyword=${keyword}&option=${option}`)
+            .then(response => {
+                updateTradeList(response.data);
             })
             .catch(error => {
                 console.error('검색 요청 실패:', error);
             });
     }
 
-
     function filterByCategory(category) {
-        // 서버로 해당 카테고리의 거래 목록 요청하기
-        fetch(`/trade/category/${category}`)
-            .then(response => response.json())
-            .then(data => {
-                // 받아온 거래 목록으로 업데이트
-                updateTradeList(data);
+        axios.get(`/trade/category/${category}`)
+            .then(response => {
+                updateTradeList(response.data);
             })
             .catch(error => {
                 console.error('카테고리 필터링 요청 실패:', error);
             });
     }
 
+    fetchTradeList();
 
+    function fetchTradeList() {
+        axios.get('/trade/list')
+            .then(response => {
+                updateTradeList(response.data);
+            })
+            .then(data => {
+                // 응답 처리
+                if (data.success) {
+                    // 거래 목록 페이지로 이동
+                    window.location.href = '/trade/list';
+                } else {
+                    // 실패 시 에러 메시지 표시
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.textContent = data.message;
+                }
+            })
+            .catch(error => {
+                console.error('거래 목록 요청 실패:', error);
+            });
+    }
     function updateTradeList(trades) {
-        const tbody = document.querySelector('table tbody');
-        tbody.innerHTML = '';
+        const tradeList = document.getElementById('trade-list');
+        tradeList.innerHTML = '';
 
-        trades.forEach((trade, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${trade.title}</td>
-                <td>${trade.category}</td>
-                <td>${formatDate(trade.tradeTime)}</td>
-                <td>${trade.user.username}</td>
-                <td>${trade.tradeComplete ? '거래완료' : '거래중'}</td>
-            `;
-            tbody.appendChild(row);
+        trades.forEach(trade => {
+            const tradeItem = document.createElement('div');
+            tradeItem.classList.add('trade-item');
+            tradeItem.textContent = trade.title;
+            tradeList.appendChild(tradeItem);
         });
     }
+});
 
 
     function formatDate(dateString) {

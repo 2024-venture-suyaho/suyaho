@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>중고거래 목록</title>
-    <link rel="stylesheet" href="../../static/css/trade.css">
+    <link rel="stylesheet" href="../../../static/css/trade.css">
 </head>
 <body>
 <div class="container">
-    <a th:href="@{/}">
-        <img src="../../static/images/수야.jpg" alt="Homepage Image" height="150px" width="100%">
+    <a th:href="@{/static}">
+        <img src="../../../static/images/수야.jpg" alt="Homepage Image" height="150px" width="100%">
     </a>
     <h1>중고거래 목록</h1>
-    <div class="category-buttons">
-        <a th:href="@{/trade/category/ALL}" class="category-btn active">전체</a>
-        <a th:href="@{/trade/category/BOOK}" class="category-btn">도서</a>
-        <a th:href="@{/trade/category/DONATION}" class="category-btn">기부</a>
-        <a th:href="@{/trade/category/ETC}" class="category-btn">기타</a>
+    <div class="category-select">
+        <select id="category" name="categoryId" required>
+            <option value="">카테고리 선택</option>
+            <option value="1">도서</option>
+            <option value="2">기부</option>
+            <option value="3">기타</option>
+        </select>
     </div>
     <div class="search-form">
         <div class="search-input-container">
@@ -40,18 +42,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="trade, status : ${tradeList}">
-            <td th:text="${status.count}"></td>
+        <tr th:each="trade : ${tradeList}">
+            <td th:text="${trade.tradeNum}"></td>
             <td th:text="${trade.title}"></td>
             <td th:text="${trade.category}"></td>
             <td th:text="${#temporals.format(trade.regDate, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${trade.userId}"></td>
-            <td th:text="${trade.tradeStatus ? '거래완료' : '거래중'}"></td>
+            <td th:text="${trade.user.username}"></td>
+            <td th:text="${trade.tradeComplete} ? '거래완료' : '거래중'"></td>
         </tr>
         </tbody>
     </table>
-    <a href="../trade/write.html" class="write-btn">게시글 작성</a>
+    <a href="./write.html" class="write-btn">게시글 작성</a>
 </div>
-<script src="../../static/trade.js"></script>
+<script src="../../../static/trade.js"></script>
 </body>
 </html>

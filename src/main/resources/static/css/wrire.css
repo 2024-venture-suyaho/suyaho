@@ -28,6 +28,30 @@ h1 {
     text-align: center;
     color: #333;
 }
+.selection-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.selection-table th,
+.selection-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.selection-table th {
+    background-color: #f2f2f2;
+}
+
+.selection-table td.selectable {
+    cursor: pointer;
+}
+
+.selection-table td.selectable.active {
+    background-color: #007bff;
+    color: #fff;
+}
 
 .form-group {
     margin-bottom: 20px;
@@ -54,19 +78,40 @@ textarea {
     height: 100px;
 }
 
-.radio-group {
-    display: flex;
-    align-items: center;
+.input-group {
+    position: relative;
 }
 
-.radio-group div {
-    margin-right: 20px;
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
-.button-group {
-    text-align: center;
+.option-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 1;
+    display: none;
 }
 
+.option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.option.active {
+    background-color: #007bff;
+    color: #fff;
+}
 .submit-btn {
     padding: 10px 20px;
     background-color: #007bff;
@@ -79,4 +124,24 @@ textarea {
 
 .submit-btn:hover {
     background-color: #0056b3;
+}
+.selection-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.selection-table th,
+.selection-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.selection-table th {
+    background-color: #f2f2f2;
+}
+.selection-table td.selectable {
+    cursor: pointer;
+}
+.selection-table td.selectable.active {
+    background-color: #007bff;
+    color: #fff;
 }
