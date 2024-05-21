@@ -2,20 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>삼육대학교 자원순환 프로젝트</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<div style="margin: 20px;">
-    <h1>Welcome to Venture Suyaho</h1>
-    <div th:if="${user != null}">
-        <p>Welcome, <span th:text="${user}">User</span>!</p>
+<div class="header">
+    <h1>삼육대학교 자원순환 프로젝트</h1>
+    <img src="path/to/your/image1.jpg" alt="이미지">
+</div>
+
+<div class="content">
+    <div>
+        <h2>환경을 생각한다면</h2>
+        <p>아껴쓰고</p>
+        <p>나눠쓰고</p>
+        <p>바꿔쓰고</p>
+        <p>다시쓰자</p>
     </div>
-    <div th:if="${user == null}">
-        <p>Please log in to access more features.</p>
+    <div>
+        <p>삼육대학교 학생들은 n건의 중고거래를 통해 환경을 지켰어요!</p>
+        <img src="path/to/your/image2.jpg" alt="이미지">
     </div>
+</div>
+
+<div class="footer">
+    <h2>쓰레기통 위치</h2>
+    <img class="map" src="path/to/your/map.jpg" alt="지도 api">
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
