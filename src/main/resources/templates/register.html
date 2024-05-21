@@ -13,12 +13,38 @@
     <h2>회원가입</h2>
     <form th:action="@{/register}" method="post">
         <div class="form-group">
-            <input type="text" name="name" placeholder="이름" required>
+            <input type="text" name="name" placeholder="이름을 입력해주세요" required>
         </div>
         <div class="form-group">
             <select name="major" required>
                 <option value="" disabled selected>학과 선택</option>
-                <!-- 학과 리스트 -->
+                <option value="건축학과(4년제)">학과를 입력해주세요</option>
+                <option value="건축학과(4년제)">건축학과(4년제)</option>
+                <option value="건축학과(5년제)">건축학과(5년제)</option>
+                <option value="경영학과">경영학과</option>
+                <option value="글로벌한국학과">글로벌한국학과</option>
+                <option value="동물자원과학과">동물자원과학과</option>
+                <option value="물리치료학과">물리치료학과</option>
+                <option value="바이오융합공학과">바이오융합공학과</option>
+                <option value="보건관리학과">보건관리학과</option>
+                <option value="빅데이터클라우드공학과">빅데이터클라우드공학과</option>
+                <option value="사회복지학과">사회복지학과</option>
+                <option value="상담심리학과">상담심리학과</option>
+                <option value="스미스학부대학">스미스학부대학</option>
+                <option value="식품영양학과">식품영양학과</option>
+                <option value="신학과">신학과</option>
+                <option value="아트앤디자인학과">아트앤디자인학과</option>
+                <option value="약학과">약학과</option>
+                <option value="영어영문학과">영어영문학과</option>
+                <option value="유아교육과">유아교육과</option>
+                <option value="음악학과">음악학과</option>
+                <option value="인공지능융합학부">인공지능융합학부</option>
+                <option value="체육학과">체육학과</option>
+                <option value="컴퓨터공학부">컴퓨터공학부</option>
+                <option value="항공관광외국어학부">항공관광외국어학부</option>
+                <option value="화학생명과학과">화학생명과학과</option>
+                <option value="환경디자인원예학과">환경디자인원예학과</option>
+                <option value="교직원">교직원</option>
             </select>
         </div>
         <div class="form-group">
