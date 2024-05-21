@@ -5,11 +5,13 @@ import com.venture.suyaho.model.User;
 import com.venture.suyaho.repository.AdminBoardRepository;
 import com.venture.suyaho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,6 +28,7 @@ public class AdminController {
     public List<AdminBoard> getTrades() {
         return adminBoardRepository.findAll();
     }
+
     @GetMapping("/trades/user/{userNo}")
     public List<AdminBoard> getTradesByUserNo(@PathVariable Integer userNo) {
         return adminBoardRepository.findByUser_UserNo(userNo);
@@ -87,20 +90,21 @@ public class AdminController {
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
     }
+
     @GetMapping("/userposts/{userNo}")
     public List<AdminBoard> getUserPosts(@PathVariable Integer userNo) {
         return adminBoardRepository.findByUser_UserNo(userNo);
     }
 
+    @PostMapping("/trades/updateStatus/{tradeNum}")
+    public ResponseEntity<String> updateTradeStatus(@PathVariable Long tradeNum, @RequestBody Map<String, String> status) {
+        AdminBoard trade = adminBoardRepository.findById(tradeNum).orElse(null);
+        if (trade == null) {
+            return ResponseEntity.notFound().build();
+        }
+        trade.setTradeComplete(status.get("tradeComplete").charAt(0));
+        adminBoardRepository.save(trade);
+        return ResponseEntity.ok("Trade status updated successfully");
+    }
 
-//    @Service
-//    public class UserService {
-//
-//        @Autowired
-//        private UserRepository userRepository;
-//
-//        public List<User> getAllUsers() {
-//            return userRepository.findAll();
-//        }
-//    }
 }

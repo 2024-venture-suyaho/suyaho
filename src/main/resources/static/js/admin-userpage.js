@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 특정 사용자의 사용자 번호를 가져옵니다.
+    // 사용자 번호를 가져오기
     const userNo = document.getElementById('userNo').value;
 
-    // 페이지 로드 시 특정 사용자 번호를 사용하여 테이블 데이터를 가져옴
+    // 페이지 로드 시 사용자의 게시글을 가져오기
     fetchTradesByUserNo(userNo);
 
-    // 프로필 사진 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
+    // 프로필 사진 변경 버튼 클릭 이벤트
     document.getElementById('changePicBtn').addEventListener('click', function() {
         document.getElementById('fileInput').click();
     });
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
-            // 파일 크기 검증 (2MB 이하로 제한)
+            // 파일 크기 검증
             if (file.size > 2 * 1024 * 1024) {
                 alert('파일 크기가 너무 큽니다. 최대 크기는 2MB입니다.');
                 return;
@@ -29,12 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.imageUrl) {// 캐시 무효화를 위해 쿼리 문자열 추가
-                        // 이미지 URL 변경 후 새로고침 없이 바로 반영
+                    if (data.imageUrl) {
                         document.getElementById('profilePic').src = data.imageUrl + '?timestamp=' + new Date().getTime();
-                        //document.getElementById('profilePic').src = data.imageUrl;
-
-
                     } else {
                         alert('프로필 사진 업로드에 실패했습니다.');
                     }
@@ -43,24 +39,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 전화번호 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
+    // 전화번호 변경 이벤트
     document.getElementById('changePhoneBtn').addEventListener('click', function() {
-        const currentPassword = document.getElementById('currentPassword').value; // 현재 비밀번호 입력 값
-        const newPhoneNumber = document.getElementById('phoneInput').value; // 입력칸에 입력된 전화번호 가져오기
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPhoneNumber = document.getElementById('phoneInput').value;
 
         if (!currentPassword) {
             alert('현재 비밀번호를 입력해주세요.');
             return;
         }
 
-        // 전화번호 형식 검증 (010-@@@@-@@@@)
         const phonePattern = /^010-\d{4}-\d{4}$/;
         if (!phonePattern.test(newPhoneNumber)) {
             alert('전화번호 형식이 올바르지 않습니다. 010-XXXX-XXXX 형식으로 입력해주세요.');
             return;
         }
 
-        // 전화번호 변경 요청 보내기
         fetch(`/api/users/changePhone`, {
             method: 'POST',
             headers: {
@@ -75,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     alert('전화번호가 성공적으로 변경되었습니다.');
-                    document.getElementById('userPhone').innerText = newPhoneNumber; // UI 업데이트
+                    document.getElementById('userPhone').innerText = newPhoneNumber;
                     location.reload();
                 } else {
                     response.json().then(data => alert(data.message));
@@ -84,17 +78,16 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error changing phone number:', error));
     });
 
-    // 학과 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
+    // 학과 변경 이벤트
     document.getElementById('changeMajorBtn').addEventListener('click', function() {
-        const currentPassword = document.getElementById('currentPassword').value; // 현재 비밀번호 입력 값
-        const newMajor = document.getElementById('majorDropdown').value; // 선택된 학과명 가져오기
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newMajor = document.getElementById('majorDropdown').value;
 
         if (!currentPassword) {
             alert('현재 비밀번호를 입력해주세요.');
             return;
         }
 
-        // 학과 변경 요청 보내기
         fetch(`/api/users/changeMajor`, {
             method: 'POST',
             headers: {
@@ -109,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     alert('학과가 성공적으로 변경되었습니다.');
-                    document.getElementById('userMajor').innerText = newMajor; // UI 업데이트
+                    document.getElementById('userMajor').innerText = newMajor;
                     location.reload();
                 } else if (response.status === 400) {
                     response.json().then(data => {
@@ -126,11 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error changing major:', error));
     });
 
-    // 비밀번호 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
+    // 비밀번호 변경 이벤트
     document.getElementById('changePasswordBtn').addEventListener('click', function() {
-        const currentPassword = document.getElementById('currentPassword').value; // 현재 비밀번호
-        const newPassword = document.getElementById('newPassword').value; // 새로운 비밀번호 입력 값 가져옴
-        const confirmPassword = document.getElementById('confirmPassword').value; // 비밀번호 확인 입력란 값 가져옴
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
         if (!newPassword) {
             alert('변경할 비밀번호를 입력해주세요.');
@@ -141,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // 비밀번호 변경 요청 보내기
         fetch(`/api/users/changePassword`, {
             method: 'POST',
             headers: {
@@ -164,11 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error changing password:', error));
     });
 
-    // 게시글 삭제 버튼에 이벤트 리스너 추가
+    // 게시글 삭제 이벤트
     addDeleteEventToTradeButtons();
 });
-
-// 특정 사용자 번호를 사용하여 게시글을 가져오는 함수
+//게시글 랜더링
 function fetchTradesByUserNo(userNo) {
     fetch(`/api/userposts/${userNo}`)
         .then(response => {
@@ -183,23 +174,29 @@ function fetchTradesByUserNo(userNo) {
             data.forEach(trade => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${trade.tradeNum}</td>
-                    <td>${trade.tradeTitle}</td>
-                    <td>${trade.tradeCategory}</td>
-                    <td>${trade.tradeTime}</td>
-                    <td>${trade.schoolNum}</td>
-                    <td>${trade.tradeComplete}</td>
-                    <td><button class="delete-button" data-tradenum="${trade.tradeNum}">삭제</button></td>
-                    <td><button>수정</button></td>
-                `;
+                <td>${trade.tradeNum}</td>
+                <td>${trade.tradeTitle}</td>
+                <td>${trade.tradeCategory}</td>
+                <td>${trade.tradeTime}</td>
+                <td>${trade.schoolNum}</td>
+                <td>${trade.tradeComplete}</td>
+                <td><button class="delete-button" data-tradenum="${trade.tradeNum}">삭제</button></td>
+                 <td>
+                <select class="trade-status-dropdown" data-trade-num="${trade.tradeNum}">
+                            <option ${trade.tradeComplete === 'N' ? 'selected' : ''} value="N">거래전</option>
+                            <option ${trade.tradeComplete === 'I' ? 'selected' : ''} value="I">거래중</option>
+                            <option ${trade.tradeComplete === 'Y' ? 'selected' : ''} value="Y">거래후</option>
+                </select>
+            </td>
+            `;
                 tbody.appendChild(tr);
             });
             addDeleteEventToTradeButtons(); // 새로운 삭제 이벤트 추가
+            addChangeEventToSelects(); // 수정 이벤트
         })
         .catch(error => console.error('Error fetching trades:', error));
 }
 
-// 삭제 버튼에 이벤트 리스너를 추가하는 함수
 function addDeleteEventToTradeButtons() {
     const deleteButtons = document.querySelectorAll('.delete-button');
     deleteButtons.forEach(button => {
@@ -218,4 +215,35 @@ function addDeleteEventToTradeButtons() {
                 .catch(error => console.error('Error deleting trade:', error));
         });
     });
+}
+// 거래상태 수정이벤트 호출
+function addChangeEventToSelects() {
+    const selects = document.querySelectorAll('.trade-status-dropdown');
+    selects.forEach(select => {
+        select.addEventListener('change', function() {
+            updateTradeStatus(this);
+        });
+    });
+}
+// 거래상태 수정
+function updateTradeStatus(selectElement) {
+    const tradeNum = selectElement.getAttribute('data-trade-num');
+    const newStatus = selectElement.value;
+
+    fetch(`/api/trades/updateStatus/${tradeNum}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ tradeComplete: newStatus })
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('거래 상태가 업데이트 되었습니다.');
+            } else {
+                alert('거래 상태 업데이트를 실패했습니다.');
+                console.log(response);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating trade status:', error);
+        });
 }

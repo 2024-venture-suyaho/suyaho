@@ -99,7 +99,7 @@
             <th>학교번호</th>
             <th>거래여부</th>
             <th>삭제</th>
-            <th>수정</th>
+            <th>거래상태</th>
         </tr>
         </thead>
         <tbody id="users">
@@ -112,7 +112,15 @@
             <td th:text="${trade.schoolNum}"></td>
             <td th:text="${trade.tradeComplete}"></td>
             <td><button class="delete-button" th:attr="data-tradeNum=${trade.tradeNum}">삭제</button></td>
-            <td><button>수정</button></td>
+            <td>냥냥</td>
+            <td>
+                <select class="trade-status-dropdown" th:data-trade-num="${trade.tradeNum}">
+                    <option th:selected="${trade.tradeComplete == 'N'}" value="N">거래전</option>
+                    <option th:selected="${trade.tradeComplete == 'I'}" value="I">거래중</option>
+                    <option th:selected="${trade.tradeComplete == 'Y'}" value="Y">거래후</option>
+                </select>
+            </td>
+
         </tr>
         </tbody>
     </table>
