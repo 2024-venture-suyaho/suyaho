@@ -1,67 +1,181 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>WebSocket Chat</title>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        var stompClient = null;
-
-        function connect() {
-            var socket = new SockJS('/ws');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function (frame) {
-                console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/public', function (message) {
-                    showMessage(JSON.parse(message.body));
-                });
-            });
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F4EF;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        function disconnect() {
-            if (stompClient !== null) {
-                stompClient.disconnect();
-            }
-            console.log("Disconnected");
+        main {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
         }
 
-        function sendMessage() {
-            var messageContent = $("#message").val();
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({'content': messageContent, 'sender': $("#name").val()}));
+        aside {
+            width: 250px;
+            background-color: #4d674e;
+            color: white;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
 
-        function showMessage(message) {
-            $("#response").append("<tr><td>" + message.sender + ": " + message.content + "</td></tr>");
+        aside ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
+        aside li {
+            padding: 15px;
+            border-bottom: 1px solid #648165;
+            cursor: pointer;
+        }
 
-        $(function () {
-            $("form").on('submit', function (e) {
-                e.preventDefault();
-            });
-            connect();
-            $("#send").click(function () {
-                sendMessage();
-            });
-        });
-    </script>
+        aside li:hover {
+            background-color: rgb(67, 79, 73);
+        }
+
+        .chat-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #e9ecef;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #f8f9fa;
+            padding: 1em;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+            flex-shrink: 0;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1em;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message {
+            max-width: 60%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .chat-message.left {
+            background-color: #e1e1e1;
+            align-self: flex-start;
+        }
+
+        .chat-message.right {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1em;
+            border-top: 1px solid #dee2e6;
+            flex-shrink: 0;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<form>
-    <div>
-        <input type="text" id="name" placeholder="Enter your name" />
-        <input type="text" id="message" placeholder="Enter your message here" />
-        <button id="send">Send</button>
+<div th:replace="fragments/header :: header"></div>
+
+<main>
+    <aside>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </aside>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>유저이름</h2>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="chat-message left">
+                <p>ㅇㅇ</p>
+            </div>
+            <div class="chat-message right">
+                <p>ㅇㅇ</p>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="메세지를 입력해주세요">
+            <button id="send-button">전송</button>
+        </div>
     </div>
-</form>
-<table id="response">
-    <thead>
-    <tr>
-        <th>Messages</th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+</main>
+<script>
+    document.getElementById('chat-input').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            addMessage();
+        }
+    });
+
+    document.getElementById('send-button').addEventListener('click', function() {
+        addMessage();
+    });
+
+    function addMessage() {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (message === '') return;
+
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('chat-message', 'right');
+        messageContainer.innerHTML = `<p>${message}</p>`;
+
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.appendChild(messageContainer);
+        input.value = '';
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+</script>
+<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>
