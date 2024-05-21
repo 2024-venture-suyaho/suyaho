@@ -19,11 +19,10 @@
 <input type="hidden" id="userNo" th:value="${user.userNo}" />
 <div class="profile-container">
     <div class="profile-image" id="profileImageContainer">
-        <img id="profilePic" th:src="@{/img/asf.png}" alt="Profile Picture">
+        <img id="profilePic" th:src="${user.userImg == null ? '/img/asf.png' : '/api/users/profileImage/' + user.userNo}" alt="Profile Picture">
         <input type="file" id="fileInput" style="display: none;">
         <label class="change-pic-btn" id="changePicBtn" style="text-align: center; cursor: pointer;">프로필 사진 변경</label>
         <p id="userPoint" class="point-info" th:text="'포인트: ' + ${user.userPoint}"></p>
-
     </div>
     <div class="profile-info">
         <div>

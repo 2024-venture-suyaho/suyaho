@@ -7,13 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 프로필 사진 변경 버튼에 클릭 이벤트 리스너를 추가합니다.
     document.getElementById('changePicBtn').addEventListener('click', function() {
-        // 파일 입력 요소를 클릭하여 파일 선택 창을 엽니다.
         document.getElementById('fileInput').click();
     });
 
-    // 파일 입력 요소에 change 이벤트 리스너를 추가합니다.
     document.getElementById('fileInput').addEventListener('change', function(event) {
-        // 선택된 파일을 가져옵니다.
         const file = event.target.files[0];
         if (file) {
             // 파일 크기 검증 (2MB 이하로 제한)
@@ -22,23 +19,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // FormData 객체를 생성하고 파일과 사용자 번호를 추가합니다.
             const formData = new FormData();
             formData.append('file', file);
             formData.append('userNo', userNo);
 
-            // 서버로 파일 업로드 요청을 보냅니다.
             fetch('/api/users/uploadProfileImage', {
                 method: 'POST',
                 body: formData
             })
                 .then(response => response.json())
                 .then(data => {
-                    // 업로드가 성공하면 프로필 사진을 업데이트합니다.
                     if (data.imageUrl) {
                         document.getElementById('profilePic').src = data.imageUrl;
+                        // 이미지 URL 변경 후 새로고침
+                        location.reload();
+
                     } else {
-                        // 업로드가 실패하면 오류 메시지를 표시합니다.
                         alert('프로필 사진 업로드에 실패했습니다.');
                     }
                 })

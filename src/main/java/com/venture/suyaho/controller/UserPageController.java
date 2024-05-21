@@ -22,56 +22,45 @@ public class UserPageController {
     @PostMapping("/users/changeMajor")
     public ResponseEntity<?> changeMajor(@RequestBody ChangeMajorRequest request) {
         User user = userRepository.findById(request.getUserNo()).orElse(null);
-
         if (user == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
-
         if (!user.getUserPwd().equals(request.getCurrentPassword())) {
             return new ResponseEntity<>("Current password is incorrect", HttpStatus.BAD_REQUEST);
         }
-
         user.setUserMajor(request.getNewMajor());
         userRepository.save(user);
-
         return new ResponseEntity<>("Major changed successfully", HttpStatus.OK);
     }
 
     @PostMapping("/users/changePhone")
     public ResponseEntity<?> changePhone(@RequestBody ChangePhoneRequest request) {
         User user = userRepository.findById(request.getUserNo()).orElse(null);
-
         if (user == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
-
         if (!user.getUserPwd().equals(request.getCurrentPassword())) {
             return new ResponseEntity<>("Current password is incorrect", HttpStatus.BAD_REQUEST);
         }
-
         user.setUserPhone(request.getNewPhoneNumber());
         userRepository.save(user);
-
         return new ResponseEntity<>("Phone number changed successfully", HttpStatus.OK);
     }
 
     @PostMapping("/users/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
         User user = userRepository.findById(request.getUserNo()).orElse(null);
-
         if (user == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
-
         if (!user.getUserPwd().equals(request.getCurrentPassword())) {
             return new ResponseEntity<>("Current password is incorrect", HttpStatus.BAD_REQUEST);
         }
-
         user.setUserPwd(request.getNewPassword());
         userRepository.save(user);
-
         return new ResponseEntity<>("Password changed successfully", HttpStatus.OK);
     }
+
     @PostMapping("/users/uploadProfileImage")
     public ResponseEntity<?> uploadProfileImage(@RequestParam("file") MultipartFile file, @RequestParam("userNo") Long userNo) {
         try {
@@ -79,40 +68,33 @@ public class UserPageController {
             if (user == null) {
                 return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
             }
-
             // 파일 크기 검증 (2MB 이하로 제한)
             if (file.getSize() > 2 * 1024 * 1024) {
                 return new ResponseEntity<>("File is too large. Max size is 2MB.", HttpStatus.BAD_REQUEST);
             }
-
             // 이미지 데이터를 byte 배열로 변환하여 저장
             byte[] imageBytes = file.getBytes();
             user.setUserImg(imageBytes);
             userRepository.save(user);
-
-            // Assuming you have a method to generate the image URL
+            // 이미지 URL 생성
             String imageUrl = generateImageUrl(userNo);
-
             return ResponseEntity.ok().body(Collections.singletonMap("imageUrl", imageUrl));
         } catch (IOException e) {
             return new ResponseEntity<>("Failed to upload image", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-
-
-    // A method to generate image URL based on user number
-    private String generateImageUrl(Long userNo) {  // 변경된 부분
+    // 이미지 URL 생성 메서드
+    private String generateImageUrl(Long userNo) {
         return "/api/users/profileImage/" + userNo;
     }
 
     @GetMapping("/users/profileImage/{userNo}")
-    public ResponseEntity<byte[]> getUserProfileImage(@PathVariable Long userNo) {  // 변경된 부분
+    public ResponseEntity<byte[]> getUserProfileImage(@PathVariable Long userNo) {
         User user = userRepository.findById(userNo).orElse(null);
         if (user == null || user.getUserImg() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         byte[] imageBytes = user.getUserImg();
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
     }

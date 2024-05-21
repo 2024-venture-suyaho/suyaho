@@ -39,7 +39,7 @@ public class User {
     private LocalDateTime userMadeTime;
 
     @Lob
-    @Column(name = "user_img")
+    @Column(name = "user_img",columnDefinition = "LONGBLOB")
     private byte[] userImg;
 
     // Getters and Setters
