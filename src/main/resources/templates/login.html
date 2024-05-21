@@ -20,7 +20,7 @@
         </div>
         <button type="submit" class="login-button">로그인</button>
         <div th:if="${loginError}" style="color: red; text-align: center; margin-top: 10px;">
-            Invalid username or password
+            <span th:utext="${loginError}"></span>
         </div>
     </form>
     <hr>

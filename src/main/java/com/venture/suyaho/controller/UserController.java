@@ -30,7 +30,7 @@ public class UserController {
         User user = userService.login(userDTO);
 
         if (user == null || user.getUserRights() == 'Y') {
-            model.addAttribute("loginError", user == null ? "Invalid email or password" : "Access denied for non-admin users");
+            model.addAttribute("loginError", user == null ? "Invalid email or password" : "Login as an administrator");
             return "login";
         }
 
@@ -38,15 +38,15 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/admin-login")
+    public String adminLoginForm() {
+        return "admin-login";
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
-    }
-
-    @GetMapping("/admin-login")
-    public String adminLoginForm() {
-        return "admin-login";
     }
 }
