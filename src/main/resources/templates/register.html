@@ -12,10 +12,12 @@
 <div class="register-container">
     <h2>회원가입</h2>
     <form th:action="@{/register}" method="post">
-        <div class="form-group">
+        <div class="form-name">
+            <p>이름</p>
             <input type="text" name="name" placeholder="이름을 입력해주세요" required>
         </div>
         <div class="form-group">
+            <p>학과</p>
             <select name="major" required>
                 <option value="" disabled selected>학과 선택</option>
                 <option value="건축학과(4년제)">학과를 입력해주세요</option>
@@ -47,22 +49,28 @@
                 <option value="교직원">교직원</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-tel">
+            <p>전화번호</p>
             <input type="tel" name="phone" placeholder="전화번호" required>
         </div>
-        <div class="form-group">
+        <div class="form-email">
+            <p>학교 이메일</p>
             <input type="email" name="email" placeholder="이메일" required>
         </div>
-        <div class="form-group">
+        <div class="form-id">
+            <p>학번</p>
             <input type="text" name="studentId" placeholder="학번" required>
         </div>
-        <div class="form-group">
-            <input type="password" name="password" placeholder="비밀번호" required>
+        <div class="form-pwd">
+            <p>비밀번호</p>
+            <input type="password" name="password" placeholder="비밀번호를 입력해주세요" required>
         </div>
-        <div class="form-group">
-            <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
+        <div class="form-pwd-right">
+            <p>비밀번호 확인</p>
+            <input type="password" name="confirmPassword" placeholder="비밀번호를 확인해주세요" required>
         </div>
-        <div class="form-group">
+        <div class="form-agree">
+            <a th:href="@{/agree}">이용약관</a>
             <label>
                 <input type="checkbox" name="agree" required> 이용약관에 동의합니다
             </label>
