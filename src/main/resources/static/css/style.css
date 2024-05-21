@@ -122,11 +122,12 @@ body {
 }
 
 .main-content h3 {
+    margin-top: 120px;
     text-align: center;
 }
 
 .main-content p {
-    margin-top: 120px;
+    margin-top: 10px;
     text-align: center;
 }
 
