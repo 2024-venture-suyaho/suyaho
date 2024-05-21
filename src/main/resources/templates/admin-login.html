@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>어드민 로그인</title>
+    <title>관리자 로그인</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
@@ -10,7 +10,7 @@
 <div th:replace="fragments/header :: header"></div>
 
 <div class="login-container">
-    <h2>어드민 로그인</h2>
+    <h2>관리자 로그인</h2>
     <form th:action="@{/admin-login}" method="post">
         <div class="form-group">
             <input type="email" name="email" placeholder="이메일" required>
@@ -19,8 +19,8 @@
             <input type="password" name="password" placeholder="비밀번호" required>
         </div>
         <button type="submit" class="login-button">로그인</button>
-        <div th:if="${loginError}" style="color: red; text-align: center; margin-top: 10px;">
-            <span th:utext="${loginError}"></span>
+        <div th:if="${adminLoginError}" style="color: red; text-align: center; margin-top: 10px;">
+            <span th:utext="${adminLoginError}"></span>
         </div>
     </form>
     <hr>

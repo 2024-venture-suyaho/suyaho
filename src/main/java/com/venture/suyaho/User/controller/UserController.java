@@ -48,8 +48,8 @@ public class UserController {
     public String adminLogin(UserDTO userDTO, HttpSession session, Model model) {
         User user = userService.login(userDTO);
 
-        if (user == null || !"Y".equals(user.getUserRights())) {
-            model.addAttribute("loginError", user == null ? "Invalid email or password" : "Access denied for non-admin users");
+        if (user == null || user.getUserRights() == 'N') {
+            model.addAttribute("adminLoginError", user == null ? "Invalid email or password" : "Access denied for non-admin users");
             return "admin-login";
         }
 
