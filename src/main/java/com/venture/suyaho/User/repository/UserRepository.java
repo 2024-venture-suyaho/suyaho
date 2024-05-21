@@ -1,6 +1,6 @@
-package com.venture.suyaho.repository;
+package com.venture.suyaho.User.repository;
 
-import com.venture.suyaho.model.User;
+import com.venture.suyaho.User.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>어드민 로그인</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
@@ -10,19 +10,23 @@
 <div th:replace="fragments/header :: header"></div>
 
 <div class="login-container">
-    <h2>관리자 로그인</h2>
+    <h2>어드민 로그인</h2>
     <form th:action="@{/admin-login}" method="post">
         <div class="form-group">
-            <input type="text" name="email" placeholder="email@syuin.ac.kr" required>
+            <input type="email" name="email" placeholder="이메일" required>
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="password" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
         </div>
         <button type="submit" class="login-button">로그인</button>
         <div th:if="${loginError}" style="color: red; text-align: center; margin-top: 10px;">
-            Access denied for non-admin users
+            <span th:utext="${loginError}"></span>
         </div>
     </form>
+    <hr>
+    <a th:href="@{/login}">사용자 로그인</a>
+    <hr>
+    <a th:href="@{/register}">회원가입</a>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>

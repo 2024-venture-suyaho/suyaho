@@ -1,4 +1,4 @@
-package com.venture.suyaho.controller;
+package com.venture.suyaho.User.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

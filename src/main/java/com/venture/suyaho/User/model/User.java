@@ -1,4 +1,4 @@
-package com.venture.suyaho.model;
+package com.venture.suyaho.User.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

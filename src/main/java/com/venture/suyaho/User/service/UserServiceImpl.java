@@ -1,8 +1,8 @@
-package com.venture.suyaho.service;
+package com.venture.suyaho.User.service;
 
-import com.venture.suyaho.dto.UserDTO;
-import com.venture.suyaho.model.User;
-import com.venture.suyaho.repository.UserRepository;
+import com.venture.suyaho.User.dto.UserDTO;
+import com.venture.suyaho.User.model.User;
+import com.venture.suyaho.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

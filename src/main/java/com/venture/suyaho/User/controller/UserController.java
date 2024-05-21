@@ -1,8 +1,8 @@
-package com.venture.suyaho.controller;
+package com.venture.suyaho.User.controller;
 
-import com.venture.suyaho.dto.UserDTO;
-import com.venture.suyaho.model.User;
-import com.venture.suyaho.service.UserService;
+import com.venture.suyaho.User.dto.UserDTO;
+import com.venture.suyaho.User.model.User;
+import com.venture.suyaho.User.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +38,23 @@ public class UserController {
         return "redirect:/";
     }
 
+
     @GetMapping("/admin-login")
     public String adminLoginForm() {
         return "admin-login";
+    }
+
+    @PostMapping("/admin-login")
+    public String adminLogin(UserDTO userDTO, HttpSession session, Model model) {
+        User user = userService.login(userDTO);
+
+        if (user == null || !"Y".equals(user.getUserRights())) {
+            model.addAttribute("loginError", user == null ? "Invalid email or password" : "Access denied for non-admin users");
+            return "admin-login";
+        }
+
+        session.setAttribute("user", user);
+        return "redirect:/";
     }
 
 
@@ -48,5 +62,11 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+
+    @GetMapping("/register")
+    public String registerForm() {
+        return "register";
     }
 }

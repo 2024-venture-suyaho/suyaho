@@ -1,4 +1,4 @@
-package com.venture.suyaho.dto;
+package com.venture.suyaho.User.dto;
 
 public class UserDTO {
     private String email;
