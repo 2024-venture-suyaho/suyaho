@@ -12,13 +12,13 @@
 <div class="wrapper">
   <div th:replace="fragments/admin-header :: header"></div>
   <div class="back">
-    <button>뒤로가기</button>
+    <button id="backButton">뒤로가기</button>
   </div>
   <h1>사용자 관리 페이지</h1>
   <div class="menu-box">
     <div class="menu-container">
       <a th:href="@{/adminpost}" class="menu-item">게시글 보기</a>
-      <a th:href="@{/admin}" class="menu-item">유저보기</a>
+      <a th:href="@{/adminuser}" class="menu-item">유저보기</a>
     </div>
   </div>
 

@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('fileInput').click();
     });
 
+    const backButton = document.getElementById("backButton");
+    if (backButton) {
+        backButton.addEventListener("click", function() {
+            window.history.back();
+        });
+    }
+
     document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {

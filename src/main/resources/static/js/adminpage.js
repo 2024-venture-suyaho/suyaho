@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.search-button');
     const searchCategory = document.querySelector('.search-category');
 
+    // 뒤로가기버튼구현
+    const backButton = document.getElementById("backButton");
+    if (backButton) {
+        backButton.addEventListener("click", function() {
+            window.history.back();
+        });
+    }
     function getUsersFromApi() {
         fetch('/api/users')
             .then(response => response.json())

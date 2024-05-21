@@ -56,11 +56,16 @@ public class HomeController {
     }
 
 
-    @GetMapping("/admin")
+    @GetMapping("/adminuser")
     public String adminPage(Model model) {
         List<User> users = userRepository.findAll(); // userRepository를 사용하여 모든 유저 데이터를 가져옴
         model.addAttribute("users", users); // 사용자 목록을 모델에 추가합니다.
         return "admin/adminpage"; // 관리자 페이지를 위한 HTML 템플릿의 이름을 반환합니다.
+    }
+    @GetMapping("/admin")
+    public String adminMainPage(Model model) {
+
+        return "admin/adminmain";
     }
 
     @GetMapping("/adminpost")
