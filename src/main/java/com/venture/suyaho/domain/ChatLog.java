@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="chat_log")
 public class ChatLog {
+
     @EmbeddedId
     private ChatLogId id;
 
@@ -23,6 +24,8 @@ public class ChatLog {
         this.mesText = mesText;
         this.mesTime = mesTime;
     }
+
+
 
     public ChatLogId getId() {
         return id;

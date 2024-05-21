@@ -9,8 +9,9 @@ import java.io.Serializable;
 
 @Embeddable
 public class ChatLogId implements Serializable {
+
     @Column(name = "mes_num", nullable = false)
-    private long mesNum;
+    private Long mesNum;
 
     @ManyToOne
     @JoinColumn(name = "chat_num", nullable = false)
@@ -22,7 +23,7 @@ public class ChatLogId implements Serializable {
 
     public ChatLogId() {}
 
-    public ChatLogId(Integer mesNum, ChatRoom chatRoom, User userNo) {
+    public ChatLogId(Long mesNum, ChatRoom chatRoom, User userNo) {
         this.mesNum = mesNum;
         this.chatRoom = chatRoom;
         this.userNo = userNo;
@@ -32,7 +33,7 @@ public class ChatLogId implements Serializable {
         return mesNum;
     }
 
-    public void setMesNum(long mesNum) {
+    public void setMesNum() {
         this.mesNum = mesNum;
     }
 
