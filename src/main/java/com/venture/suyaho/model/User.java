@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
-    private Integer userNo;
+    private Long userNo;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -40,14 +40,14 @@ public class User {
 
     @Lob
     @Column(name = "user_img")
-    private byte[] userImg;
+    private Long userImg;
 
     // Getters and Setters
-    public Integer getUserNo() {
+    public Long getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(Integer userNo) {
+    public void setUserNo(Long userNo) {
         this.userNo = userNo;
     }
 
@@ -123,11 +123,11 @@ public class User {
         this.userMadeTime = userMadeTime;
     }
 
-    public byte[] getUserImg() {
+    public Long getUserImg() {
         return userImg;
     }
 
-    public void setUserImg(byte[] userImg) {
+    public void setUserImg(Long userImg) {
         this.userImg = userImg;
     }
 }
