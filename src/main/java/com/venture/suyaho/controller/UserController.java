@@ -58,7 +58,7 @@ public class UserController {
         }
 
         session.setAttribute("user", user);
-        return "redirect:/";
+        return "admin/adminpage";
     }
 
 
