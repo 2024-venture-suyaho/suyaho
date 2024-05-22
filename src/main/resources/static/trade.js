@@ -1,36 +1,24 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('trade-form');
 
-    // 폼 제출 이벤트 리스너
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();  // 기본 제출 동작을 막음
-
-        // 폼 데이터 수집과 거래 요청 로직을 함수로 분리
-        submitTradeRequest();
+async function fetchTrades() {
+    const response = await fetch('http://localhost:8080/trade/trades', {
+        method: 'GET', // 요청 방식 (GET, POST 등)
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
 
-    // 검색 버튼 클릭 이벤트 리스너
-    const searchBtn = document.getElementById('search-btn');
-    searchBtn.addEventListener('click', function () {
-        const keyword = document.getElementById('search-input').value;
-        const option = document.getElementById('search-option').value;
-        // 서버로 검색 요청 보내기
-        searchTrades(keyword, option);
-    });
+    if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+    }
 
-    // 카테고리 필터링 링크 클릭 이벤트 리스너
-    const categoryLinks = document.querySelectorAll('.category-filter a');
-    categoryLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            const category = this.getAttribute('data-category');
-            // 서버로 해당 카테고리의 거래 목록 요청하기
-            filterByCategory(category);
-        });
-    });
-});
+    const data = await response.json();
+    console.log(data);
 
-// 폼 데이터 수집 및 거래 요청 로직
+    const tradesDiv = document.getElementById('trades');
+    tradesDiv.innerHTML = JSON.stringify(data, null, 2);
+}
+
+
 function submitTradeRequest() {
     const form = document.getElementById('trade-form');
     const formData = new FormData(form);
@@ -75,7 +63,7 @@ function submitTradeRequest() {
         bookDamage: tradeRequest.bookDamage,
         userNo: tradeRequest.userNo,
         bookCompany: tradeRequest.publisher,
-        tradeNum: null // 나중에 tradeNum이 생성된 후에 추가합니다.
+        tradeNum: null
     };
 
     // 서버로 데이터를 보내는 작업 수행
@@ -102,7 +90,7 @@ function submitTradeRequest() {
         });
 }
 
-// 거래 검색 요청 함수
+
 function searchTrades(keyword, option) {
     axios.get(`/trade/search?keyword=${keyword}&option=${option}`)
         .then(response => {
@@ -113,7 +101,7 @@ function searchTrades(keyword, option) {
         });
 }
 
-// 카테고리로 거래 필터링 함수
+/*이거 카테고리 할거*/
 function filterByCategory(category) {
     axios.get(`/trade/category/${category}`)
         .then(response => {
@@ -123,8 +111,10 @@ function filterByCategory(category) {
             console.error('카테고리 필터링 요청 실패:', error);
         });
 }
+
+
 function updateTradeList(trades) {
-    const tradeList = document.getElementById('trade-list');
+    const tradeList = document.getElementById('trade-list').querySelector('tbody');
     tradeList.innerHTML = '';
 
     trades.forEach((trade) => {
@@ -159,9 +149,6 @@ function updateTradeList(trades) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    loadTrades();
-});
 function loadTrades() {
     fetch('/trade/trades')
         .then(response => response.json())
@@ -173,6 +160,7 @@ function loadTrades() {
         });
 }
 
+// 날짜 형식화 함수
 function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -183,3 +171,37 @@ function formatDate(dateString) {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('trade-form');
+
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+
+        submitTradeRequest();
+    });
+
+
+    const searchBtn = document.getElementById('search-btn');
+    searchBtn.addEventListener('click', function()  {
+        const keyword = document.getElementById('search-input').value;
+        const option = document.getElementById('search-option').value;
+        // 서버로 검색 요청 보내기
+        searchTrades(keyword, option);
+    });
+
+// 카테고리 필터링 링크 클릭 이벤트 리스너
+    const categoryLinks = document.querySelectorAll('.category-filter a');
+    categoryLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            const category = this.getAttribute('data-category');
+            // 서버로 해당 카테고리의 거래 목록 요청하기
+            filterByCategory(category);
+        });
+    });
+
+// 페이지 로드 시 거래 목록 불러오기
+    loadTrades();
+});

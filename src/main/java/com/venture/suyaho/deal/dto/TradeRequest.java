@@ -1,6 +1,5 @@
 package com.venture.suyaho.deal.dto;
 
-import com.google.errorprone.annotations.Var;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 

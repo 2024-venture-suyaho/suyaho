@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                              훼손: ${tradeRequest.bookDamage === 'Y' ? '있음' : '없음'}`,
             tradePhoto: tradeRequest.image,
             tradeComplete: false,
-            userNo: null,
+            userNo: 1,
             tradeTime: tradeRequest.tradeTime // 현재 시간을 가져오는 것을 고려해야 함
         };
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             bookDamage: tradeRequest.bookDamage,
             userNo: tradeRequest.userNo,
             bookCompany: tradeRequest.publisher,
-            tradeNum: null // 나중에 tradeNum이 생성된 후에 추가합니다.
+            tradeNum: 1 // 나중에 tradeNum이 생성된 후에 추가합니다.
         };
 
         console.log('Data to be sent:', {
