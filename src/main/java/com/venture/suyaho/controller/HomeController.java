@@ -31,18 +31,6 @@ public class HomeController {
         return "index";
     }
 
-//    @GetMapping("/login")
-//    public String login(HttpSession session) {
-//        session.setAttribute("user", "exampleUser");
-//        return "/";
-//    }
-
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate();
-//        return "redirect:/";
-//    }
-
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -57,24 +45,47 @@ public class HomeController {
 
 
     @GetMapping("/adminuser")
-    public String adminPage(Model model) {
-        List<User> users = userRepository.findAll(); // userRepository를 사용하여 모든 유저 데이터를 가져옴
+    public String adminPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+
+        // 유저가 로그인하지 않았거나 관리자 권한이 없으면 로그인 페이지로 리다이렉트
+        if (user == null || user.getUserRights() != 'Y') {
+            return "redirect:/login";
+        }
+
+        // 유저가 관리자 권한을 가지고 있으면, userRepository를 사용하여 모든 유저 데이터를 가져옵니다.
+        List<User> users = userRepository.findAll();
         model.addAttribute("users", users); // 사용자 목록을 모델에 추가합니다.
         return "admin/adminpage"; // 관리자 페이지를 위한 HTML 템플릿의 이름을 반환합니다.
     }
-    @GetMapping("/admin")
-    public String adminMainPage(Model model) {
 
+    @GetMapping("/admin")
+    public String adminMainPage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || user.getUserRights() != 'Y') {
+            // 유저가 로그인하지 않았거나 관리자 권한이 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        // 유저가 관리자 권한을 가지고 있다면, 관리자 메인 페이지를 렌더링
         return "admin/adminmain";
     }
-
     @GetMapping("/adminpost")
-    public String adminPost(Model model) {
-        // trade_board 테이블에서 데이터를 가져옵니다.
+    public String adminPost(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+
+        // 유저가 로그인하지 않았거나 관리자 권한이 없으면 로그인 페이지로 리다이렉트
+        if (user == null || user.getUserRights() != 'Y') {
+            return "redirect:/login";
+        }
+
+        // 유저가 관리자 권한을 가지고 있으면, trade_board 테이블에서 데이터를 가져옵니다.
         List<AdminBoard> boardList = adminBoardRepository.findAll();
         model.addAttribute("trade_board", boardList); // 모델에 tradeList를 추가합니다.
-        return "admin/adminpost";
+        return "admin/adminpost"; // 관리자 게시물 페이지를 렌더링
     }
+
 
     @DeleteMapping("/api/trades/{tradeNum}")
     @ResponseBody
