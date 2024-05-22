@@ -44,7 +44,8 @@
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-<img src ="https://github.com/2024-venture-suyaho/suyaho/assets/147049456/98020221-54bb-4191-b77e-857b9aa84097" width="30" height="30"> jpa
+<img src="https://img.shields.io/badge/mysqlworkbench-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/JPA-CCCCCC?style=for-the-badge&logo=&logoColor=white">
 
 
 
