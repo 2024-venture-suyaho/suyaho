@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/adminpost.css}">
+</head>
+<body>
+<script type="text/javascript" th:src="@{/js/adminpost.js}"></script>
+
+<div th:replace="fragments/admin-header :: header"></div>
+
+<div class="back">
+    <button id="backButton">뒤로가기</button>
+</div>
+<h1>사용자 관리 페이지</h1>
+<div class="menu-box">
+    <div class="menu-container">
+        <a th:href="@{/adminpost}" class="menu-item">게시글 보기</a>
+        <a th:href="@{/adminuser}" class="menu-item">유저보기</a>
+    </div>
+</div>
+
+<div class="search-container">
+    <div class="search-combined">
+        <select class="search-category">
+
+            <option value="schoolnum">학번</option>
+            <option value="title">제목</option>
+        </select>
+        <input type="text" placeholder="검색어를 입력하세요" class="search-input">
+        <button class="search-button">검색</button>
+    </div>
+</div>
+
+<!-- User Table -->
+<div class="users-wrapper">
+    <div class="users-container">
+        <table class="users-table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>카테고리</th>
+                <th>등록일시</th>
+                <th>학번</th>
+                <th>거래여부</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody id="users">
+            <!-- 타임리프 반복문 사용 -->
+            <tr th:each="trade : ${trade_boards}">
+                <td th:text="${trade.tradeNum}"></td>
+                <td th:text="${trade.tradeTitle}"></td>
+                <td th:text="${trade.tradeCategory}"></td>
+                <td th:text="${trade.tradeTime}"></td>
+                <td th:text="${trade.schoolNum}"></td>
+                <td th:text="${trade.tradeComplete}"></td>
+                <td><button class="delete-button" th:attr="data-tradeNum=${trade.tradeNum}">삭제</button></td>
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+    <button class="prev" id="prev">&#10094;</button>
+    <button class="next" id="next">&#10095;</button>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+
+
+.content {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 뒤로가기 */
+.back button {
+    background-color: #3b4e3f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left:100px;
+    margin-top:20px;
+    border-radius: 10px;
+}
+
+.back button:hover {
+    background-color: #354638;
+}
+
+/* 텍스트 */
+h1 {
+    margin-left: 100px;
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.menu-box {
+    width: 400px;
+    margin-left: auto;
+    margin-right: 210px;
+    background-color: #F0F4EF;
+    border: 1px solid rgb(202, 202, 202);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top: -50px;
+    align-items: center;
+}
+
+/* 네모 메뉴 스타일 */
+.menu-container {
+    display: flex;
+}
+
+.menu-item {
+    color: black;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 5px;
+    white-space: nowrap;
+    text-decoration:none;
+}
+
+.menu-item:hover {
+    color: #a2a2a2;
+}
+
+/* 검색 */
+.search-container {
+    margin-left: 100px;
+    display: flex;
+    justify-content: left;
+    margin-top: 50px;
+    border: 0px solid #ccc;
+}
+
+.search-combined {
+    display: flex;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: white;
+    border: 0px;
+    margin-top: -30px;
+}
+
+.search-category {
+    border: none;
+    padding: 10px;
+    background: #EEECDD;
+    cursor: pointer;
+    border-radius: 15px 0 0 15px;
+}
+
+.search-category option {
+    background: #EEECDD;
+    color: black;
+}
+
+.search-category:focus {
+    outline: none;
+}
+
+.search-input {
+    border: none;
+    padding: 10px;
+    flex: 1;
+    background: #EEECDD;
+    width: 455px;
+    border: 0px;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-button {
+    border: none;
+    padding: 10px 20px;
+    background-color: #6A7773;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 15px 15px 0;
+}
+
+.search-button:hover {
+    background: #3b4e3f;
+}
+
+/* 유저목록박스 */
+.user-container {
+    margin: 20px 10px 100px 100px;
+
+    background: white;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-radius: 10px;
+    width: 600px;
+    height: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-container h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.user-info {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.user-info span {
+    flex: 1;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.user-info span[data-label="번호"] {
+    text-align: left;
+    padding-left: 0px;
+}
+
+.user-info span[data-label="이름"] {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.user-info span[data-label="학과"] {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.user-info span[data-label="학번"] {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.user-info span[data-label="이메일"] {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.user-item span {
+    flex: 1;
+    text-align: left;
+    padding-left: 10px;
+    margin-right: 0px;
+}
+
+.user-item {
+    display: flex;
+    padding-left: -10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.user-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 60px; /* 푸터와 겹치지 않도록 하단 여백 추가 */
+}
+
+.pagination button {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #ffffff;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #cbcbcb;
+}
+
+
+/* 오른쪽 유저 정보 */
+.user-details {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.user-details-container {
+    position:absolute;
+    top: 250px;
+    right: 100px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
+/* 프로필사진 */
+.profile-image {
+    margin-right: 50px;
+    text-align: left;
+    position: relative;
+    margin-top: 0px;
+}
+
+.profile-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+/* 유저삭제버튼 */
+.delete-user-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.delete-user-button:hover {
+    background-color: #cc0000;
+}
