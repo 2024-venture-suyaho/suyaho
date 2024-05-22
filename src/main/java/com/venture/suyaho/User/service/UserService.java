@@ -5,4 +5,5 @@ import com.venture.suyaho.User.model.User;
 
 public interface UserService {
     User login(UserDTO userDTO);
+    void register(UserDTO userDTO) throws Exception;
 }

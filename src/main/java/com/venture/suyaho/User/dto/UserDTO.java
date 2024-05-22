@@ -6,18 +6,18 @@ public class UserDTO {
     private String name;
     private String phone;
     private String major;
-    private Integer studentId;
+    private Integer schoolNum;
 
     public UserDTO() {
     }
 
-    public UserDTO(String email, String password, String name, String phone, String major, Integer studentId) {
+    public UserDTO(String email, String password, String name, String phone, String major, Integer schoolNum) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phone = phone;
         this.major = major;
-        this.studentId = studentId;
+        this.schoolNum = schoolNum;
     }
 
     public String getEmail() {
@@ -60,12 +60,12 @@ public class UserDTO {
         this.major = major;
     }
 
-    public Integer getStudentId() {
-        return studentId;
+    public Integer getSchoolNum() {
+        return schoolNum;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setSchoolNum(Integer schoolNum) {
+        this.schoolNum = schoolNum;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserDTO {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", major='" + major + '\'' +
-                ", studentId=" + studentId +
+                ", studentId=" + schoolNum +
                 '}';
     }
 }
