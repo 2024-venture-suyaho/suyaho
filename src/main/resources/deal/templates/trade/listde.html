@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>거래 상세 정보</title>
+    <link rel="stylesheet" href="../../../static/css/listde.css">
+</head>
+<body>
+<div class="container">
+    <div class="header-container">
+        <div class="header-left">
+            <p>카테고리: <span th:text="${trade.category.categoryName}"></span></p>
+            <p>작성자: <span th:text="${trade.user.username}"></span></p>
+        </div>
+        <div class="header-center">
+            <h1 th:text="${trade.title}"></h1>
+        </div>
+    </div>
+    <div class="book-info-wrapper">
+        <div class="book-info-container">
+            <div class="book-image">
+                <img th:src="@{'/trade/photo/' + ${trade.id}}" alt="Book Cover">
+            </div>
+            <div class="book-info">
+                <h2>책 정보</h2>
+                <p>저자: <span th:text="${trade.book.author}"></span></p>
+                <p>출판사: <span th:text="${trade.book.publisher}"></span></p>
+                <p>출판일: <span th:text="${#temporals.format(trade.book.publishDate, 'yyyy-MM-dd')}"></span></p>
+                <p>가격: <span th:text="${trade.price}"></span></p>
+                <p>개수: <span th:text="${trade.quantity}"></span></p>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="description">
+            <h2>제품 설명</h2>
+            <p th:text="${trade.description}"></p>
+        </div>
+        <div class="book-condition">
+            <h2>책 상태</h2>
+            <p>필기 흔적: <span th:text="${trade.book.bookWriting} ? '있음' : '없음'"></span></p>
+            <p>겉표지: <span th:text="${trade.book.bookCover} ? '문제 있음' : '문제 없음'"></span></p>
+            <p>페이지 변색: <span th:text="${trade.book.bookDiscoloration} ? '있음' : '없음'"></span></p>
+            <p>페이지 훼손: <span th:text="${trade.book.bookDamage} ? '있음' : '없음'"></span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

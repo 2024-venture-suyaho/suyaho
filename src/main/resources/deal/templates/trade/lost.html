@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>중고거래 목록</title>
+    <title>분실물 목록</title>
     <link rel="stylesheet" href="../../../static/css/trade.css">
 </head>
 <body>
@@ -10,14 +10,7 @@
     <a th:href="@{/static}">
         <img src="../../../static/images/캠퍼스.jpg" alt="Homepage Image" height="150px" width="100%">
     </a>
-    <h1>중고거래 목록</h1>
-    <div class="category-select">
-        <select id="category" name="categoryId" required>
-            <option value="">카테고리 선택</option>
-            <option value="1">도서</option>
-            <option value="2">기부</option>
-        </select>
-    </div>
+    <h1>분실물 목록</h1>
     <div class="search-form">
         <div class="search-input-container">
             <input type="text" id="search-input" placeholder="검색어를 입력하세요">
@@ -34,25 +27,25 @@
         <tr>
             <th>번호</th>
             <th>제목</th>
-            <th>카테고리</th>
+            <th>위치</th>
             <th>등록일시</th>
             <th>아이디</th>
-            <th>거래여부</th>
+            <th>상태</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="trade : ${tradeList}">
-            <td th:text="${trade.id}"></td>
-            <td th:text="${trade.title}"></td>
-            <td th:text="${trade.category.categoryName}"></td>
-            <td th:text="${#temporals.format(trade.tradeTime, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${trade.user.username}"></td>
-            <td th:text="${trade.tradeComplete} ? '거래완료' : '거래중'"></td>
+        <tr th:each="lost : ${lostList}">
+            <td th:text="${lost.id}"></td>
+            <td th:text="${lost.title}"></td>
+            <td th:text="${lost.position}"></td>
+            <td th:text="${#temporals.format(lost.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${lost.user.username}"></td>
+            <td th:text="${lost.status}"></td>
         </tr>
         </tbody>
     </table>
-    <a href="./write.html" class="write-btn">게시글 작성</a>
+    <a href="./write.html" class="write-btn">분실물 등록</a>
 </div>
-<script src="../../../static/trade.js"></script>
+<script src="../../../static/lost.js"></script>
 </body>
 </html>
