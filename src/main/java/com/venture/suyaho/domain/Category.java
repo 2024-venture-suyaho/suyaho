@@ -15,7 +15,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private List<Trade> trades;
+    private List<TradeBoard> trades;
 
     public Long getId() {
         return id;
@@ -33,11 +33,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<Trade> getTrades() {
+    public List<TradeBoard> getTrades() {
         return trades;
     }
 
-    public void setTrades(List<Trade> trades) {
+    public void setTrades(List<TradeBoard> trades) {
         this.trades = trades;
     }
 }

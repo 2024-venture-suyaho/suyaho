@@ -1,20 +1,15 @@
 package com.venture.suyaho.controller;
 
-import com.venture.suyaho.dto.TradeDTO;
-import com.venture.suyaho.dto.TradeRequest;
-import com.venture.suyaho.dto.TradeResponse;
-import com.venture.suyaho.domain.Trade;
+import com.venture.suyaho.domain.TradeBoard;
 import com.venture.suyaho.repository.TradeRepository;
 import com.venture.suyaho.service.BookService; // BookService 추가
 import com.venture.suyaho.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.context.request.WebRequest;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -32,7 +27,32 @@ public class TradeController {
         this.tradeRepository = tradeRepository;
     }
 
-    @PostMapping("/upload")
+
+
+    @RequestMapping(value="/trade")
+    public String tradeList(Model model) {
+
+        List<TradeBoard> trade = tradeService.getAllTrades();
+
+
+        model.addAttribute("trade", trade);
+        return "/trade/list";
+    }
+
+    @GetMapping("/write")
+    public String tradeWrite(){
+
+        return "/trade/write";
+    }
+
+    @PostMapping("/create")
+    public String createTrade(@ModelAttribute TradeBoard tradeBoard, Model model) {
+        tradeService.createTrade(tradeBoard);
+
+        return "/trade/list";
+    }
+
+/*    @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
         tradeService.saveTradeImage(file);
         return "redirect:/success";
@@ -59,12 +79,12 @@ public class TradeController {
 
         // Trade 객체 생성 및 설정
         Trade trade = new Trade(); // 수정: Trade 객체 생성
-        trade.setTitle(tradeRequest.getTitle());
-        trade.setProduct(tradeRequest.getProductName());
-        trade.setQuantity(tradeRequest.getQuantity());
-        trade.setPrice(tradeRequest.getPrice());
-        trade.setDetail(tradeRequest.getDescription());
-        trade.setTradeComplete(false);
+        trade.setTradeTitle(tradeRequest.getTitle());
+        trade.setTradeProduct(tradeRequest.getProductName());
+        trade.setTradeQuantity(tradeRequest.getQuantity());
+        trade.setTradePrice(tradeRequest.getPrice());
+        trade.setTradeText(tradeRequest.getDescription());
+        trade.setTradeComplete("N");
 
 // 이미지 파일 처리
         MultipartFile imageFile = tradeRequest.getImage();
@@ -120,5 +140,5 @@ public class TradeController {
         // 쿼리가 안찍히면 흠... 잠만요
         model.addAttribute("trades", trades);
         return "trade/list"; // trades.html 템플릿을 반환
-    }
+    }*/
 }

@@ -1,6 +1,6 @@
 package com.venture.suyaho.service;
 
-import com.venture.suyaho.domain.Trade;
+import com.venture.suyaho.domain.TradeBoard;
 import com.venture.suyaho.repository.BookRepository;
 import com.venture.suyaho.repository.CategoryRepository;
 import com.venture.suyaho.repository.TradeRepository;
@@ -23,48 +23,57 @@ public class TradeService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static final Random RANDOM = new Random();
+    @Transactional
+    public List<TradeBoard> getAllTrades() {
+        return tradeRepository.findAll();
+    }
+
+
+    @Transactional
+    public void createTrade(TradeBoard tradeBoard) {
+        tradeRepository.save(tradeBoard);
+    }
+
+    /*private static final Random RANDOM = new Random();
 
     public Integer generateTradeNum() {
         return (int) (RANDOM.nextDouble() * 90000000 + 10000000);
     }
 
     @Transactional
-    public void saveTrade (Trade trade) {
+    public void saveTrade (TradeBoard trade) {
         tradeRepository.save(trade);
     }
 
 
     public void saveTradeImage(MultipartFile file) throws IOException {
-        Trade trade = new Trade();
+        TradeBoard trade = new TradeBoard();
         trade.setImageData(file.getBytes());
         tradeRepository.save(trade);
     }
     public TradeService(TradeRepository tradeRepository) {
         this.tradeRepository = tradeRepository;
-    }
+    }*/
 
-    public List<Trade> getAllTrades() {
-        return tradeRepository.findAll();
-    }
 
-    @Transactional
-    public void saveTradeWithImageData (String title, Character bookWriting, Character bookCover, Character bookDiscoloration,
-                                       Character bookDamage, String author, String publisher, String productName,
-                                       int quantity, double price, String description, Long categoryId, byte[] imageData) {
-        tradeRepository.saveTradeWithQuery(title, bookWriting, bookCover, bookDiscoloration, bookDamage, author,
-                publisher, productName, quantity, price, description, categoryId, imageData);
-    }
 
-    public List<Trade> getTradeListByCategory(String categoryName) {
-        return tradeRepository.findByCategoryName(categoryName);
-    }
-
-    public List<Trade> getTradeList() {
-        return tradeRepository.findAll();
-    }
-
-    public Trade findTradeByNum(Long tradeNum) {
-        return tradeRepository.findById(tradeNum).orElse(null);
-    }
+//    @Transactional
+//    public void saveTradeWithImageData (String title, Character bookWriting, Character bookCover, Character bookDiscoloration,
+//                                       Character bookDamage, String author, String publisher, String productName,
+//                                       int quantity, double price, String description, Long categoryId, byte[] imageData) {
+//        tradeRepository.saveTradeWithQuery(title, bookWriting, bookCover, bookDiscoloration, bookDamage, author,
+//                publisher, productName, quantity, price, description, categoryId, imageData);
+//    }
+//
+//    public List<TradeBoard> getTradeListByCategory(String categoryName) {
+//        return tradeRepository.findByCategoryName(categoryName);
+//    }
+//
+//    public List<TradeBoard> getTradeList() {
+//        return tradeRepository.findAll();
+//    }
+//
+//    public TradeBoard findTradeByNum(Long tradeNum) {
+//        return tradeRepository.findById(tradeNum).orElse(null);
+//    }
 }

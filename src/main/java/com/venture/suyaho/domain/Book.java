@@ -2,90 +2,137 @@ package com.venture.suyaho.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "book")
 public class Book {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-
-
-    @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
-    private Trade trade;
+    @EmbeddedId
+    private BookId id;
 
     @Column(name = "book_writing")
-    private char writing;
+    private char bookWriting;
 
     @Column(name = "book_cover")
-    private char cover;
+    private char bookCover;
 
     @Column(name = "book_discoloration")
-    private char discoloration;
+    private char bookDiscoloration;
 
     @Column(name = "book_damage")
-    private char damage;
+    private char bookDamage;
 
     @Column(name = "book_company")
-    private String company;
+    private String bookCompany;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumns({
+//            @JoinColumn(name = "trade_num", referencedColumnName = "trade_num"),
+//            @JoinColumn(name = "user_no", referencedColumnName = "user_no")
+//    })
+//    private TradeBoard tradeBoard;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "trade_num", nullable = false)
+    private TradeBoard tradeBoard;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "user_no",nullable = false )
+    private User user;
 
-    public int getId() {
+    public Book() {
+    }
+
+    public Book(BookId id, char bookWriting, char bookCover, char bookDiscoloration, char bookDamage, String bookCompany, TradeBoard tradeBoard, User user) {
+        this.id = id;
+        this.bookWriting = bookWriting;
+        this.bookCover = bookCover;
+        this.bookDiscoloration = bookDiscoloration;
+        this.bookDamage = bookDamage;
+        this.bookCompany = bookCompany;
+        this.tradeBoard = tradeBoard;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(tradeBoard, book.tradeBoard);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, tradeBoard);
+    }
+
+    public BookId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(BookId id) {
         this.id = id;
     }
 
-    public Trade getTrade() {
-        return trade;
+    public char getBookWriting() {
+        return bookWriting;
     }
 
-    public void setTrade(Trade trade) {
-        this.trade = trade;
+    public void setBookWriting(char bookWriting) {
+        this.bookWriting = bookWriting;
     }
 
-    public char getWriting() {
-        return writing;
+    public char getBookCover() {
+        return bookCover;
     }
 
-    public void setWriting(char writing) {
-        this.writing = writing;
+    public void setBookCover(char bookCover) {
+        this.bookCover = bookCover;
     }
 
-    public char getCover() {
-        return cover;
+    public char getBookDiscoloration() {
+        return bookDiscoloration;
     }
 
-    public void setCover(char cover) {
-        this.cover = cover;
+    public void setBookDiscoloration(char bookDiscoloration) {
+        this.bookDiscoloration = bookDiscoloration;
     }
 
-    public char getDiscoloration() {
-        return discoloration;
+    public char getBookDamage() {
+        return bookDamage;
     }
 
-    public void setDiscoloration(char discoloration) {
-        this.discoloration = discoloration;
+    public void setBookDamage(char bookDamage) {
+        this.bookDamage = bookDamage;
     }
 
-    public char getDamage() {
-        return damage;
+    public String getBookCompany() {
+        return bookCompany;
     }
 
-    public void setDamage(char damage) {
-        this.damage = damage;
+    public void setBookCompany(String bookCompany) {
+        this.bookCompany = bookCompany;
     }
 
-    public String getCompany() {
-        return company;
+    public TradeBoard getTradeBoard() {
+        return tradeBoard;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setTradeBoard(TradeBoard tradeBoard) {
+        this.tradeBoard = tradeBoard;
     }
+
+
 }
 

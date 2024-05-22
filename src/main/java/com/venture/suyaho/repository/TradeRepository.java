@@ -1,7 +1,6 @@
 package com.venture.suyaho.repository;
 
-import com.venture.suyaho.dto.TradeDTO;
-import com.venture.suyaho.domain.Trade;
+import com.venture.suyaho.domain.TradeBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,9 +10,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TradeRepository extends JpaRepository<Trade, Long> {
+public interface TradeRepository extends JpaRepository<TradeBoard, Long> {
+
+
+
+/*
     @Query(value = "SELECT td FROM trade td WHERE category_id = (SELECT id FROM category WHERE name = :categoryName)", nativeQuery = true)
-    List<Trade> findByCategoryName(@Param("categoryName") String categoryName);
+    List<TradeBoard> findByCategoryName(@Param("categoryName") String categoryName);
 
     @Modifying
     @Query(value = "INSERT INTO trade (title, book_writing, book_cover, book_discoloration, book_damage, author, publisher, product_name, quantity, price, description, category_id, trade_image) " +
@@ -31,7 +34,8 @@ public interface TradeRepository extends JpaRepository<Trade, Long> {
                             @Param("description") String description,
                             @Param("categoryId") Long categoryId,
                             @Param("imageData") byte[] imageData);
-    @Query("SELECT new com.venture.suyaho.dto.TradeDTO(t) FROM Trade t")
+    @Query("SELECT new com.venture.suyaho.dto.TradeDTO(t) FROM TradeBoard t")
     List<TradeDTO> findTradesWithSelectedFields();
+*/
 
 }

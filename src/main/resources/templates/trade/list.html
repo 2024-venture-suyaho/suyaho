@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>중고거래 목록</title>
-    <link rel="stylesheet" href="../../static/css/trade.css">
+    <link rel="stylesheet" th:href="@{/css/trade.css}">  <!--trade-->
 </head>
 <body>
 <div class="container">
-    <a th:href="@{/static}">
-        <img src="../../static/images/캠퍼스.jpg" alt="Homepage Image" height="150px" width="100%">
+    <a th:href="@{/}">
+        <img src="/images/캠퍼스.jpg" alt="Homepage Image" height="150px" width="100%">
     </a>
     <h1>중고거래 목록</h1>
+
     <div class="category-select">
         <select id="category" name="categoryId" required>
             <option value="0">카테고리 선택</option>
@@ -41,18 +42,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="trade : ${tradeList}">
-            <td th:text="${trade.id}"></td>
-            <td th:text="${trade.title}"></td>
-            <td th:text="${trade.category.categoryName}"></td>
+        <tr th:each="trade : ${trade}">
+            <td th:text="${trade.tradeNum}"></td>
+            <td th:text="${trade.tradeTitle}"></td>
+            <td th:text="${trade.tradeCategory}"></td>
             <td th:text="${#temporals.format(trade.tradeTime, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${trade.user.username}"></td>
+            <td th:text="${trade.user.userName}"></td>
             <td th:text="${trade.tradeComplete} ? '거래완료' : '거래중'"></td>
         </tr>
         </tbody>
     </table>
-    <button id="submit-button">게시글 작성</button>
+    <form action="write" method="post">
+        <button id="submit-button">게시글 작성</button>
+    </form>
 </div>
-<script src="../../static/trade.js"></script>
+<!--<script src="../../static/trade.js"></script>-->
 </body>
 </html>
