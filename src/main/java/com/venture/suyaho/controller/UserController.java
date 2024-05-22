@@ -1,8 +1,9 @@
-package com.venture.suyaho.User.controller;
+package com.venture.suyaho.controller;
 
-import com.venture.suyaho.User.dto.UserDTO;
-import com.venture.suyaho.User.model.User;
-import com.venture.suyaho.User.service.UserService;
+
+import com.venture.suyaho.dto.UserDTO;
+import com.venture.suyaho.model.User;
+import com.venture.suyaho.repository.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

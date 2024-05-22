@@ -1,6 +1,6 @@
 package com.venture.suyaho.repository;
 
-import com.venture.suyaho.admin.AdminBoard;
+import com.venture.suyaho.model.AdminBoard;
 import com.venture.suyaho.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

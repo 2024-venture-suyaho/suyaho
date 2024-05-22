@@ -1,12 +1,11 @@
 package com.venture.suyaho.controller;
 
-import com.venture.suyaho.admin.AdminBoard;
+import com.venture.suyaho.model.AdminBoard;
 import com.venture.suyaho.model.User;
 import com.venture.suyaho.repository.AdminBoardRepository;
 import com.venture.suyaho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.venture.suyaho.controller;
 
-import com.venture.suyaho.admin.AdminBoard;
+import com.venture.suyaho.model.AdminBoard;
 import com.venture.suyaho.model.User;
 import com.venture.suyaho.repository.AdminBoardRepository;
 import com.venture.suyaho.repository.UserRepository;
