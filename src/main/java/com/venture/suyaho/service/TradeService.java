@@ -40,6 +40,13 @@ public class TradeService {
         trade.setImageData(file.getBytes());
         tradeRepository.save(trade);
     }
+    public TradeService(TradeRepository tradeRepository) {
+        this.tradeRepository = tradeRepository;
+    }
+
+    public List<Trade> getAllTrades() {
+        return tradeRepository.findAll();
+    }
 
     @Transactional
     public void saveTradeWithImageData (String title, Character bookWriting, Character bookCover, Character bookDiscoloration,

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/trade")
+//@RequestMapping("/trade")
 public class TradeController {
 
     private final TradeService tradeService;
@@ -100,7 +100,7 @@ public class TradeController {
     public String tradeList(Model model) {
         List<Trade> tradeList = tradeService.getTradeList();
         model.addAttribute("tradeList", tradeList);
-        return "trade/list";
+        return "/trade/list";
     }
 
     @GetMapping("/{tradeNum}")
@@ -114,8 +114,11 @@ public class TradeController {
         }
     }
     @GetMapping("/trades")
-    public ResponseEntity<List<TradeDTO>> getAllTrades() {
-        List<TradeDTO> tradeDTOList = tradeRepository.findTradesWithSelectedFields();
-        return ResponseEntity.ok(tradeDTOList);
+    public String listTrades(Model model) {
+        // 트레이드 목록을 가져와서 모델에 추가하는 로직
+        List<Trade> trades = tradeService.getAllTrades();
+        // 쿼리가 안찍히면 흠... 잠만요
+        model.addAttribute("trades", trades);
+        return "trade/list"; // trades.html 템플릿을 반환
     }
 }

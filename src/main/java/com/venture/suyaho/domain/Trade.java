@@ -27,7 +27,7 @@ public class Trade {
     private int quantity;
 
     @Column(name = "trade_price")
-    private double price;
+    private int price;
 
     @Column(name = "trade_detail")
     private String detail;
@@ -99,11 +99,11 @@ public class Trade {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

@@ -12,7 +12,7 @@ public class TradeRequest {
     private Character bookDamage;
     private String productName;
     private int quantity;
-    private double price;
+    private int price;
     private String description;
     private Long categoryId;
     private MultipartFile image;
@@ -77,11 +77,11 @@ public class TradeRequest {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
