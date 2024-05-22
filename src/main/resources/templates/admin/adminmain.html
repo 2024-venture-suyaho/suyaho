@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 페이지</title>
+  <link rel="stylesheet" th:href="@{/css/adminpage.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script type="text/javascript" th:src="@{/js/adminpage.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+  <div th:replace="fragments/admin-header :: header"></div>
+  <div class="back">
+    <button id="backButton">뒤로가기</button>
+  </div>
+  <h1>사용자 관리 페이지</h1>
+  <div class="menu-box">
+    <div class="menu-container">
+      <a th:href="@{/adminpost}" class="menu-item">게시글 보기</a>
+      <a th:href="@{/adminuser}" class="menu-item">유저보기</a>
+    </div>
+  </div>
+
+
+  <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
