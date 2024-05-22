@@ -1,12 +1,12 @@
-package com.venture.suyaho.deal.controller;
+package com.venture.suyaho.controller;
 
-import com.venture.suyaho.deal.dto.TradeDTO;
-import com.venture.suyaho.deal.dto.TradeRequest;
-import com.venture.suyaho.deal.dto.TradeResponse;
-import com.venture.suyaho.deal.entity.Trade;
-import com.venture.suyaho.deal.repository.TradeRepository;
-import com.venture.suyaho.deal.service.BookService; // BookService 추가
-import com.venture.suyaho.deal.service.TradeService;
+import com.venture.suyaho.dto.TradeDTO;
+import com.venture.suyaho.dto.TradeRequest;
+import com.venture.suyaho.dto.TradeResponse;
+import com.venture.suyaho.domain.Trade;
+import com.venture.suyaho.repository.TradeRepository;
+import com.venture.suyaho.service.BookService; // BookService 추가
+import com.venture.suyaho.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/trade")

@@ -8,4 +8,5 @@ import com.venture.suyaho.dto.UserDTO;
 public interface UserService {
     User login(UserDTO userDTO);
     void register(UserDTO userDTO) throws Exception;
+    User findByUsername(String username);
 }

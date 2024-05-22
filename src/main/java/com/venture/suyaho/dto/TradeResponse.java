@@ -1,6 +1,6 @@
-package com.venture.suyaho.deal.dto;
+package com.venture.suyaho.dto;
 
-import com.venture.suyaho.deal.entity.Trade;
+import com.venture.suyaho.domain.Trade;
 import java.time.LocalDateTime;
 
 public class TradeResponse {
@@ -16,7 +16,7 @@ public class TradeResponse {
         this.title = trade.getTitle();
         this.category = trade.getCategory().getName();
         this.tradeTime = trade.getTradeTime();
-        this.username = trade.getUser().getUsername();
+        this.username = trade.getUser().getUserName();
         this.tradeComplete = trade.isTradeComplete();
     }
 

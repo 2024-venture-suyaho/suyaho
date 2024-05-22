@@ -1,6 +1,6 @@
-package com.venture.suyaho.deal.dto;
+package com.venture.suyaho.dto;
 
-import com.venture.suyaho.deal.entity.Trade;
+import com.venture.suyaho.domain.Trade;
 
 import java.time.LocalDateTime;
 public class TradeDTO {
@@ -16,7 +16,7 @@ public class TradeDTO {
         this.title = trade.getTitle();
         this.categoryName = trade.getCategory().getName(); // 수정된 코드
         this.tradeTime = trade.getTradeTime();
-        this.username = trade.getUser().getUsername();
+        this.username = trade.getUser().getUserName();
         this.tradeComplete = trade.isTradeComplete();
     }
 

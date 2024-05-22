@@ -1,4 +1,4 @@
-package com.venture.suyaho.deal.entity;
+package com.venture.suyaho.domain;
 
 import jakarta.persistence.*;
 import java.util.List;

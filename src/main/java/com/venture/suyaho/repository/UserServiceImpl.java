@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
         user.setUserMadeTime(LocalDateTime.now());
         userRepository.save(user);
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUserName(username);
+    }
 }

@@ -1,8 +1,7 @@
 // BookRepository.java
-package com.venture.suyaho.deal.repository;
+package com.venture.suyaho.repository;
 
-import com.venture.suyaho.deal.entity.Book;
-import org.aspectj.weaver.ast.Var;
+import com.venture.suyaho.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,9 +1,8 @@
-package com.venture.suyaho.deal.service;
+package com.venture.suyaho.service;
 
-import com.venture.suyaho.deal.entity.Book;
-import com.venture.suyaho.deal.entity.Trade;
-import com.venture.suyaho.deal.repository.BookRepository;
-import com.venture.suyaho.deal.repository.TradeRepository;
+import com.venture.suyaho.domain.Book;
+import com.venture.suyaho.domain.Trade;
+import com.venture.suyaho.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

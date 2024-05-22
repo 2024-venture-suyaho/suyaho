@@ -1,4 +1,4 @@
-package com.venture.suyaho.deal.dto;
+package com.venture.suyaho.dto;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

@@ -8,9 +8,10 @@ import com.venture.suyaho.dto.ChatRoomDTO;
 import com.venture.suyaho.repository.ChatLogRepository;
 import com.venture.suyaho.repository.ChatRoomRepository;
 import com.venture.suyaho.repository.UserRepository;
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
-package com.venture.suyaho.deal.service;
+package com.venture.suyaho.service;
 
-import com.venture.suyaho.deal.entity.Trade;
-import com.venture.suyaho.deal.repository.BookRepository;
-import com.venture.suyaho.deal.repository.CategoryRepository;
-import com.venture.suyaho.deal.repository.TradeRepository;
-import jakarta.transaction.Transactional;
+import com.venture.suyaho.domain.Trade;
+import com.venture.suyaho.repository.BookRepository;
+import com.venture.suyaho.repository.CategoryRepository;
+import com.venture.suyaho.repository.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -30,9 +30,10 @@ public class TradeService {
     }
 
     @Transactional
-    public void saveTrade(Trade trade) {
+    public void saveTrade (Trade trade) {
         tradeRepository.save(trade);
     }
+
 
     public void saveTradeImage(MultipartFile file) throws IOException {
         Trade trade = new Trade();
@@ -41,7 +42,7 @@ public class TradeService {
     }
 
     @Transactional
-    public void saveTradeWithImageData(String title, Character bookWriting, Character bookCover, Character bookDiscoloration,
+    public void saveTradeWithImageData (String title, Character bookWriting, Character bookCover, Character bookDiscoloration,
                                        Character bookDamage, String author, String publisher, String productName,
                                        int quantity, double price, String description, Long categoryId, byte[] imageData) {
         tradeRepository.saveTradeWithQuery(title, bookWriting, bookCover, bookDiscoloration, bookDamage, author,
