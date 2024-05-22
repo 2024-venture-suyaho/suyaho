@@ -13,12 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUserNameContainingIgnoreCase(String userName);
     boolean existsByUserEmail(String userEmail);
 
-    // 사용자 이메일로 사용자 찾기
-    User findByUserEmail(String userEmail);
-
-    // 사용자 전화번호로 사용자 찾기
-    List<User> findByUserPhone(String userPhone);
-
     // 학과로 사용자 검색
     List<User> findByUserMajorContainingIgnoreCase(String userMajor);
 
@@ -27,5 +21,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE str(u.userSchoolNum) LIKE %:userSchoolNum%")
     List<User> findByUserSchoolNumContaining(@Param("userSchoolNum") String userSchoolNum);
 
-    com.venture.suyaho.domain.User findByUserName(String userName);
+    User findByUserName(String userName);
 }

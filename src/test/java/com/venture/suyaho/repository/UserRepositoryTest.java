@@ -1,14 +1,15 @@
 package com.venture.suyaho.repository;
 
-import java.util.Optional;
 
-import com.venture.suyaho.User.dto.UserDTO;
+
+import com.venture.suyaho.domain.User;
+import com.venture.suyaho.dto.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.venture.suyaho.User.model.User;
-import com.venture.suyaho.User.repository.UserRepository;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

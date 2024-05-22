@@ -77,12 +77,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     alert('전화번호가 성공적으로 변경되었습니다.');
                     document.getElementById('userPhone').innerText = newPhoneNumber;
-                    location.reload();
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+
                 } else {
                     response.json().then(data => alert(data.message));
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                 }
             })
             .catch(error => console.error('Error changing phone number:', error));
+        document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
     });
 
     // 학과 변경 이벤트
@@ -110,7 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     alert('학과가 성공적으로 변경되었습니다.');
                     document.getElementById('userMajor').innerText = newMajor;
-                    location.reload();
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+
                 } else if (response.status === 400) {
                     response.json().then(data => {
                         if (data.message === 'Current password is incorrect') {
@@ -118,9 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         } else {
                             alert(data.message);
                         }
+                        document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                     });
                 } else {
                     response.json().then(data => alert(data.message));
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                 }
             })
             .catch(error => console.error('Error changing major:', error));
