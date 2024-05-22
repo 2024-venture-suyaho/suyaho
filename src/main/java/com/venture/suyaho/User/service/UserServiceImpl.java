@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -16,13 +15,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -45,7 +42,8 @@ public class UserServiceImpl implements UserService{
         user.setUserEmail(userDTO.getEmail());
         user.setUserMajor(userDTO.getMajor());
         user.setUserSchoolNum(userDTO.getSchoolNum());
-        user.setUserPwd(passwordEncoder.encode(userDTO.getPassword()));
+        // 비밀번호를 암호화하지 않음
+        user.setUserPwd(userDTO.getPassword());
         user.setUserRights('N');
         user.setUserPoint(0);
         user.setUserMadeTime(LocalDateTime.now());
