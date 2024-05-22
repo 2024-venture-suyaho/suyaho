@@ -77,12 +77,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     alert('전화번호가 성공적으로 변경되었습니다.');
                     document.getElementById('userPhone').innerText = newPhoneNumber;
-                    location.reload();
+                    document.getElementById('phoneInput').value = newPhoneNumber; // 업데이트된 전화번호 반영
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                 } else {
                     response.json().then(data => alert(data.message));
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                 }
             })
-            .catch(error => console.error('Error changing phone number:', error));
+            .catch(error => {
+                console.error('Error changing phone number:', error);
+                document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+            });
     });
 
     // 학과 변경 이벤트
@@ -110,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     alert('학과가 성공적으로 변경되었습니다.');
                     document.getElementById('userMajor').innerText = newMajor;
-                    location.reload();
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                 } else if (response.status === 400) {
                     response.json().then(data => {
                         if (data.message === 'Current password is incorrect') {
@@ -118,12 +123,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         } else {
                             alert(data.message);
                         }
+                        document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                     });
                 } else {
                     response.json().then(data => alert(data.message));
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
                 }
             })
-            .catch(error => console.error('Error changing major:', error));
+            .catch(error => {
+                console.error('Error changing major:', error);
+                document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+            });
     });
 
     // 비밀번호 변경 이벤트
@@ -155,12 +165,22 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     alert('비밀번호가 성공적으로 변경되었습니다.');
-                    window.location.href = '/';
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+                    document.getElementById('newPassword').value = ''; // 새로운 비밀번호 필드 초기화
+                    document.getElementById('confirmPassword').value = ''; // 비밀번호 확인 필드 초기화
                 } else {
                     response.json().then(data => alert(data.message));
+                    document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+                    document.getElementById('newPassword').value = ''; // 새로운 비밀번호 필드 초기화
+                    document.getElementById('confirmPassword').value = ''; // 비밀번호 확인 필드 초기화
                 }
             })
-            .catch(error => console.error('Error changing password:', error));
+            .catch(error => {
+                console.error('Error changing password:', error);
+                document.getElementById('currentPassword').value = ''; // 비밀번호 필드 초기화
+                document.getElementById('newPassword').value = ''; // 새로운 비밀번호 필드 초기화
+                document.getElementById('confirmPassword').value = ''; // 비밀번호 확인 필드 초기화
+            });
     });
 
     // 게시글 삭제 이벤트
@@ -245,6 +265,7 @@ function updateTradeStatus(selectElement) {
         .then(response => {
             if (response.ok) {
                 alert('거래 상태가 업데이트 되었습니다.');
+                fetchTradesByUserNo(userNo); // 거래 상태 업데이트 후 게시글 목록 새로고침
             } else {
                 alert('거래 상태 업데이트를 실패했습니다.');
                 console.log(response);
