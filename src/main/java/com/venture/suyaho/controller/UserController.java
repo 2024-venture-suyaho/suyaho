@@ -58,8 +58,6 @@ public class UserController {
         }
 
         session.setAttribute("user", user);
-        model.addAttribute("user", user); // 모델에 사용자 추가
-        logger.info("User {} logged in with rights {}", user.getUserEmail(), user.getUserRights());
         return "admin/adminmain";
     }
 
