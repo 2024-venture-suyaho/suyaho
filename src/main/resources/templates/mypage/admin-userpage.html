@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPage</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-userpage.css}">
+    <script type="text/javascript" th:src="@{/js/admin-userpage.js}"></script>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+<div class="back">
+    <button id="backButton">뒤로가기</button>
+</div>
+<h1 style="text-align: center;">마이페이지</h1>
+<input type="hidden" id="userNo" th:value="${user.userNo}" />
+<div class="profile-container">
+    <div class="profile-image" id="profileImageContainer">
+        <img id="profilePic" th:src="${user.userImg == null ? '/img/asf.png' : '/api/users/profileImage/' + user.userNo}" alt="Profile Picture">
+        <input type="file" id="fileInput" style="display: none;">
+        <label class="change-pic-btn" id="changePicBtn" style="text-align: center; cursor: pointer;">프로필 사진 변경</label>
+        <p id="userPoint" class="point-info" th:text="'포인트: ' + ${user.userPoint}"></p>
+    </div>
+    <div class="profile-info">
+        <div>
+            <div id="userName" th:text="${user.userName}"></div>
+            <p style="font-weight: bold;">Email</p>
+            <div id="userEmail" th:text="${user.userEmail}"></div>
+
+            <p style="font-weight: bold;">전화번호</p>
+            <div id="userPhone" th:text="${user.userPhone}"></div> <!-- userPhone 추가 -->
+            <div class="phone-combined">
+                <input type="text" id="phoneInput" th:value="${user.userPhone}" style="margin-top: 10px;"> <!-- 전화번호 변경 입력칸 -->
+                <button id="changePhoneBtn">변경</button> <!-- 전화번호 변경 버튼 -->
+            </div>
+            <div class="schoolmajor">
+                <p style="font-weight: bold; margin-bottom: 5px;">학과</p>
+                <div id="userMajor" th:text="${user.userMajor}"></div>
+                <select id="majorDropdown">
+                    <option value="" disabled selected hidden>학과를 선택하세요</option>
+                    <option value="간호">간호</option>
+                    <option value="건축">건축</option>
+                    <option value="경영">경영</option>
+                    <option value="글로벌한국학">글로벌한국학</option>
+                    <option value="동물자원과학">동물자원과학</option>
+                    <option value="물리치료">물리치료</option>
+                    <option value="바이오융합공학">바이오융합공학</option>
+                    <option value="보건관리">보건관리</option>
+                    <option value="빅데이터클라우드공학">빅데이터클라우드공학</option>
+                    <option value="사회복지">사회복지</option>
+                    <option value="상담심리">상담심리</option>
+                    <option value="식품영양">식품영양</option>
+                    <option value="신학">신학</option>
+                    <option value="아트앤디자인">아트앤디자인</option>
+                    <option value="약학">약학</option>
+                    <option value="영어영문">영어영문</option>
+                    <option value="유아교육">유아교육</option>
+                    <option value="음악">음악</option>
+                    <option value="인공지능융합">인공지능융합</option>
+                    <option value="체육">체육</option>
+                    <option value="컴퓨터공학">컴퓨터공학</option>
+                    <option value="항공관광외국어">항공관광외국어</option>
+                    <option value="화학생명과학">화학생명과학</option>
+                    <option value="환경디자인원예">환경디자인원예</option>
+                </select>
+                <button id="changeMajorBtn">변경</button>
+            </div>
+            <br>
+            <label for="currentPassword">현재 비밀번호</label><br>
+            <input type="password" id="currentPassword" name="currentPassword" required placeholder="비밀번호를 입력해주세요">
+            <br>
+            <label for="newPassword">새로운 비밀번호</label><br>
+            <input type="password" id="newPassword" name="newPassword" required placeholder="새로운 비밀번호를 입력해주세요">
+            <br>
+            <label for="confirmPassword">비밀번호 확인</label><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="비밀번호를 다시 입력해주세요">
+            <br>
+            <button id="changePasswordBtn">비밀번호 변경</button> <!-- 변경 버튼 추가 -->
+        </div>
+    </div>
+    <div class="bean">
+    <img th:if="${user.userPoint >= 30}" th:src="@{/img/Skong.jpg}" alt="포인트별사진">
+    <img th:unless="${user.userPoint >= 30}" th:src="@{/img/Ckong.jpg}" alt="포인트별사진">
+    <p>LV1 콩이</p></div>
+</div>
+<br><br>
+<!-- 게시글 리스트 테이블 -->
+<div class="users-container">
+    <table class="users-table">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>카테고리</th>
+            <th>등록일시</th>
+            <th>학교번호</th>
+            <th>거래여부</th>
+            <th>삭제</th>
+            <th>거래상태</th>
+        </tr>
+        </thead>
+        <tbody id="users">
+        <!-- 타임리프 반복문 사용 -->
+        <tr th:each="trade : ${userPosts}">
+            <td th:text="${trade.tradeNum}"></td>
+            <td th:text="${trade.tradeTitle}"></td>
+            <td th:text="${trade.tradeCategory}"></td>
+            <td th:text="${trade.tradeTime}"></td>
+            <td th:text="${trade.schoolNum}"></td>
+            <td th:text="${trade.tradeComplete}"></td>
+            <td><button class="delete-button" th:attr="data-tradeNum=${trade.tradeNum}">삭제</button></td>
+            <td>냥냥</td>
+            <td>
+                <select class="trade-status-dropdown" th:data-trade-num="${trade.tradeNum}">
+                    <option th:selected="${trade.tradeComplete == 'N'}" value="N">거래전</option>
+                    <option th:selected="${trade.tradeComplete == 'I'}" value="I">거래중</option>
+                    <option th:selected="${trade.tradeComplete == 'Y'}" value="Y">거래후</option>
+                </select>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
