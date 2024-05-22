@@ -1,8 +1,5 @@
 package com.venture.suyaho.deal.service;
 
-import com.venture.suyaho.deal.dto.TradeRequest;
-import com.venture.suyaho.deal.entity.Book;
-import com.venture.suyaho.deal.entity.Category;
 import com.venture.suyaho.deal.entity.Trade;
 import com.venture.suyaho.deal.repository.BookRepository;
 import com.venture.suyaho.deal.repository.CategoryRepository;
@@ -29,14 +26,26 @@ public class TradeService {
     private static final Random RANDOM = new Random();
 
     public Integer generateTradeNum() {
-        // 거래 번호 생성 로직을 구현합니다.
-        // 예시: 랜덤한 8자리 숫자를 생성합니다.
         return (int) (RANDOM.nextDouble() * 90000000 + 10000000);
     }
 
     @Transactional
     public void saveTrade(Trade trade) {
         tradeRepository.save(trade);
+    }
+
+    public void saveTradeImage(MultipartFile file) throws IOException {
+        Trade trade = new Trade();
+        trade.setImageData(file.getBytes());
+        tradeRepository.save(trade);
+    }
+
+    @Transactional
+    public void saveTradeWithImageData(String title, Character bookWriting, Character bookCover, Character bookDiscoloration,
+                                       Character bookDamage, String author, String publisher, String productName,
+                                       int quantity, double price, String description, Long categoryId, byte[] imageData) {
+        tradeRepository.saveTradeWithQuery(title, bookWriting, bookCover, bookDiscoloration, bookDamage, author,
+                publisher, productName, quantity, price, description, categoryId, imageData);
     }
 
     public List<Trade> getTradeListByCategory(String categoryName) {

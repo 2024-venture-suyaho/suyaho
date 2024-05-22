@@ -38,19 +38,27 @@ public class Trade {
     @Column(name = "trade_complete")
     private boolean tradeComplete;
 
+    @Lob
+    @Column(name = "trade_image")
+    private byte[] imageData; // 이미지 데이터 필드
+
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
 
-    @OneToOne(mappedBy = "trade", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
     private Book book;
-
-
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    // 이미지 파일을 처리하기 위한 MultipartFile 필드
+    @Transient
+    private MultipartFile imageFile;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -119,9 +127,16 @@ public class Trade {
         return tradeComplete;
     }
 
-
     public void setTradeComplete(boolean tradeComplete) {
         this.tradeComplete = tradeComplete;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public User getUser() {
@@ -148,12 +163,6 @@ public class Trade {
         this.category = category;
     }
 
-    @Lob
-    @Column(name = "trade_image")
-    private MultipartFile imageFile; // MultipartFile 객체 필드
-    private byte[] imageData; // 이미지 데이터 필드
-
-    // Getters and Setters
     public MultipartFile getImageFile() {
         return imageFile;
     }
@@ -161,15 +170,4 @@ public class Trade {
     public void setImageFile(MultipartFile imageFile) {
         this.imageFile = imageFile;
     }
-
-    public byte[] getImageData() {
-        return imageData;
-    }
-
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
-    }
-
-
-
 }

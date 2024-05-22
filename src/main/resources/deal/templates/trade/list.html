@@ -43,10 +43,10 @@
         </thead>
         <tbody>
         <tr th:each="trade : ${tradeList}">
-            <td th:text="${trade.tradeNum}"></td>
+            <td th:text="${trade.id}"></td>
             <td th:text="${trade.title}"></td>
-            <td th:text="${trade.category}"></td>
-            <td th:text="${#temporals.format(trade.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${trade.category.categoryName}"></td>
+            <td th:text="${#temporals.format(trade.tradeTime, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${trade.user.username}"></td>
             <td th:text="${trade.tradeComplete} ? '거래완료' : '거래중'"></td>
         </tr>

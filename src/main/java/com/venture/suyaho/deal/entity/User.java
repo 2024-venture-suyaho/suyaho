@@ -14,22 +14,25 @@ public class User {
 
     // 사용자 정보 필드 추가
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany
     private List<Trade> tradeList;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany
     private List<Book> bookList;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany
     private List<Other> othersList;
+
 
     public Long getId() {
         return id;
     }
     @Column(name = "username")
     private String username;
-    @OneToMany(mappedBy = "users")
+ /*   @OneToMany(mappedBy = "users")
     private List<Book> books;
+*/
+
 
     public String getUsername() {
         return username;

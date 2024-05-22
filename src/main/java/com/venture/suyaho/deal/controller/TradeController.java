@@ -1,8 +1,10 @@
 package com.venture.suyaho.deal.controller;
 
+import com.venture.suyaho.deal.dto.TradeDTO;
 import com.venture.suyaho.deal.dto.TradeRequest;
 import com.venture.suyaho.deal.dto.TradeResponse;
 import com.venture.suyaho.deal.entity.Trade;
+import com.venture.suyaho.deal.repository.TradeRepository;
 import com.venture.suyaho.deal.service.BookService; // BookService 추가
 import com.venture.suyaho.deal.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/trade")
@@ -21,11 +24,19 @@ public class TradeController {
 
     private final TradeService tradeService;
     private final BookService bookService; // BookService 추가
+    private final TradeRepository tradeRepository;
 
     @Autowired
-    public TradeController(TradeService tradeService, BookService bookService) {
+    public TradeController(TradeService tradeService, BookService bookService,TradeRepository tradeRepository) {
         this.tradeService = tradeService;
-        this.bookService = bookService; // BookService 주입
+        this.bookService = bookService;
+        this.tradeRepository = tradeRepository;
+    }
+
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+        tradeService.saveTradeImage(file);
+        return "redirect:/success";
     }
 
     @GetMapping("/category/{categoryName}")
@@ -35,14 +46,15 @@ public class TradeController {
         return "trade/list";
     }
 
-    @GetMapping("/write")
+    @GetMapping("/trade/write")
     public String writeForm(Model model) {
         model.addAttribute("tradeRequest", new TradeRequest());
         return "trade/write";
     }
 
-    @PostMapping("/write")
+    @PostMapping("/trade/write")
     public String writeTrade(@ModelAttribute TradeRequest tradeRequest) {
+        System.out.println("TradeRequest: " + tradeRequest);
         // 거래 번호 생성
         int tradeNum = tradeService.generateTradeNum();
 
@@ -55,7 +67,7 @@ public class TradeController {
         trade.setDetail(tradeRequest.getDescription());
         trade.setTradeComplete(false);
 
-        // 이미지 파일 처리
+// 이미지 파일 처리
         MultipartFile imageFile = tradeRequest.getImage();
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
@@ -68,11 +80,12 @@ public class TradeController {
             }
         }
 
+
         // Trade 정보 저장
         tradeService.saveTrade(trade); // 수정: Trade 객체를 저장
 
         // 카테고리가 도서일 경우에만 Book 정보 저장
-        if (tradeRequest.getCategoryId() == 1) {
+        if (tradeRequest.getCategoryId() == 1L) {
             bookService.saveBook(tradeNum, tradeRequest.getUserNo(),
                     tradeRequest.getBookWriting(),
                     tradeRequest.getBookCover(),
@@ -100,5 +113,10 @@ public class TradeController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/trades")
+    public ResponseEntity<List<TradeDTO>> getAllTrades() {
+        List<TradeDTO> tradeDTOList = tradeRepository.findTradesWithSelectedFields();
+        return ResponseEntity.ok(tradeDTOList);
     }
 }

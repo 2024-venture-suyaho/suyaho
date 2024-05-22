@@ -10,6 +10,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
+
     @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
     private Trade trade;
 
@@ -27,6 +29,8 @@ public class Book {
 
     @Column(name = "book_company")
     private String company;
+
+
 
     public int getId() {
         return id;
@@ -84,3 +88,4 @@ public class Book {
         this.company = company;
     }
 }
+
