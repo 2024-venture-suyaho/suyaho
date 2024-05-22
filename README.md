@@ -44,7 +44,7 @@
 4. localhost:8080 으로 이동하여, 오른쪽 상단에 있는 로그인버튼을 누른 후, 회원가입 진행
 5. 회원가입 후 로그인을 한 하여 사용하시면됩니다.
 
-
+#### 🔎 페이지 설명 
 
 #### ✔ 개발 환경
 ![intellij](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
@@ -66,6 +66,9 @@
 ![GitHub](https://img.shields.io/badge/GitHub-FECC00?style=for-the-badge&logo=GitHub&logoColor=white)
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 <img src="https://github.com/DBTeamP/Find-Dog/assets/135615995/5e61746a-f6f2-4912-a31e-ca8b9755d8fe" alt="사진" width="30" height="30"> Google Meet
+## 📌 ER 다이어그램
+![Untitled](https://github.com/2024-venture-suyaho/suyaho/assets/147049456/267f179e-7d9f-4e19-8490-f3f2b2929019)
+
 
 ## 📌 브랜치 활용
 
@@ -74,8 +77,10 @@
 - **prototype 브랜치:** merge한브렌치
 
 ## ⚙ 프로그램 주요 기능
-
-
+- 거래게시판
+- 마이페이지
+- 관리자페이지
+- 채팅기능
 ## 🗂️프로그램구조도
 
 ## 🙏 개발 후기
