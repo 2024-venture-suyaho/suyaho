@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,17 +29,18 @@ public class ChatRoomController {
         return chatRoomService.findAllRoom();
     }
 
+    @RequestMapping(value={"/chatroom", "chatroom"})
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatRoomDTO sendMessage(ChatRoomDTO chatRoomDTO) throws IllegalAccessException {
-        ChatRoomDTO chatInfo = new ChatRoomDTO();
-        chatInfo.setChatNum(null);
-        chatInfo.setMesTime(LocalDateTime.now());
-        chatInfo.setMesText(chatRoomDTO.getMesText());
-        chatInfo.setUserName(chatRoomDTO.getUserName());
-        System.out.println(chatRoomDTO.getUserName());
-        System.out.println(chatRoomDTO.getMesText());
-        chatRoomService.saveMes(chatInfo);
+//        ChatRoomDTO chatInfo = new ChatRoomDTO();
+//        chatInfo.setChatNum(null);
+//        chatInfo.setMesTime(LocalDateTime.now());
+//        chatInfo.setMesText(chatRoomDTO.getMesText());
+//        chatInfo.setUserName(chatRoomDTO.getUserName());
+//        System.out.println(chatRoomDTO.getUserName());
+//        System.out.println(chatRoomDTO.getMesText());
+//        chatRoomService.saveMes(chatInfo);
         return chatRoomDTO;
     }
 

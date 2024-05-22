@@ -15,10 +15,11 @@
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a th:href="@{/chatroom}">대화방</a></li>
                 <li><a th:href="@{/lost}">분실물</a></li>
                 <li><a th:href="@{/trade}">거래</a></li>
+                <li th:if="${user!=null}"><a th:href="@{/chatting}">채팅</a></li>
                 <li><a th:href="@{/mypage}">마이페이지</a></li>
+                <li><a th:href="@{/admin}">관리자 페이지</a></li>
             </ul>
             <div class="login-container">
                 <div th:if="${user == null}">
