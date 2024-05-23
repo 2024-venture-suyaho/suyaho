@@ -46,14 +46,25 @@ document.addEventListener('DOMContentLoaded', function() {
         tradeList.innerHTML = '';
         trades.forEach(trade => {
             const tr = document.createElement('tr');
+            let category = '';
+            if (trade.tradeCategory === '1') {
+                category = '도서';
+            } else if (trade.tradeCategory === '2') {
+                category = '기부';
+            }else{
+                category = `${trade.tradeCategory}`;
+            }
             tr.innerHTML = `
-                <td>${trade.tradeNum}</td>
-                <td>${trade.tradeTitle}</td>
-                <td>${trade.tradeCategory}</td>
-                <td>${trade.tradeTime}</td>
-                <td>${trade.user.userName}</td>
-                <td>${trade.tradeComplete == 'Y' ? '거래완료' : '거래중'}</td>
-            `;
+            <td>${trade.tradeNum}</td>
+            <td>${trade.tradeTitle}</td>
+            <td>${category}</td>
+            <td>${trade.tradeTime}</td> 
+            <td>${trade.user.userName}</td>
+            <td>${trade.tradeComplete == 'Y' ? '거래완료' : (trade.tradeComplete == 'I' ? '거래중' : '거래전')}</td>
+        `;
+            tr.addEventListener('click', function() {
+                window.location.href = `/listdetail?tradeNum=${trade.tradeNum}`; // 해당 거래의 상세 페이지로 이동
+            });
             tradeList.appendChild(tr);
         });
     }

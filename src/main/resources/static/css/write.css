@@ -1,0 +1,108 @@
+/* write.css */
+
+body {
+
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 (선택 사항) */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+}
+
+.container {
+    width: 50%; /* 너비를 80%로 설정하여 더 넓게 만듦 */
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙에 배치 */
+    padding: 20px;
+    background-color: #fff; /* 컨테이너 배경색 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+    border-radius: 10px; /* 둥근 모서리 */
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 2em; /* 글꼴 크기를 더 크게 설정 */
+    text-align: center; /* 중앙 정렬 */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff; /* 입력 필드 배경색 */
+}
+
+.option-group {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.option-group label {
+    margin-right: 10px;
+}
+
+#submit-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #233428;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em; /* 버튼 글꼴 크기 */
+    width: 100px; /* 버튼 너비를 100%로 설정 */
+}
+
+#submit-button:hover {
+    background-color: #344939;
+}
+
+#backButton {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #233428;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#backButton:hover {
+    background-color: #555;
+}
+.custom-file-input {
+    background-color: #344939;
+    width: 80px;
+    color: white; /* 글자색을 흰색으로 변경 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서를 포인터로 변경 */
+}
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden; /* 기본 파일 선택 버튼 숨기기 */
+}
+.custom-file-input::before {
+    content: '파일 선택'; /* 사용자 정의 버튼 텍스트 */
+    display: inline-block;
+    background: #344939;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.custom-file-input:hover::before {
+    background-color: #28372a; /* 호버 시 배경색 변경 */
+}

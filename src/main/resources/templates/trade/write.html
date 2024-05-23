@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="UTF-8">
     <title>게시글 작성</title>
-    <link rel="stylesheet" th:href="@{/css/wrire.css}">
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/js/write.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <a href="list.html" class="back-btn">뒤로가기</a>
+    <button id="backButton">뒤로가기</button>
     <h1>게시글 작성</h1>
-    <form action="create" method="post" id="trade-form">
+    <form action="write" method="post" id="trade-form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="category">카테고리</label>
             <select id="category" name="category-id" required>
                 <option value="1">도서</option>
                 <option value="2">기부</option>
-                <option value="3">기타</option>
+                <option value="3">분실물</option>
             </select>
         </div>
         <div class="form-group">
@@ -58,7 +61,6 @@
             <label for="title">제목을 등록해주세요</label>
             <input type="text" id="title" name="title" required>
         </div>
-
         <div class="form-group">
             <label for="publisher">출판사</label>
             <input type="text" id="publisher" name="publisher" placeholder="출판사명을 입력해주세요" required>
@@ -79,16 +81,12 @@
             <label for="description">상세 정보</label>
             <textarea id="description" name="description" rows="4" required></textarea>
         </div>
-        <div class="form-group">
-            <label for="image">이미지 업로드</label>
-            <input type="file" id="image" name="image" accept="image/*">
+        <div class="form-group ">
+            <label for="image" >이미지 업로드</label>
+            <input type="file" id="image" name="image" accept="image/*" class="custom-file-input">
         </div>
         <button class="BaseButton BaseButton--skinGreen size_default" id="submit-button" type="submit">등록</button>
-        <!--<a href="#" role="button" class="BaseButton BaseButton&#45;&#45;skinGreen size_default" id="submit-button">
-            <span class="BaseButton__txt"> 등록 </span>
-        </a>-->
     </form>
 </div>
-<!--<script src="../../static/write.js"></script>-->
 </body>
 </html>

@@ -75,4 +75,5 @@ public class PostController {
         adminBoardRepository.save(trade);
         return ResponseEntity.ok("Trade status updated successfully");
     }
+
 }

@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -53,7 +56,6 @@ public class HomeController {
     @GetMapping("/adminuser")
     public String adminPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-
         // 유저가 로그인하지 않았거나 관리자 권한이 없으면 로그인 페이지로 리다이렉트
         if (user == null || user.getUserRights() != 'Y') {
             return "redirect:/login";
@@ -99,5 +101,59 @@ public class HomeController {
         adminBoardRepository.deleteById(tradeNum);
         return ResponseEntity.ok("Trade deleted");
     }
+
+    @GetMapping("/write")
+    public String writePage(){
+
+        return "trade/write"; // write.html 템플릿을 반환
+    }
+
+    @PostMapping("/write")
+    public String saveTrade(HttpSession httpSession,
+                            @RequestParam String tradeCategory,
+                            @RequestParam String tradeTitle,
+                            @RequestParam String tradeProduct,
+                            @RequestParam int tradeQuantity,
+                            @RequestParam int tradePrice,
+                            @RequestParam String tradeText,
+                            @RequestParam String tradeCondition,
+                            @RequestParam char tradeComplete,
+                            @RequestParam("tradePhoto") MultipartFile tradePhoto) throws IOException {
+        AdminBoard adminBoard = new AdminBoard();
+
+        adminBoard.setTradeCategory(tradeCategory);
+        adminBoard.setTradeTitle(tradeTitle);
+        adminBoard.setTradeProduct(tradeProduct);
+        adminBoard.setTradeQuantity(tradeQuantity);
+        adminBoard.setTradePrice(tradePrice);
+        adminBoard.setTradeText(tradeText);
+        adminBoard.setTradeCondition(tradeCondition);
+        adminBoard.setTradeComplete(tradeComplete);
+        adminBoard.setTradeTime(LocalDateTime.now());
+
+        // Set the photo
+        if (!tradePhoto.isEmpty()) {
+            adminBoard.setTradePhoto(tradePhoto.getBytes());
+        }
+
+        // Assume that the user is already set in the session, replace this with your actual user retrieval logic
+        User user = (User) httpSession.getAttribute("user");
+        adminBoard.setUser(user);
+
+        adminBoardRepository.save(adminBoard);
+
+        return "redirect:/list"; // 저장 후 목록 페이지로 리디렉션
+    }
+
+    @GetMapping("/listdetail")
+    public String listDetail(@RequestParam("tradeNum") Long tradeNum, Model model) {
+        AdminBoard trade = adminBoardRepository.findById(tradeNum).orElse(null);
+        if (trade == null) {
+            return "error/404"; // 거래를 찾을 수 없는 경우 404 페이지로 이동
+        }
+        model.addAttribute("trade", trade);
+        return "trade/listde"; // listdetail.html 템플릿을 반환
+    }
+
 
 }

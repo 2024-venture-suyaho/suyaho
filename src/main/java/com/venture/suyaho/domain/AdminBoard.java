@@ -14,7 +14,7 @@ public class AdminBoard {
     @Column(name = "trade_num")
     private Long tradeNum;
 
-    @Column(name = "trade_category", nullable = false)
+    @Column(name = "trade_category")
     private String tradeCategory;
 
     @Column(name = "trade_title", nullable = false)

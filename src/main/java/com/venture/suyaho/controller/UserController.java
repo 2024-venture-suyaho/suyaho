@@ -3,7 +3,7 @@ package com.venture.suyaho.controller;
 
 import com.venture.suyaho.domain.User;
 import com.venture.suyaho.dto.UserDTO;
-import com.venture.suyaho.repository.UserService;
+import com.venture.suyaho.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

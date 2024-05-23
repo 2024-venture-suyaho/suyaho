@@ -22,6 +22,8 @@ public interface AdminBoardRepository extends JpaRepository<AdminBoard, Long> {
     @Query("SELECT ab FROM AdminBoard ab JOIN FETCH ab.user WHERE ab.user.userNo IN :userListNum")
     List<AdminBoard> findByUser_UserNoIn(@Param("userListNum") List<Long> userListNum);
 
-    List<AdminBoard> findByUser(User user);
+    // 최대 trade_num 값을 가져오는 메서드
+    @Query("SELECT MAX(a.tradeNum) FROM AdminBoard a")
+    Long findMaxTradeNum();
 
 }

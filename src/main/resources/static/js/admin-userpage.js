@@ -55,13 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('현재 비밀번호를 입력해주세요.');
             return;
         }
-
         const phonePattern = /^010-\d{4}-\d{4}$/;
         if (!phonePattern.test(newPhoneNumber)) {
             alert('전화번호 형식이 올바르지 않습니다. 010-XXXX-XXXX 형식으로 입력해주세요.');
             return;
         }
-
         fetch(`/api/users/changePhone`, {
             method: 'POST',
             headers: {
@@ -185,11 +183,19 @@ function fetchTradesByUserNo(userNo) {
             const tbody = document.querySelector('.users-table tbody');
             tbody.innerHTML = ''; // 테이블 내용 초기화
             data.forEach(trade => {
+                let category = '';
+                if (trade.tradeCategory === '1') {
+                    category = '도서';
+                } else if (trade.tradeCategory === '2') {
+                    category = '기부';
+                }else{
+                    category = `${trade.tradeCategory}`;
+                }
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                 <td>${trade.tradeNum}</td>
                 <td>${trade.tradeTitle}</td>
-                <td>${trade.tradeCategory}</td>
+                <td>${category}</td>
                 <td>${trade.tradeTime}</td>
                 <td>${trade.schoolNum}</td>
                 <td>${trade.tradeComplete}</td>
