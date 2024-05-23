@@ -185,11 +185,17 @@ function fetchTradesByUserNo(userNo) {
             const tbody = document.querySelector('.users-table tbody');
             tbody.innerHTML = ''; // 테이블 내용 초기화
             data.forEach(trade => {
+                let category = '';
+                if (trade.tradeCategory === '1') {
+                    category = '도서';
+                } else if (trade.tradeCategory === '2') {
+                    category = '기부';
+                }
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                 <td>${trade.tradeNum}</td>
                 <td>${trade.tradeTitle}</td>
-                <td>${trade.tradeCategory}</td>
+                <td>${category}</td>
                 <td>${trade.tradeTime}</td>
                 <td>${trade.schoolNum}</td>
                 <td>${trade.tradeComplete}</td>
