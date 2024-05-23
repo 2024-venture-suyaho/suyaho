@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="../../static/css/wrire.css">
+</head>
+<body>
+<div class="container">
+    <a href="list.html" class="back-btn">뒤로가기</a>
+    <h1>게시글 작성</h1>
+    <form action="create" method="post" id="trade-form">
+        <div class="form-group">
+            <label for="category">카테고리</label>
+            <select id="category" name="category-id" required>
+                <option value="1">도서</option>
+                <option value="2">기부</option>
+                <option value="3">기타</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>제품 상태</label>
+            <div class="option-group">
+                <input type="radio" id="writing-yes" name="book-writing" value="true" checked>
+                <label for="writing-yes">필기 흔적 없음</label>
+                <input type="radio" id="writing-no" name="book-writing" value="false">
+                <label for="writing-no">필기 흔적 있음</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>겉표지</label>
+            <div class="option-group">
+                <input type="radio" id="cover-yes" name="book-cover" value="true" checked>
+                <label for="cover-yes">깨끗함</label>
+                <input type="radio" id="cover-no" name="book-cover" value="false">
+                <label for="cover-no">깨끗하지 않음</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>페이지 변색</label>
+            <div class="option-group">
+                <input type="radio" id="discoloration-yes" name="book-discoloration" value="true" checked>
+                <label for="discoloration-yes">없음</label>
+                <input type="radio" id="discoloration-no" name="book-discoloration" value="false">
+                <label for="discoloration-no">있음</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>페이지 훼손</label>
+            <div class="option-group">
+                <input type="radio" id="damage-yes" name="book-damage" value="true" checked>
+                <label for="damage-yes">없음</label>
+                <input type="radio" id="damage-no" name="book-damage" value="false">
+                <label for="damage-no">있음</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title">제목을 등록해주세요</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="publisher">출판사</label>
+            <input type="text" id="publisher" name="publisher" placeholder="출판사명을 입력해주세요" required>
+        </div>
+        <div class="form-group">
+            <label for="product-name">제품명</label>
+            <input type="text" id="product-name" name="product-name" placeholder="제품명을 입력해주세요" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">개수</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+        </div>
+        <div class="form-group">
+            <label for="price">가격</label>
+            <input type="text" id="price" name="price" required>
+        </div>
+        <div class="form-group">
+            <label for="description">상세 정보</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="image">이미지 업로드</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+        <button class="BaseButton BaseButton--skinGreen size_default" id="submit-button" type="submit">등록</button>
+        <!--<a href="#" role="button" class="BaseButton BaseButton&#45;&#45;skinGreen size_default" id="submit-button">
+            <span class="BaseButton__txt"> 등록 </span>
+        </a>-->
+    </form>
+</div>
+<!--<script src="../../static/write.js"></script>-->
+</body>
+</html>
