@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${trade.tradeCategory}</td>
                 <td>${trade.tradeTime}</td>
                 <td>${trade.user.userName}</td>
-                <td>${trade.tradeComplete == 'Y' ? '거래완료' : '거래중'}</td>
+                <td>${trade.tradeComplete == 'Y' ? '거래완료' : (trade.tradeComplete == 'I' ? '거래중' : '거래전')}</td>
+
             `;
             tradeList.appendChild(tr);
         });

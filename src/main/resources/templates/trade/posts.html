@@ -53,7 +53,9 @@
                     <td th:text="${trade.tradeCategory}"></td>
                     <td th:text="${trade.tradeTime}"></td>
                     <td th:text="${trade.user.userName}"></td> <!-- userName 대신 user.userName 사용 -->
-                    <td th:text="${trade.tradeComplete == 'Y' ? '거래완료' : '거래중'}"></td>
+                    <td th:text="${trade.tradeComplete == 'Y' ? '거래완료' : (trade.tradeComplete == 'I' ? '거래중' : '거래미완료')}"></td>
+
+
                 </tr>
                 </tbody>
             </table>
