@@ -17,9 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
      private BookRepository bookRepository;
 
      @Transactional
-     public void createTrade(AdminBoard adminBoard, Book book) {
-         adminBoardRepository.save(adminBoard);
-         book.setTradeNum(adminBoard.getTradeNum());  // adminBoard가 저장된 후 생성된 tradeNum을 설정
-         bookRepository.save(book);
+     public AdminBoard saveAdminBoard(AdminBoard adminBoard) {
+         return adminBoardRepository.save(adminBoard);
+     }
+
+     @Transactional
+     public Book saveBook(Book book) {
+         return bookRepository.save(book);
      }
 }

@@ -3,27 +3,35 @@ package com.venture.suyaho.controller;
 import com.venture.suyaho.domain.AdminBoard;
 import com.venture.suyaho.domain.Book;
 import com.venture.suyaho.domain.User;
+import com.venture.suyaho.repository.AdminBoardRepository;
+import com.venture.suyaho.repository.BookRepository;
 import com.venture.suyaho.repository.UserRepository;
 import com.venture.suyaho.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class UserPageController {
 
     @Autowired
-    private UserRepository userRepository;
+    private AdminBoardRepository adminBoardRepository;
+
     @Autowired
-    private TradeService tradeService;
+    private BookRepository bookRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     @PostMapping("/users/changeMajor")
@@ -106,55 +114,63 @@ public class UserPageController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
     }
 
+
     @PostMapping("/trade/write")
-    public ResponseEntity<?> createTrade(
-            @RequestParam("image") MultipartFile image,
-            @RequestParam("title") String title,
-            @RequestParam("productName") String productName,
-            @RequestParam("quantity") int quantity,
-            @RequestParam("price") int price,
-            @RequestParam("description") String description,
-            @RequestParam("tradeCondition") String tradeCondition,
-            @RequestParam("bookWriting") String bookWriting,
-            @RequestParam("bookCover") String bookCover,
-            @RequestParam("bookDiscoloration") String bookDiscoloration,
-            @RequestParam("bookDamage") String bookDamage,
-            @RequestParam("publisher") String publisher,
-            @RequestParam("categoryId") Long categoryId,
-            @RequestParam("userNo") Long userNo) {
-
+    public ResponseEntity<?> createTrade(@RequestParam("categoryId") Integer categoryId,
+                                         @RequestParam("bookWriting") String bookWriting,
+                                         @RequestParam("bookCover") String bookCover,
+                                         @RequestParam("bookDiscoloration") String bookDiscoloration,
+                                         @RequestParam("bookDamage") String bookDamage,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("publisher") String publisher,
+                                         @RequestParam("tradeProduct") String tradeProduct,
+                                         @RequestParam("quantity") Integer quantity,
+                                         @RequestParam("price") Integer price,
+                                         @RequestParam("description") String description,
+                                         @RequestParam("image") MultipartFile image) {
         try {
-            User user = userRepository.findById(userNo).orElse(null);
-            if (user == null) {
-                return ResponseEntity.status(404).body("User not found");
-            }
+            // 최대 trade_num 값을 가져옴
+            Long maxTradeNum = adminBoardRepository.findMaxTradeNum();
+            Long newTradeNum = (maxTradeNum != null) ? maxTradeNum + 1 : 1;
 
+            // AdminBoard 엔티티 생성 및 저장
             AdminBoard adminBoard = new AdminBoard();
+            adminBoard.setTradeNum(newTradeNum);
             adminBoard.setTradeCategory(categoryId.toString());
             adminBoard.setTradeTitle(title);
-            adminBoard.setTradeProduct(productName);
+            adminBoard.setTradeProduct(tradeProduct);
             adminBoard.setTradeQuantity(quantity);
             adminBoard.setTradePrice(price);
             adminBoard.setTradeText(description);
-            adminBoard.setTradeCondition(tradeCondition);
+            adminBoard.setTradeCondition(
+                    "필기 흔적: " + (bookWriting.equals("Y") ? "없음" : "있음") + ", " +
+                            "변색: " + (bookDiscoloration.equals("Y") ? "없음" : "있음") + ", " +
+                            "훼손: " + (bookDamage.equals("Y") ? "없음" : "있음")
+            );
             adminBoard.setTradePhoto(image.getBytes());
             adminBoard.setTradeTime(LocalDateTime.now());
             adminBoard.setTradeComplete('N');
-            adminBoard.setUser(user);
+            adminBoard.setUser(userRepository.findById(1L).orElseThrow()); // 예제 사용자 ID
 
+            adminBoardRepository.save(adminBoard);
+
+            // Book 엔티티 생성 및 저장
             Book book = new Book();
-            book.setBookWriting(bookWriting.charAt(0));
-            book.setBookCover(bookCover.charAt(0));
-            book.setBookDiscoloration(bookDiscoloration.charAt(0));
-            book.setBookDamage(bookDamage.charAt(0));
+            book.setTradeNum(adminBoard.getTradeNum()); // trade_num 값을 AdminBoard의 trade_num으로 설정
             book.setBookCompany(publisher);
-            book.setUserNo(userNo);
+            book.setBookCover(bookCover.charAt(0));
+            book.setBookDamage(bookDamage.charAt(0));
+            book.setBookDiscoloration(bookDiscoloration.charAt(0));
+            book.setBookWriting(bookWriting.charAt(0));
+            book.setUserNo(1L);  // 예시로 설정한 user_no 값
 
-            tradeService.createTrade(adminBoard, book);
+            bookRepository.save(book);
 
-            return ResponseEntity.ok("Trade created successfully");
-        } catch (IOException e) {
-            return ResponseEntity.status(500).body("Failed to create trade");
+            return ResponseEntity.ok().body("Trade created successfully");
+        } catch (Exception e) {
+            // 자세한 로그 추가
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

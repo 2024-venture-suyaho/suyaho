@@ -28,6 +28,8 @@ public class AdminController {
         return adminBoardRepository.findAll();
     }
 
+
+
     @GetMapping("/trades/user/{userNo}")
     public List<AdminBoard> getTradesByUserNo(@PathVariable Integer userNo) {
         return adminBoardRepository.findByUser_UserNo(userNo);
