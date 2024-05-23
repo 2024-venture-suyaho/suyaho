@@ -105,6 +105,7 @@ body {
     margin-top: 200px;
     text-align: right;
     margin-right: calc(20%);
+    font-size: 36px;
 }
 
 .index-header img {
@@ -124,13 +125,15 @@ body {
 }
 
 .main-content h3 {
-    margin-top: 120px;
+    margin-top: 230px;
     text-align: center;
+    font-size: 32px;
 }
 
 .main-content p {
     margin-top: 10px;
     text-align: center;
+    font-size: 24px;
 }
 
 .main-content img {
@@ -142,27 +145,24 @@ body {
     z-index: -1;
 }
 
-.additional-content {
-
-}
-
-.additional-content p {
-    margin-top: 170px;
-    color: #0C2DA0;
-}
-
 .index-footer {
     text-align: center;
     margin-bottom: 50px;
 }
 
 .index-footer h3 {
+    margin-top: 280px;
     margin-bottom: 20px;
+    font-size: 32px;
 }
 
 .index-footer iframe {
-    display: block;
-    margin: 0 auto 30px;
+    margin-left: 100px;
+    flex-basis: 100%;
+}
+
+.index-footer img {
+    max-width: 10%;
 }
 
 
