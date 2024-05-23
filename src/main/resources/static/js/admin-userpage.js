@@ -55,13 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('현재 비밀번호를 입력해주세요.');
             return;
         }
-
         const phonePattern = /^010-\d{4}-\d{4}$/;
         if (!phonePattern.test(newPhoneNumber)) {
             alert('전화번호 형식이 올바르지 않습니다. 010-XXXX-XXXX 형식으로 입력해주세요.');
             return;
         }
-
         fetch(`/api/users/changePhone`, {
             method: 'POST',
             headers: {

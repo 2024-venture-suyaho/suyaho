@@ -26,16 +26,20 @@
     </div>
     <div class="profile-info">
         <div>
+            <!-- 이름 표시 -->
             <div id="userName" th:text="${user.userName}"></div>
+            <!-- 이메일(아이디로사용) 표시-->
             <p style="font-weight: bold;">Email</p>
             <div id="userEmail" th:text="${user.userEmail}"></div>
-
+            <!-- 전화번호 표시-->
             <p style="font-weight: bold;">전화번호</p>
-            <div id="userPhone" th:text="${user.userPhone}"></div> <!-- userPhone 추가 -->
+            <div id="userPhone" th:text="${user.userPhone}"></div>
+            <!-- 전화번호 변경 -->
             <div class="phone-combined">
-                <input type="text" id="phoneInput" th:value="${user.userPhone}" style="margin-top: 10px;"> <!-- 전화번호 변경 입력칸 -->
-                <button id="changePhoneBtn">변경</button> <!-- 전화번호 변경 버튼 -->
+                <input type="text" id="phoneInput" th:value="${user.userPhone}" style="margin-top: 10px;">
+                <button id="changePhoneBtn">변경</button>
             </div>
+            <!-- 학과 -->
             <div class="schoolmajor">
                 <p style="font-weight: bold; margin-bottom: 5px;">학과</p>
                 <div id="userMajor" th:text="${user.userMajor}"></div>
@@ -69,6 +73,7 @@
                 <button id="changeMajorBtn">변경</button>
             </div>
             <br>
+            <!-- 비밀번호 변경 -->
             <label for="currentPassword">현재 비밀번호</label><br>
             <input type="password" id="currentPassword" name="currentPassword" required placeholder="비밀번호를 입력해주세요">
             <br>

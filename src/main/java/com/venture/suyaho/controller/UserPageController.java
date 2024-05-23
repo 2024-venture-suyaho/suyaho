@@ -158,7 +158,7 @@ public class UserPageController {
             book.setBookDamage(bookDamage.equals("true") ? 'Y' : 'N');
             book.setBookDiscoloration(bookDiscoloration.equals("true") ? 'Y' : 'N');
             book.setBookWriting(bookWriting.equals("true") ? 'Y' : 'N');
-            book.setUserNo(1L);  // 예시로 설정한 user_no 값
+            book.setUserNo(3L);  // 예시로 설정한 user_no 값
 
             tradeService.saveBook(book);
 
