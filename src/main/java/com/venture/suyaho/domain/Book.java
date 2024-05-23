@@ -133,6 +133,5 @@ public class Book {
         this.tradeBoard = tradeBoard;
     }
 
-
 }
 
