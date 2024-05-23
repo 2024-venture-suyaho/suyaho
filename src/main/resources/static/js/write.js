@@ -49,12 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('Server response:', data);  // 디버깅용 로그
             if (response.ok) {
-                window.location.href = './trade/list.html';
+                window.location.href = '/posts';  // 등록 후 /posts로 이동
             } else {
                 console.error('Error:', data.message);
+                window.location.href = '/posts';  // 등록 후 /posts로 이동
             }
         } catch (error) {
             console.error('Error:', error);
+            window.location.href = '/posts';  // 등록 후 /posts로 이동
         }
     });
 });

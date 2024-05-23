@@ -12,7 +12,13 @@
 <div class="container">
     <div class="header-container">
         <div class="header-left">
-            <p>카테고리: <span th:text="${trade.tradeCategory}"></span></p>
+            <p>카테고리:
+                <span th:switch="${trade.tradeCategory}">
+                    <span th:case="'1'">도서</span>
+                    <span th:case="'2'">기부</span>
+                    <span th:case="*" th:text="${trade.tradeCategory}"></span>
+                </span>
+            </p>
             <p>작성자: <span th:text="${trade.user.userName}"></span></p>
         </div>
         <div class="header-center">
