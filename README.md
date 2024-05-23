@@ -130,14 +130,10 @@ project-root
 │   │   │               ├── repository
 │   │   │               │   ├── AdminBoardRepository.java
 │   │   │               │   ├── BookRepository.java
-│   │   │               │   ├── CategoryRepository.java
 │   │   │               │   ├── ChatLogRepository.java
 │   │   │               │   ├── ChatRoomRepository.java
-│   │   │               │   ├── TradeBoardRepository.java
 │   │   │               │   └── UserRepository.java
 │   │   │               ├── service
-│   │   │               │   ├── BookService.java
-│   │   │               │   ├── CategoryService.java
 │   │   │               │   ├── ChatLogService.java
 │   │   │               │   ├── ChatRoomService.java
 │   │   │               │   ├── TradeService.java
@@ -150,7 +146,7 @@ project-root
 │   │       ├── templates
 │   │       ├── application.properties
 │   │       └── data.sql (optional, for initial data setup)
-│   └── test
+
 │       └── java
 │           └── com
 │               └── venture
