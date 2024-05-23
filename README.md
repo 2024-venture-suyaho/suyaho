@@ -178,9 +178,15 @@ project-root
 │   │       │   │   ├── posts.html
 │   │       │   │   ├── write.html
 │   │       │   ├── fragments
-│   │       │   │   ├── admin-header.html
-│   │       │   │   ├── footer.html
-│   │       │   │   ├─- header.html
+│   │       │       ├── admin-header.html
+│   │       │       ├── footer.html
+│   │       │       ├─- header.html
+│   │       ├── admin-login.html
+│   │       ├── agree.html
+│   │       ├── chatroo.html
+│   │       ├── index.html
+│   │       ├── login.html
+│   │       ├── register.html
 │   │       ├── application.properties
 │   │       └── data.sql (optional, for initial data setup)
 │       └── java
@@ -188,7 +194,7 @@ project-root
 │               └── venture
 │                   └── suyaho
 │                       └── SuyahoApplicationTests.java
-└── pom.xml (or build.gradle)
+└── build.gradle
 
 ```
 
