@@ -93,6 +93,9 @@
 - 관리자페이지 : 관리자페이지는 관리자 유저보기, 관리자-게시글보기 두가지 탭으로 나뉘며, 관리자-유저보기는 유저의 상세정보를 열람할수있고, 유저를 삭제하여 회원탈퇴 시킬수 있습니다. 관리자-게시글 보기에서는 게시글 목록을 열람할수있으며, 게시글을 삭제시킬수있습니다.
 - 채팅기능
 ## 🗂️프로그램구조도
+# Project Structure
+
+```plaintext
 project-root
 ├── src
 │   ├── main
@@ -121,9 +124,9 @@ project-root
 │   │   │               │   ├── TradeBoard.java
 │   │   │               │   └── User.java
 │   │   │               ├── DTO
-│   │   │               │   ├── ChatRoomDTO
-│   │   │               │   ├── LostItem
-│   │   │               │   └── UserDTO
+│   │   │               │   ├── ChatRoomDTO.java
+│   │   │               │   ├── LostItem.java
+│   │   │               │   └── UserDTO.java
 │   │   │               ├── repository
 │   │   │               │   ├── AdminBoardRepository.java
 │   │   │               │   ├── BookRepository.java
@@ -132,15 +135,15 @@ project-root
 │   │   │               │   ├── ChatRoomRepository.java
 │   │   │               │   ├── TradeBoardRepository.java
 │   │   │               │   └── UserRepository.java
-│   │   │               └── service
-│   │   │               │   ├──BookService.java
+│   │   │               ├── service
+│   │   │               │   ├── BookService.java
 │   │   │               │   ├── CategoryService.java
 │   │   │               │   ├── ChatLogService.java
-│   │   │               │   ├──ChatRoomService.java
-│   │   │               │   ├──TradeService.java
-│   │   │               │   └──  UserService.java
+│   │   │               │   ├── ChatRoomService.java
+│   │   │               │   ├── TradeService.java
+│   │   │               │   └── UserService.java
 │   │   │               └── websocket
-│   │   │                   └──  WebSocketConfig.java
+│   │   │                   └── WebSocketConfig.java
 │   │   └── resources
 │   │       ├── static
 │   │       ├── templates
@@ -153,6 +156,7 @@ project-root
 │                   └── suyaho
 │                       └── SuyahoApplicationTests.java
 └── pom.xml (or build.gradle)
+```
 
 ## 🙏 개발 후기
 #### [ 팀장_심선우 ]
