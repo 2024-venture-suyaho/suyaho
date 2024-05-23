@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 category = '도서';
             } else if (trade.tradeCategory === '2') {
                 category = '기부';
+            }else{
+                category = `${trade.tradeCategory}`;
             }
             tr.innerHTML = `
             <td>${trade.tradeNum}</td>
