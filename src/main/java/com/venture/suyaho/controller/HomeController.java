@@ -103,4 +103,9 @@ public class HomeController {
         return "trade/write"; // write.html 템플릿을 반환
     }
 
+    @GetMapping("/listdetail")
+    public String listDetail(Model model) {
+        return "trade/listde"; // write.html 템플릿을 반환
+    }
+
 }
