@@ -251,6 +251,7 @@ function updateTradeStatus(selectElement) {
         .then(response => {
             if (response.ok) {
                 alert('거래 상태가 업데이트 되었습니다.');
+                window.location.href = '/mypage';
             } else {
                 alert('거래 상태 업데이트를 실패했습니다.');
                 console.log(response);
