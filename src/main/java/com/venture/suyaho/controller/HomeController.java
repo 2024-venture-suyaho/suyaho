@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -98,9 +101,48 @@ public class HomeController {
         adminBoardRepository.deleteById(tradeNum);
         return ResponseEntity.ok("Trade deleted");
     }
+
     @GetMapping("/write")
-    public String writePage() {
+    public String writePage(){
+
         return "trade/write"; // write.html 템플릿을 반환
+    }
+
+    @PostMapping("/write")
+    public String saveTrade(HttpSession httpSession,
+                            @RequestParam String tradeCategory,
+                            @RequestParam String tradeTitle,
+                            @RequestParam String tradeProduct,
+                            @RequestParam int tradeQuantity,
+                            @RequestParam int tradePrice,
+                            @RequestParam String tradeText,
+                            @RequestParam String tradeCondition,
+                            @RequestParam char tradeComplete,
+                            @RequestParam("tradePhoto") MultipartFile tradePhoto) throws IOException {
+        AdminBoard adminBoard = new AdminBoard();
+
+        adminBoard.setTradeCategory(tradeCategory);
+        adminBoard.setTradeTitle(tradeTitle);
+        adminBoard.setTradeProduct(tradeProduct);
+        adminBoard.setTradeQuantity(tradeQuantity);
+        adminBoard.setTradePrice(tradePrice);
+        adminBoard.setTradeText(tradeText);
+        adminBoard.setTradeCondition(tradeCondition);
+        adminBoard.setTradeComplete(tradeComplete);
+        adminBoard.setTradeTime(LocalDateTime.now());
+
+        // Set the photo
+        if (!tradePhoto.isEmpty()) {
+            adminBoard.setTradePhoto(tradePhoto.getBytes());
+        }
+
+        // Assume that the user is already set in the session, replace this with your actual user retrieval logic
+        User user = (User) httpSession.getAttribute("user");
+        adminBoard.setUser(user);
+
+        adminBoardRepository.save(adminBoard);
+
+        return "redirect:/list"; // 저장 후 목록 페이지로 리디렉션
     }
 
     @GetMapping("/listdetail")
