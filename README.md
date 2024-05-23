@@ -94,7 +94,6 @@
 - 채팅기능
 ## 🗂️프로그램구조도
 # Project Structure
-
 ```plaintext
 project-root
 ├── src
@@ -143,16 +142,54 @@ project-root
 │   │   │                   └── WebSocketConfig.java
 │   │   └── resources
 │   │       ├── static
+│   │       │   ├── css
+│   │       │   │   ├── style.css
+│   │       │   │   ├── admin-userpage.css
+│   │       │   │   ├── adminpage.css
+│   │       │   │   ├── listde.css
+│   │       │   │   ├── login.css
+│   │       │   │   ├── lostwrite.css
+│   │       │   │   ├── register.css
+│   │       │   │   ├── trade.css
+│   │       │   │   ├── write.css
+│   │       │   ├── img
+│   │       │   │   ├── asf.png
+│   │       │   │   ├── bean.gif
+│   │       │   │   ├── campus.png
+│   │       │   │   ├── Ckong.jpg
+│   │       │   │   ├──logo.png
+│   │       │   │   ├── main1.png
+│   │       │   │   ├── main2.png
+│   │       │   │   ├── Skong.jpg
+│   │       │   ├── js
+│   │       │   │   ├── admin-userpage.js
+│   │       │   │   ├── adminpage.js
+│   │       │   │   ├── adminpost.js
+│   │       │   │   ├── chat.js
+│   │       │   │   ├── listdetail.js
+│   │       │   │   ├── posts.js
+│   │       │   │   ├── write.js
 │   │       ├── templates
+│   │       │   ├── trade
+│   │       │   │   ├── list.html
+│   │       │   │   ├── listde.html
+│   │       │   │   ├── lost.html
+│   │       │   │   ├── lostwrite.html
+│   │       │   │   ├── posts.html
+│   │       │   │   ├── write.html
+│   │       │   ├── fragments
+│   │       │   │   ├── admin-header.html
+│   │       │   │   ├── footer.html
+│   │       │   │   ├─- header.html
 │   │       ├── application.properties
 │   │       └── data.sql (optional, for initial data setup)
-
 │       └── java
 │           └── com
 │               └── venture
 │                   └── suyaho
 │                       └── SuyahoApplicationTests.java
 └── pom.xml (or build.gradle)
+
 ```
 
 ## 🙏 개발 후기
