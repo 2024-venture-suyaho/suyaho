@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('trade-form');
     const submitButton = document.getElementById('submit-button');
-
+    // 뒤로가기버튼구현
+    const backButton = document.getElementById("backButton");
+    if (backButton) {
+        backButton.addEventListener("click", function() {
+            window.history.back();
+        });
+    }
     submitButton.addEventListener('click', async function(event) {
         event.preventDefault();  // 기본 동작을 막음
         console.log('Submit button clicked');  // 디버깅용 로그

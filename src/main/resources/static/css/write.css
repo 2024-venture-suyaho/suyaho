@@ -57,7 +57,7 @@ select {
 
 #submit-button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px;
     background-color: #233428;
     color: white;
     text-decoration: none;
@@ -72,16 +72,16 @@ select {
     background-color: #344939;
 }
 
-.back-btn {
+#backButton {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px;
     background-color: #233428;
     color: white;
     text-decoration: none;
     border-radius: 5px;
 }
 
-.back-btn:hover {
+#backButton:hover {
     background-color: #555;
 }
 .custom-file-input {
