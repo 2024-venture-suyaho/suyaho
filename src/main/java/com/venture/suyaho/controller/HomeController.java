@@ -103,4 +103,15 @@ public class HomeController {
         return "trade/write"; // write.html 템플릿을 반환
     }
 
+    @GetMapping("/listdetail")
+    public String listDetail(@RequestParam("tradeNum") Long tradeNum, Model model) {
+        AdminBoard trade = adminBoardRepository.findById(tradeNum).orElse(null);
+        if (trade == null) {
+            return "error/404"; // 거래를 찾을 수 없는 경우 404 페이지로 이동
+        }
+        model.addAttribute("trade", trade);
+        return "trade/listde"; // listdetail.html 템플릿을 반환
+    }
+
+
 }
