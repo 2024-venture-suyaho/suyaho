@@ -190,6 +190,8 @@ function fetchTradesByUserNo(userNo) {
                     category = '도서';
                 } else if (trade.tradeCategory === '2') {
                     category = '기부';
+                }else{
+                    category = `${trade.tradeCategory}`;
                 }
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
