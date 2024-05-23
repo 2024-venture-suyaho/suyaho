@@ -2,50 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>분실물 목록</title>
-    <link rel="stylesheet" href="../../static/css/trade.css">
+    <title>중고거래 목록</title>
+    <link rel="stylesheet" th:href="@{/css/trade.css}">  <!--trade-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/js/posts.js}"></script>
+
 </head>
-<body>
-<div class="container">
-    <a th:href="@{/static}">
-        <img src="../../static/images/캠퍼스.jpg" alt="Homepage Image" height="150px" width="100%">
-    </a>
-    <h1>분실물 목록</h1>
-    <div class="search-form">
-        <div class="search-input-container">
-            <input type="text" id="search-input" placeholder="검색어를 입력하세요">
-            <select id="search-option">
-                <option value="userId">아이디</option>
-                <option value="studentId">학번</option>
-                <option value="nickname">닉네임</option>
-            </select>
-        </div>
-        <button id="search-btn">검색</button>
-    </div>
-    <table>
-        <thead>
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>위치</th>
-            <th>등록일시</th>
-            <th>아이디</th>
-            <th>상태</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="lost : ${lostList}">
-            <td th:text="${lost.id}"></td>
-            <td th:text="${lost.title}"></td>
-            <td th:text="${lost.position}"></td>
-            <td th:text="${#temporals.format(lost.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${lost.user.username}"></td>
-            <td th:text="${lost.status}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <a href="write.html" class="write-btn">분실물 등록</a>
+<body>    <div th:replace="fragments/header :: header"></div>
+
+
+<a th:href="@{/}">
+    <img src="/img/campus.png" alt="Homepage Image" height="300px" width="100%">
+</a><div class="container"><div class="back">
+    <button id="backButton">뒤로가기</button>
 </div>
-<script src="../../static/lost.js"></script>
-</body>
+    <h1>분실물 목록</h1>
+
+    <div class="search-container">
+        <div class="search-combined">
+            <select class="search-category">
+                <option value="title">제목</option>
+                <option value="name">이름</option>
+            </select>
+            <input type="text" placeholder="검색어를 입력하세요" class="search-input">
+            <button class="search-button">검색</button>
+
+        </div>
+        <form action="write" method="post">
+            <button id="submit-button">작성</button>
+        </form>
+    </div>
+    <div class="post-wrapper">
+
+        <div class="post-container">
+            <table class="post-table">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>카테고리</th>
+                    <th>등록일시</th>
+                    <th>아이디</th>
+                    <th>거래여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trade : ${trade_boards}">
+                    <td th:text="${trade.tradeNum}"></td>
+                    <td th:text="${trade.tradeTitle}"></td>
+                    <td th:text="${trade.tradeCategory}"></td>
+                    <td th:text="${trade.tradeTime}"></td>
+                    <td th:text="${trade.user.userName}"></td> <!-- userName 대신 user.userName 사용 -->
+                    <td th:text="${trade.tradeComplete == 'Y' ? '거래완료' : '거래중'}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    <button class="prev" id="prev">&#10094;</button>
+    <button class="next" id="next">&#10095;</button>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div></body>
 </html>
