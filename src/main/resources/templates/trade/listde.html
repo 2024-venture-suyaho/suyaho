@@ -5,10 +5,10 @@
     <title>거래 상세 정보</title>
     <link rel="stylesheet" th:href="@{/css/listde.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
+    <script type="text/javascript" th:src="@{/js/listdetail.js}"></script>
 </head>
 <body>
-<div th:replace="fragments/admin-header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div class="header-container">
         <div class="header-left">
@@ -37,6 +37,10 @@
         <div class="description">
             <h2>제품 설명</h2>
             <p th:text="${trade.tradeText}"></p>
+<!--            <p>필기 흔적: <span th:text="${trade.book.bookWriting == 'Y' ? '있음' : '없음'}"></span></p>
+            <p>겉표지: <span th:text="${trade.book.bookCover == 'Y' ? '문제 있음' : '문제 없음'}"></span></p>
+            <p>페이지 변색: <span th:text="${trade.book.bookDiscoloration == 'Y' ? '있음' : '없음'}"></span></p>
+            <p>페이지 훼손: <span th:text="${trade.book.bookDamage == 'Y' ? '있음' : '없음'}"></span></p>-->
         </div>
     </div>
 </div>
