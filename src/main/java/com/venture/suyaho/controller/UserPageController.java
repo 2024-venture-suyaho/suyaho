@@ -32,7 +32,8 @@ public class UserPageController {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private TradeService tradeService;
 
     @PostMapping("/users/changeMajor")
     public ResponseEntity<?> changeMajor(@RequestBody ChangeMajorRequest request) {
@@ -114,28 +115,23 @@ public class UserPageController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
     }
 
-
     @PostMapping("/trade/write")
-    public ResponseEntity<?> createTrade(@RequestParam("categoryId") Integer categoryId,
-                                         @RequestParam("bookWriting") String bookWriting,
-                                         @RequestParam("bookCover") String bookCover,
-                                         @RequestParam("bookDiscoloration") String bookDiscoloration,
-                                         @RequestParam("bookDamage") String bookDamage,
-                                         @RequestParam("title") String title,
-                                         @RequestParam("publisher") String publisher,
-                                         @RequestParam("tradeProduct") String tradeProduct,
-                                         @RequestParam("quantity") Integer quantity,
-                                         @RequestParam("price") Integer price,
-                                         @RequestParam("description") String description,
-                                         @RequestParam("image") MultipartFile image) {
+    public ResponseEntity<?> createTrade(
+            @RequestParam("categoryId") Integer categoryId,
+            @RequestParam("bookWriting") String bookWriting,
+            @RequestParam("bookCover") String bookCover,
+            @RequestParam("bookDiscoloration") String bookDiscoloration,
+            @RequestParam("bookDamage") String bookDamage,
+            @RequestParam("title") String title,
+            @RequestParam("publisher") String publisher,
+            @RequestParam("tradeProduct") String tradeProduct,
+            @RequestParam("quantity") Integer quantity,
+            @RequestParam("price") Integer price,
+            @RequestParam("description") String description,
+            @RequestParam("image") MultipartFile image) {
         try {
-            // 최대 trade_num 값을 가져옴
-            Long maxTradeNum = adminBoardRepository.findMaxTradeNum();
-            Long newTradeNum = (maxTradeNum != null) ? maxTradeNum + 1 : 1;
-
             // AdminBoard 엔티티 생성 및 저장
             AdminBoard adminBoard = new AdminBoard();
-            adminBoard.setTradeNum(newTradeNum);
             adminBoard.setTradeCategory(categoryId.toString());
             adminBoard.setTradeTitle(title);
             adminBoard.setTradeProduct(tradeProduct);
@@ -143,28 +139,28 @@ public class UserPageController {
             adminBoard.setTradePrice(price);
             adminBoard.setTradeText(description);
             adminBoard.setTradeCondition(
-                    "필기 흔적: " + (bookWriting.equals("Y") ? "없음" : "있음") + ", " +
-                            "변색: " + (bookDiscoloration.equals("Y") ? "없음" : "있음") + ", " +
-                            "훼손: " + (bookDamage.equals("Y") ? "없음" : "있음")
+                    "필기 흔적: " + (bookWriting.equals("true") ? "없음" : "있음") + ", " +
+                            "변색: " + (bookDiscoloration.equals("true") ? "없음" : "있음") + ", " +
+                            "훼손: " + (bookDamage.equals("true") ? "없음" : "있음")
             );
             adminBoard.setTradePhoto(image.getBytes());
             adminBoard.setTradeTime(LocalDateTime.now());
             adminBoard.setTradeComplete('N');
             adminBoard.setUser(userRepository.findById(1L).orElseThrow()); // 예제 사용자 ID
 
-            adminBoardRepository.save(adminBoard);
+            AdminBoard savedAdminBoard = tradeService.saveAdminBoard(adminBoard);
 
             // Book 엔티티 생성 및 저장
             Book book = new Book();
-            book.setTradeNum(adminBoard.getTradeNum()); // trade_num 값을 AdminBoard의 trade_num으로 설정
+            book.setTradeNum(savedAdminBoard.getTradeNum()); // trade_num 값을 AdminBoard의 trade_num으로 설정
             book.setBookCompany(publisher);
-            book.setBookCover(bookCover.charAt(0));
-            book.setBookDamage(bookDamage.charAt(0));
-            book.setBookDiscoloration(bookDiscoloration.charAt(0));
-            book.setBookWriting(bookWriting.charAt(0));
+            book.setBookCover(bookCover.equals("true") ? 'Y' : 'N');
+            book.setBookDamage(bookDamage.equals("true") ? 'Y' : 'N');
+            book.setBookDiscoloration(bookDiscoloration.equals("true") ? 'Y' : 'N');
+            book.setBookWriting(bookWriting.equals("true") ? 'Y' : 'N');
             book.setUserNo(1L);  // 예시로 설정한 user_no 값
 
-            bookRepository.save(book);
+            tradeService.saveBook(book);
 
             return ResponseEntity.ok().body("Trade created successfully");
         } catch (Exception e) {
@@ -174,6 +170,7 @@ public class UserPageController {
         }
     }
 }
+
 
 class ChangeMajorRequest {
     private Long userNo;
