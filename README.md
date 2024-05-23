@@ -141,7 +141,8 @@ project-root
 │   │   │               │   ├── ChatLogService.java
 │   │   │               │   ├── ChatRoomService.java
 │   │   │               │   ├── TradeService.java
-│   │   │               │   └── UserService.java
+│   │   │               │   ├── UserService.java
+│   │   │               │   └── UserServiceImpl.java
 │   │   │               └── websocket
 │   │   │                   └── WebSocketConfig.java
 │   │   └── resources
