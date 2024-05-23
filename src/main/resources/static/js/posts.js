@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             paginationContainer.appendChild(nextButton);
         }
-    } 
+    }
 
     function displayTrades(trades) {
         tradeList.innerHTML = '';

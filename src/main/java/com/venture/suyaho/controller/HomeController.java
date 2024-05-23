@@ -99,5 +99,9 @@ public class HomeController {
         adminBoardRepository.deleteById(tradeNum);
         return ResponseEntity.ok("Trade deleted");
     }
+    @GetMapping("/write")
+    public String writePage() {
+        return "trade/write"; // write.html 템플릿을 반환
+    }
 
 }
