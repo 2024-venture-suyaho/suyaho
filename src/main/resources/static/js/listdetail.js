@@ -5,4 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
             this.src = '/img/Ckong.jpg';
         });
     });
+    const backButton = document.getElementById("backButton");
+    if (backButton) {
+        backButton.addEventListener("click", function() {
+            window.history.back();
+        });
+    }
 });
+

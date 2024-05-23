@@ -3,13 +3,17 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    background-color: #f5f5f5;
 }
 
 .container {
-    max-width: 60%;
-    margin: 10px auto;
-    padding: 20px;
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 30px;
     text-align: left;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
@@ -32,17 +36,20 @@ body {
 .header-left p, .header-center h1 {
     margin: 0;
     font-size: 24px;
+    color: #233428;
 }
 
 .book-info-wrapper {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
     padding: 40px;
     margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .book-info-container {
     display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
+    justify-content: space-between;
     align-items: flex-start;
 }
 
@@ -53,42 +60,51 @@ body {
 .book-image img {
     max-width: 300px;
     height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back button {
+    background-color: #3b4e3f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left:10px;
+    margin-top:10px;
+    border-radius: 10px;
+}
+
+.back button:hover {
+    background-color: #354638;
 }
 
 .book-info {
-    padding-left: 100px;
-    margin-left: 100px; /* 오른쪽에 여백 추가 */
     flex: 1;
-    text-align: right; /* 오른쪽 정렬 */
 }
 
 .book-info h2 {
     margin-top: 0;
     font-size: 28px;
+    color: #233428;
 }
 
 .book-info p {
     font-size: 20px;
+    color: #344939;
 }
 
 .content-container {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 30px;
 }
 
-.description,
-.book-condition {
-    flex-basis: 48%;
-}
-
-.description h2,
-.book-condition h2 {
+.description h2 {
     margin-top: 0;
     font-size: 28px;
+    color: #233428;
 }
 
-.description p,
-.book-condition p {
+.description p {
     font-size: 20px;
+    color: #344939;
 }

@@ -6,10 +6,15 @@
     <link rel="stylesheet" th:href="@{/css/listde.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <script type="text/javascript" th:src="@{/js/listdetail.js}"></script>
+
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
+
 <div class="container">
+    <div class="back">
+        <button id="backButton" >뒤로가기</button>
+    </div>
     <div class="header-container">
         <div class="header-left">
             <p>카테고리:
