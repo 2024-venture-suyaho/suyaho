@@ -6,16 +6,16 @@
     <link rel="stylesheet" th:href="@{/css/trade.css}">  <!--trade-->
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <script type="text/javascript" th:src="@{/js/posts.js}"></script>
-
 </head>
-<body>    <div th:replace="fragments/admin-header :: header"></div>
-
-
+<body>
+<div th:replace="fragments/admin-header :: header"></div>
 <a th:href="@{/}">
     <img src="/img/campus.png" alt="Homepage Image" height="300px" width="100%">
-</a><div class="container"><div class="back">
-    <button id="backButton">뒤로가기</button>
-</div>
+</a>
+<div class="container">
+    <div class="back">
+        <button id="backButton">뒤로가기</button>
+    </div>
     <h1>중고거래 목록</h1>
 
     <div class="search-container">
@@ -26,17 +26,13 @@
             </select>
             <input type="text" placeholder="검색어를 입력하세요" class="search-input">
             <button class="search-button">검색</button>
-
         </div>
-        <form action="write" method="post">
+        <form action="write" method="get">
             <button id="submit-button">작성</button>
         </form>
     </div>
-    <!--    <div class="form-container">-->
 
-    <!--    </div>-->
     <div class="post-wrapper">
-
         <div class="post-container">
             <table class="post-table">
                 <thead>
@@ -60,8 +56,6 @@
                 </tr>
                 </tbody>
             </table>
-
-
         </div>
     </div>
 </div>
@@ -69,6 +63,6 @@
     <button class="prev" id="prev">&#10094;</button>
     <button class="next" id="next">&#10095;</button>
 </div>
-
-<div th:replace="fragments/footer :: footer"></div></body>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
 </html>
