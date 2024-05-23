@@ -128,8 +128,8 @@ h1 {
     }
 
     .post-table {
-        justify-content: center;
-        width: 200%;
+        margin-left:10%;
+        width: 150%;
         border-collapse: collapse;
     }
 
