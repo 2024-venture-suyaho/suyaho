@@ -78,7 +78,6 @@ public class AdminController {
                 try {
                     users.add(userRepository.findByUserSchoolNum(Integer.parseInt(keyword)));
                 } catch (NumberFormatException e) {
-                    // 학번이 숫자가 아닌 경우 처리
                 }
                 break;
         }
@@ -105,5 +104,4 @@ public class AdminController {
         adminBoardRepository.save(trade);
         return ResponseEntity.ok("Trade status updated successfully");
     }
-
 }
