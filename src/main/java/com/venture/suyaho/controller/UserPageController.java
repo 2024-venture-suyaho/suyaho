@@ -1,7 +1,10 @@
 package com.venture.suyaho.controller;
 
+import com.venture.suyaho.domain.AdminBoard;
+import com.venture.suyaho.domain.Book;
 import com.venture.suyaho.domain.User;
 import com.venture.suyaho.repository.UserRepository;
+import com.venture.suyaho.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 
 @RestController
@@ -18,6 +22,9 @@ public class UserPageController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TradeService tradeService;
+
 
     @PostMapping("/users/changeMajor")
     public ResponseEntity<?> changeMajor(@RequestBody ChangeMajorRequest request) {
@@ -97,6 +104,58 @@ public class UserPageController {
         }
         byte[] imageBytes = user.getUserImg();
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+    }
+
+    @PostMapping("/trade/write")
+    public ResponseEntity<?> createTrade(
+            @RequestParam("image") MultipartFile image,
+            @RequestParam("title") String title,
+            @RequestParam("productName") String productName,
+            @RequestParam("quantity") int quantity,
+            @RequestParam("price") int price,
+            @RequestParam("description") String description,
+            @RequestParam("tradeCondition") String tradeCondition,
+            @RequestParam("bookWriting") String bookWriting,
+            @RequestParam("bookCover") String bookCover,
+            @RequestParam("bookDiscoloration") String bookDiscoloration,
+            @RequestParam("bookDamage") String bookDamage,
+            @RequestParam("publisher") String publisher,
+            @RequestParam("categoryId") Long categoryId,
+            @RequestParam("userNo") Long userNo) {
+
+        try {
+            User user = userRepository.findById(userNo).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(404).body("User not found");
+            }
+
+            AdminBoard adminBoard = new AdminBoard();
+            adminBoard.setTradeCategory(categoryId.toString());
+            adminBoard.setTradeTitle(title);
+            adminBoard.setTradeProduct(productName);
+            adminBoard.setTradeQuantity(quantity);
+            adminBoard.setTradePrice(price);
+            adminBoard.setTradeText(description);
+            adminBoard.setTradeCondition(tradeCondition);
+            adminBoard.setTradePhoto(image.getBytes());
+            adminBoard.setTradeTime(LocalDateTime.now());
+            adminBoard.setTradeComplete('N');
+            adminBoard.setUser(user);
+
+            Book book = new Book();
+            book.setBookWriting(bookWriting.charAt(0));
+            book.setBookCover(bookCover.charAt(0));
+            book.setBookDiscoloration(bookDiscoloration.charAt(0));
+            book.setBookDamage(bookDamage.charAt(0));
+            book.setBookCompany(publisher);
+            book.setUserNo(userNo);
+
+            tradeService.createTrade(adminBoard, book);
+
+            return ResponseEntity.ok("Trade created successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Failed to create trade");
+        }
     }
 }
 

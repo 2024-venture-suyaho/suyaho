@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('trade-form');
     const submitButton = document.getElementById('submit-button');
@@ -5,9 +6,31 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.addEventListener('click', async function(event) {
         event.preventDefault();  // a 태그의 기본 동작을 막음
         console.log('Submit button clicked');  // 디버깅용 로그
-
         const formData = new FormData(form); // 폼 데이터 수집
+        formData.append('bookWriting', document.getElementById('writing-yes').checked ? 'Y' : 'N');
+        formData.append('bookCover', document.getElementById('cover-yes').checked ? 'Y' : 'N');
+        formData.append('bookDiscoloration', document.getElementById('discoloration-yes').checked ? 'Y' : 'N');
+        formData.append('bookDamage', document.getElementById('damage-yes').checked ? 'Y' : 'N');
+        formData.append('userNo', 1); // 예제 사용자 ID, 실제로는 세션 또는 인증된 사용자 정보 사용
+        formData.append('tradeComplete', 'N');
+        formData.append('tradeTime', new Date().toISOString());
         console.log('Form data collected:', formData);  // 디버깅용 로그
+        try {
+            const response = await fetch('/api/trade/write', {
+                method: 'POST',
+                body: formData // FormData를 그대로 전송
+            });
+
+            const data = await response.json();
+            console.log('Server response:', data);  // 디버깅용 로그
+            if (response.ok) {
+                window.location.href = './trade/list.html';
+            } else {
+                console.error('Error:', data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
 
         const tradeRequest = {
             title: formData.get('title'),
@@ -71,6 +94,53 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             console.log('Server response:', data);  // 디버깅용 로그
             if (data.success) {
+                window.location.href = './trade/list.html';
+            } else {
+                console.error('Error:', data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+*/
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('trade-form');
+    const submitButton = document.getElementById('submit-button');
+
+    submitButton.addEventListener('click', async function(event) {
+        event.preventDefault();  // 기본 동작을 막음
+        console.log('Submit button clicked');  // 디버깅용 로그
+
+        const formData = new FormData(form); // 폼 데이터 수집
+        formData.set('categoryId', formData.get('category-id'));
+        formData.set('productName', formData.get('product-name'));
+        formData.set('bookWriting', document.getElementById('writing-yes').checked ? 'Y' : 'N');
+        formData.set('bookCover', document.getElementById('cover-yes').checked ? 'Y' : 'N');
+        formData.set('bookDiscoloration', document.getElementById('discoloration-yes').checked ? 'Y' : 'N');
+        formData.set('bookDamage', document.getElementById('damage-yes').checked ? 'Y' : 'N');
+        formData.set('userNo', 1); // 예제 사용자 ID, 실제로는 세션 또는 인증된 사용자 정보 사용
+        formData.set('tradeComplete', 'N');
+        formData.set('tradeTime', new Date().toISOString());
+
+        formData.delete('category-id');
+        formData.delete('product-name');
+
+        // FormData 디버그
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]);
+        }
+
+        try {
+            const response = await fetch('/api/trade/write', {
+                method: 'POST',
+                body: formData // FormData를 그대로 전송
+            });
+
+            const data = await response.json();
+            console.log('Server response:', data);  // 디버깅용 로그
+            if (response.ok) {
                 window.location.href = './trade/list.html';
             } else {
                 console.error('Error:', data.message);
