@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>분실물 등록</title>
+    <link rel="stylesheet" href="../../static/css/lostwrite.css">
+</head>
+<body>
+<div class="container">
+    <a href="lost.html" class="back-btn">뒤로가기</a>
+    <h1>분실물 등록</h1>
+    <form id="lost-item-form">
+        <div class="form-group">
+            <label for="title">제목을 등록해주세요</label>
+            <input type="text" id="title" name="lost_title" required>
+        </div>
+        <div class="form-group">
+            <label for="position">습득 위치</label>
+            <input type="text" id="position" name="lost_position" required>
+        </div>
+        <div class="form-group">
+            <label for="description">상세 정보</label>
+            <textarea id="description" name="lost_text" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="image">이미지 업로드</label>
+            <input type="file" id="image" name="lost_photo" accept="image/*">
+        </div>
+        <button type="submit" class="BaseButton BaseButton--skinGreen size_default">
+            <span class="BaseButton__txt"> 등록 </span>
+        </button>
+    </form>
+</div>
+
+<script src="../../static/write.js"></script>
+</body>
+</html>

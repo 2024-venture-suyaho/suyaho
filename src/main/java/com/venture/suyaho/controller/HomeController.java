@@ -43,6 +43,12 @@ public class HomeController {
         return "mypage/admin-userpage";
     }
 
+    @GetMapping("/posts")
+    public String getPosts(Model model) {
+        List<AdminBoard> posts = adminBoardRepository.findAll();
+        model.addAttribute("posts", posts);
+        return "trade/posts";
+    }
 
     @GetMapping("/adminuser")
     public String adminPage(HttpSession session, Model model) {

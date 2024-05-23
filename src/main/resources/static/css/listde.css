@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-left,
+.header-center {
+    margin-right: 20px;
+}
+
+.book-info-wrapper {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.book-info-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.book-image {
+    margin-right: 20px;
+}
+
+.book-image img {
+    max-width: 200px;
+    height: auto;
+}
+
+.book-info {
+    padding-left: 20px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.description,
+.book-condition {
+    flex-basis: 48%;
+}
