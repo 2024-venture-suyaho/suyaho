@@ -47,7 +47,6 @@ public class HomeController {
     @GetMapping("/adminuser")
     public String adminPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-
         // 유저가 로그인하지 않았거나 관리자 권한이 없으면 로그인 페이지로 리다이렉트
         if (user == null || user.getUserRights() != 'Y') {
             return "redirect:/login";
